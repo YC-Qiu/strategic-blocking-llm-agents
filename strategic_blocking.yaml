@@ -1,0 +1,66 @@
+defaults:
+  - base
+  - _self_
+
+hydra:
+  searchpath:
+    - pkg://verl.trainer.config
+
+trainer:
+  experiment_name: strategic-blocking-pilot
+
+agent_proxy:
+  max_turn: 32
+  max_actions_per_turn: 1
+  context_window_mode: limited_multi_turn
+  max_context_window: 2
+
+output:
+  dir: results/strategic_blocking
+  filename: before_rl.jsonl
+  format: jsonl
+  append_timestamp: true
+  save_pkl_backup: true
+
+custom_envs:
+  BlockingSlides:
+    env_type: strategic_blocking
+    max_actions_per_traj: 32
+    max_tokens: 100
+    parallel_friendly: false
+    max_workers: 1
+    env_instruction: &rules |
+      You control A. Reach a before B reaches b. B moves first each round,
+      always by a shortest path. The map shows walls (#), open cells (.),
+      runners A and B, goals a and b, an obstacle (X), and shared occupancy (*).
+      Each turn move one cell, wait, or place your single permanent obstacle
+      on an adjacent empty cell while keeping both goals reachable. Runners
+      may pass each other. Choose exactly one listed legal action and put it
+      inside <answer>...</answer>. Win +1, loss -1, timeout 0.
+    env_config:
+      layout: slides
+      max_rounds: 32
+  BlockingCostly:
+    env_type: strategic_blocking
+    max_actions_per_traj: 32
+    max_tokens: 100
+    parallel_friendly: false
+    max_workers: 1
+    env_instruction: *rules
+    env_config:
+      layout: costly
+      max_rounds: 32
+
+es_manager:
+  format_penalty: 0.0
+  train:
+    env_groups: 8
+    env_configs:
+      tags: [BlockingSlides, BlockingCostly]
+      n_groups: [4, 4]
+  val:
+    env_groups: 2
+    group_size: 1
+    env_configs:
+      tags: [BlockingSlides, BlockingCostly]
+      n_groups: [1, 1]
