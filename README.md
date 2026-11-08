@@ -1,4 +1,4 @@
-# Taking a Detour to Win — Strategic Blocking in LLM Agents
+# Taking a Detour to Win â€” Strategic Blocking in LLM Agents
 
 - **Team:** YC Qiu and Prakeerth Prasad
 - **Course:** Agentic AI
@@ -18,12 +18,12 @@ python -m unittest -v
 
 ## Reproductions
 
-The 11-row, 14-column main map was transcribed from the tiles on slides 3–4 of the [project presentation](https://docs.google.com/presentation/d/10VW3zM-tbud9UVQoxef7KA3oxMRh8gwywWqiOLcqfa0/edit). Coordinates count from zero, in (row, column) order.
+The 11-row, 14-column main map was transcribed from the tiles on slides 3â€“4 of the [project presentation](https://docs.google.com/presentation/d/10VW3zM-tbud9UVQoxef7KA3oxMRh8gwywWqiOLcqfa0/edit). Coordinates count from zero, in (row, column) order.
 
 | Map and A policy | Winner | Actual A / B actions | Full A / B actions |
 | --- | --- | --- | --- |
-| Slides 3–4, direct | B | 8 / 9 | 13 / 9 |
-| Slides 3–4, block on arrival | A | 22 / 22 | 22 / 25 |
+| Slides 3â€“4, direct | B | 8 / 9 | 13 / 9 |
+| Slides 3â€“4, block on arrival | A | 22 / 22 | 22 / 25 |
 | Slide 7, block now | A | 6 / 6 | 6 / 12 |
 | Slide 7, wait three turns | A | 9 / 9 | 9 / 18 |
 | Modified map, direct | A | 6 / 6 | 6 / 9 |
@@ -39,7 +39,7 @@ Actual counts stop at the first arrival. Full counts add the shortest remaining 
 
 `maze.py` contains the generic rules. B moves first each round using BFS from its current position, breaking shortest-path ties in up, right, down, left order. Runners can share or cross a tile. Only the permanent obstacle affects movement. A may place it once, on an orthogonally adjacent open cell, excluding either goal and B's current cell. Both runners must still have a path from their current positions to their respective goals. An invalid action raises an error before consuming A's turn.
 
-At an A decision point call `race.observe()` after `race.advance_b()`, then apply one legal string with `race.act(action)`. If B reaches its goal, the round stops before A acts. The default cap is 100 complete rounds and arrival on the last round takes precedence over timeout. Terminal reward from A's perspective is +1 for an A win, −1 for a B win, and 0 for timeout. Intermediate rewards are zero.
+At an A decision point call `race.observe()` after `race.advance_b()`, then apply one legal string with `race.act(action)`. If B reaches its goal, the round stops before A acts. The default cap is 100 complete rounds and arrival on the last round takes precedence over timeout. Terminal reward from A's perspective is +1 for an A win, âˆ’1 for a B win, and 0 for timeout. Intermediate rewards are zero.
 
 `episodes.json` contains all six executed traces. Each round records B's move, A's full observation after B moves, the scripted action, the resulting map, the outcome and the reward. The map uses `#` for walls, `.` for open cells, `A/B` for runners, `a/b` for goals, `X` for the obstacle and `*` for shared occupancy. Goal coordinates are always available even when a runner covers the goal marker. The final B-only turn has no A decision or action.
 
@@ -55,7 +55,7 @@ The native simulator and the training adapter handle invalid actions differently
 
 The tested LLM response format is one action inside `<answer>...</answer>`, such as `<answer>move right</answer>`. Observations include the full map, both positions and goals, available legal actions, the round number, and obstacle status. Environment rewards remain win `+1`, loss `-1`, and timeout `0`, with no intermediate reward or format penalty.
 
-See [RAGEN.md](RAGEN.md) for environment registration and the initial integration instructions. The checked-in `strategic_blocking.yaml` is a starting configuration, not the exact configuration of the successful low-memory smoke test. That run used a separate local launcher and compatibility patches in the external RAGEN checkout. Packaging this tested workflow into a portable, version-pinned setup remains open.
+See [RAGEN.md](RAGEN.md) for environment registration and [the local training workflow](docs/local-training.md) for the packaged launcher, compatibility patches, and preflight checks. `scripts/run_ragen.sh` generates the reduced-memory run configuration from `strategic_blocking.yaml`. These scripts were extracted from the launcher used for the successful local smoke test; a fresh installation and a full GPU run of the newly packaged entry point have not yet been verified.
 
 ## Verified progress
 
@@ -114,7 +114,7 @@ However, every sampled episode received the same loss reward, so the GRPO advant
 
 - **Reward-driven learning is not yet demonstrated.** Develop a training set or curriculum that produces informative success/failure variation while preserving the specified terminal rewards.
 - **Adapter export needs repair.** The smoke test's standalone `lora_adapter/adapter_model.safetensors` file is empty. The main FSDP checkpoint retains the LoRA weights, but exporting and reloading a usable adapter has not yet been validated.
-- **Reproducibility needs consolidation.** The successful local environment required fixes for optional FlashAttention imports, turn-level reward-statistic alignment, and parameter/optimizer device transfers in RAGEN. Dependency metadata still reports conflicts. A clean installation from the repository alone has not been verified.
+- **Clean-install reproducibility is pending.** The repository includes the launcher, preflight checks, and guarded patches for optional FlashAttention imports, turn-level reward-statistic alignment, and parameter/optimizer device transfers. The successful environment still reports dependency conflicts. Its exact RAGEN revision was not recorded, so applying the patches to arbitrary upstream versions is not guaranteed.
 - **Only one training iteration has completed.** Multi-iteration stability, model improvement, and meaningful loss/reward curves remain to be tested.
 - **Post-training evaluation is pending.** Compare the trained adapter with the same base model and decoding/context settings used before RL, alongside the shortest-path and immediate-blocking baselines.
 - **Held-out evaluation is pending.** The current fixtures are fixed demonstrations; changing their reset seed does not create unseen mazes. Add separate training and evaluation layouts before making generalization claims.
@@ -132,5 +132,10 @@ However, every sampled episode received the same loss reward, so the GRPO advant
 | `test_ragen_maze.py` | Adapter tests |
 | `strategic_blocking.yaml` | Initial RAGEN environment configuration |
 | `RAGEN.md` | Registration and initial integration instructions |
+| `scripts/run_ragen.sh` | Before-RL evaluation and one-iteration LoRA/GRPO launcher |
+| `scripts/patch_ragen.py` | Guarded compatibility patches for an external RAGEN checkout |
+| `scripts/check_ragen.py` | CPU/GPU LoRA and two-cycle FSDP offload preflight |
+| `docs/local-training.md` | Local setup, commands, and validation scope |
+| `docs/smoke-test-2026-11-07.json` | Curated metrics from the completed smoke test |
 
 Generated runs and model checkpoints are local artifacts and should not be committed. This README records the initial findings; curated evaluation summaries and learning curves will be added after further validation.

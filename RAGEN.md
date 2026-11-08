@@ -1,5 +1,7 @@
 # RAGEN-2 integration
 
+For the packaged action-only baseline and low-memory LoRA/GRPO smoke-test commands, use [docs/local-training.md](docs/local-training.md). The generic commands below explain registration and inherit upstream defaults; they are not the tested 8 GB GPU launch configuration.
+
 Run `python -m unittest -v` in this project first. The adapter uses the existing race and maps. The two fixtures and scripted replays verify the environment contract locally. Real model rollouts and training require an installed RAGEN GPU environment.
 
 ## Install and register in a separate RAGEN checkout

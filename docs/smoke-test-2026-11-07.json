@@ -1,0 +1,50 @@
+{
+  "run_id": "train-one-F5JCCw3d",
+  "date": "2026-11-07",
+  "model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "algorithm": "GRPO",
+  "adaptation": {
+    "method": "LoRA",
+    "rank": 8,
+    "alpha": 16,
+    "target_modules": "all-linear",
+    "learning_rate": 0.0001
+  },
+  "episodes": 4,
+  "training_iterations": 1,
+  "metrics": {
+    "train/batch_size": 32.0,
+    "train/num_mini_batches": 16.0,
+    "train/charts/avg_episode_return": -1.0,
+    "train/BlockingSlides/success": 0.0,
+    "train/BlockingCostly/success": 0.0,
+    "actor/pg_loss": 0.0,
+    "actor/grad_norm": 0.010048927273601294,
+    "actor/entropy_loss": 1.6184115442447364,
+    "critic/advantages/min": 0.0,
+    "critic/advantages/mean": 0.0,
+    "critic/advantages/max": 0.0,
+    "timing_s/step": 391.19407174900005
+  },
+  "checkpoint_inspection": {
+    "lora_tensor_count": 336,
+    "lora_B_tensor_count": 168,
+    "nonzero_lora_B_tensor_count": 168,
+    "all_lora_tensors_finite": true,
+    "standalone_adapter_tensor_count": 0
+  },
+  "interpretation": {
+    "training_iteration_completed": true,
+    "adapter_parameters_changed": true,
+    "reward_driven_advantages_nonzero": false,
+    "strategic_learning_demonstrated": false,
+    "standalone_adapter_export_valid": false,
+    "post_training_evaluation_completed": false
+  },
+  "provenance": {
+    "metrics_source": "run.log",
+    "checkpoint_source": "checkpoints/global_step_1/actor/model_world_size_1_rank_0.pt",
+    "exact_ragen_commit": null,
+    "raw_artifacts_in_git": false
+  }
+}
