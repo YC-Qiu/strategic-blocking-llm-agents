@@ -1,6 +1,12 @@
 # Taking a Detour to Win — Strategic Blocking in LLM Agents
 
-YC Qiu and Prakeerth Prasad · Agentic AI · Milestone 1
+- **Team:** YC Qiu and Prakeerth Prasad
+- **Course:** Agentic AI
+- **Status:** Environment reproduction and initial training smoke test completed; strategic learning remains unverified.
+
+Can a reinforcement-learning-trained LLM agent learn when it is worth leaving its own shortest route to block an opponent, then returning to finish first? This pilot studies both the cost of a blocking detour and the timing of obstacle placement. Only A is trained; B follows a fixed shortest-path policy.
+
+## Quick start
 
 Run inside this directory with Python 3.10+ (standard library only):
 
@@ -37,4 +43,94 @@ At an A decision point call `race.observe()` after `race.advance_b()`, then appl
 
 `episodes.json` contains all six executed traces. Each round records B's move, A's full observation after B moves, the scripted action, the resulting map, the outcome and the reward. The map uses `#` for walls, `.` for open cells, `A/B` for runners, `a/b` for goals, `X` for the obstacle and `*` for shared occupancy. Goal coordinates are always available even when a runner covers the goal marker. The final B-only turn has no A decision or action.
 
-The policies in `demo.py` are deterministic baselines. LLM inference, RAGEN training, loss/reward curves, and evaluation on held-out mazes are subsequent milestones.
+## RAGEN integration
+
+`ragen_maze.py` exposes the race as `StrategicBlockingEnv`, with `slides` and `costly` layouts. Reset advances B before presenting A's first observation. Each step executes A's action and advances B again unless the race has ended. The adapter uses a 32-round limit.
+
+The native simulator and the training adapter handle invalid actions differently:
+
+- The native simulator rejects an illegal action without changing the state.
+- The adapter converts a parsed but illegal action into `wait`, consumes the turn, and reports `action_is_valid=False`.
+- RAGEN may reject a malformed model response before calling the adapter. These manager-level failures must be tracked separately.
+
+The tested LLM response format is one action inside `<answer>...</answer>`, such as `<answer>move right</answer>`. Observations include the full map, both positions and goals, available legal actions, the round number, and obstacle status. Environment rewards remain win `+1`, loss `-1`, and timeout `0`, with no intermediate reward or format penalty.
+
+See [RAGEN.md](RAGEN.md) for environment registration and the initial integration instructions. The checked-in `strategic_blocking.yaml` is a starting configuration, not the exact configuration of the successful low-memory smoke test. That run used a separate local launcher and compatibility patches in the external RAGEN checkout. Packaging this tested workflow into a portable, version-pinned setup remains open.
+
+## Verified progress
+
+### Environment and scripted policies
+
+- Implemented the race rules, deterministic BFS opponent, observation rendering, and episode traces.
+- Reproduced the slide example: direct movement loses, while the scripted blocking detour wins.
+- Verified the timing example and a control in which taking the detour changes an A win into a loss.
+- Passed 10 unit tests covering the core rules, reproductions, and adapter behavior, including turn-by-turn replay equivalence.
+
+The winning blocking policies above are scripted demonstrations, not learned policies.
+
+### Before-RL model evaluation
+
+The untrained `Qwen/Qwen2.5-0.5B-Instruct` model completed one action-only evaluation episode on each of the two fixed race layouts. Both used greedy decoding and a two-turn context window.
+
+| Evaluation layout | A actions before termination | Winner | Episode return |
+| --- | --- | --- | --- |
+| Slide reproduction | 8 | B | -1 |
+| Costly-detour control | 8 | B | -1 |
+
+In both episodes, A produced the sequence `wait, wait, move right, move right, move down, move up, move down, move up` and never placed an obstacle. These are two case studies, not a statistically meaningful win-rate estimate. Local episode records retain the observations, model responses, executed actions, and outcomes.
+
+### First completed training smoke test
+
+On November 7, 2026, run `train-one-F5JCCw3d` completed one training iteration and saved `global_step_1`. The local setup used Ubuntu under WSL2, an RTX 3070 with 8 GB VRAM, and approximately 12 GB of memory available to WSL.
+
+| Setting | Value |
+| --- | --- |
+| Base model | Qwen/Qwen2.5-0.5B-Instruct |
+| Training method | GRPO with LoRA; only A is trained |
+| LoRA configuration | Rank 8, alpha 16, all linear layers |
+| Learning rate | 0.0001 |
+| Sampling | Temperature 1.0; two episodes per layout |
+| Training data | Four episodes, expanded into 32 turn-level records |
+| Micro-batch size | 1 |
+| Trainer attention | SDPA, with gradient checkpointing |
+| Memory handling | Parameter and optimizer CPU offload |
+| Entropy coefficient | 0.001 |
+| Training iterations | 1 |
+
+| Recorded metric | Value |
+| --- | --- |
+| Successful episodes | 0 / 4 |
+| Mean episode return | -1.0 |
+| GRPO advantage, minimum / mean / maximum | 0.0 / 0.0 / 0.0 |
+| Policy-gradient loss | 0.0 |
+| Actor gradient norm | Approximately 0.01005 |
+| Logged training-iteration duration | Approximately 391 seconds |
+
+The main checkpoint contains 336 finite LoRA tensors. All 168 LoRA B tensors, which were initialized to zero, are nonzero after training. This confirms that adapter weights changed. CPU/GPU LoRA checks and two FSDP offload/update cycles also passed before the full run.
+
+However, every sampled episode received the same loss reward, so the GRPO advantages and reward-driven policy-gradient loss were zero. The observed update was primarily driven by entropy regularization, rather than by a difference between winning and losing trajectories. This run verifies the training path; it does not establish that A learned strategic blocking.
+
+## Known limitations and next steps
+
+- **Reward-driven learning is not yet demonstrated.** Develop a training set or curriculum that produces informative success/failure variation while preserving the specified terminal rewards.
+- **Adapter export needs repair.** The smoke test's standalone `lora_adapter/adapter_model.safetensors` file is empty. The main FSDP checkpoint retains the LoRA weights, but exporting and reloading a usable adapter has not yet been validated.
+- **Reproducibility needs consolidation.** The successful local environment required fixes for optional FlashAttention imports, turn-level reward-statistic alignment, and parameter/optimizer device transfers in RAGEN. Dependency metadata still reports conflicts. A clean installation from the repository alone has not been verified.
+- **Only one training iteration has completed.** Multi-iteration stability, model improvement, and meaningful loss/reward curves remain to be tested.
+- **Post-training evaluation is pending.** Compare the trained adapter with the same base model and decoding/context settings used before RL, alongside the shortest-path and immediate-blocking baselines.
+- **Held-out evaluation is pending.** The current fixtures are fixed demonstrations; changing their reset seed does not create unseen mazes. Add separate training and evaluation layouts before making generalization claims.
+- **Learned blocking timing is pending.** The scripted waiting example verifies the environment mechanics only. A second model size is optional, subject to compute availability.
+
+## Repository contents
+
+| File | Purpose |
+| --- | --- |
+| `maze.py` | Race rules, shortest paths, and observations |
+| `demo.py` | Scripted policies and six reproducible cases |
+| `episodes.json` | Full scripted demonstration traces |
+| `test_maze.py` | Core-rule and reproduction tests |
+| `ragen_maze.py` | RAGEN environment adapter |
+| `test_ragen_maze.py` | Adapter tests |
+| `strategic_blocking.yaml` | Initial RAGEN environment configuration |
+| `RAGEN.md` | Registration and initial integration instructions |
+
+Generated runs and model checkpoints are local artifacts and should not be committed. This README records the initial findings; curated evaluation summaries and learning curves will be added after further validation.
