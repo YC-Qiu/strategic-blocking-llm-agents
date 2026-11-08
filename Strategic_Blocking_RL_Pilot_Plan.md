@@ -1,5 +1,14 @@
 # Strategic Blocking RL Pilot Execution Plan
 
+## Progress update after A1 and A2 validation
+
+A1 is complete for the existing local environment: the packaged launcher finished a full GPU run, saved checkpoints, and recorded the RAGEN revision and local patches.
+
+A2 tensor recovery, PEFT loading, and inference equivalence are verified for the original November 7 checkpoint. Automatic RAGEN export, exact upstream base-model revision, and independent Colab handoff remain pending. Strategic learning is not demonstrated.
+
+A3 through A7 and final reporting remain pending. A8 has partial environment-integration groundwork. No new Colab completion evidence is available. The task sections below describe planned work, not completed tasks. See [the validation record](docs/a1-a2-validation.md).
+
+
 This plan divides the Strategic Blocking RL pilot into two coordinated workstreams. YC owns local Ubuntu training with RAGEN. Prakeerth owns Google Colab evaluation, baselines, visualizations, and case studies. Both use the same existing Qwen model and maze environment.
 
 Qwen is the model that selects actions. RAGEN trains it. Transformers loads and runs it in Colab; PEFT loads the LoRA adapter produced by training. Prakeerth does not need to implement a Transformer or reproduce the full distributed training stack.
@@ -534,5 +543,3 @@ Keep all code comments, notebook explanations, figure labels, reports, and slide
 - Adapter loading: [PEFT quicktour](https://huggingface.co/docs/peft/en/quicktour).
 - Hosted runtime behavior: [Colab FAQ](https://research.google.com/colaboratory/faq.html).
 - Local project instructions: `RAGEN.md`, `docs/local-training.md`, and `scripts/run_ragen.sh`.
-
-

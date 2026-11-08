@@ -2,7 +2,7 @@
 
 - **Team:** YC Qiu and Prakeerth Prasad
 - **Course:** Agentic AI
-- **Status:** Environment reproduction and initial training smoke test completed; strategic learning remains unverified.
+- **Status:** Packaged local training rerun and standalone LoRA recovery/reload verified; strategic learning remains unverified.
 
 Can a reinforcement-learning-trained LLM agent learn when it is worth leaving its own shortest route to block an opponent, then returning to finish first? This pilot studies both the cost of a blocking detour and the timing of obstacle placement. Only A is trained; B follows a fixed shortest-path policy.
 
@@ -55,7 +55,7 @@ The native simulator and the training adapter handle invalid actions differently
 
 The tested LLM response format is one action inside `<answer>...</answer>`, such as `<answer>move right</answer>`. Observations include the full map, both positions and goals, available legal actions, the round number, and obstacle status. Environment rewards remain win `+1`, loss `-1`, and timeout `0`, with no intermediate reward or format penalty.
 
-See [RAGEN.md](RAGEN.md) for environment registration and [the local training workflow](docs/local-training.md) for the packaged launcher, compatibility patches, and preflight checks. `scripts/run_ragen.sh` generates the reduced-memory run configuration from `strategic_blocking.yaml`. These scripts were extracted from the launcher used for the successful local smoke test; a fresh installation and a full GPU run of the newly packaged entry point have not yet been verified.
+See [RAGEN.md](RAGEN.md) for environment registration and [the local training workflow](docs/local-training.md) for the packaged launcher, compatibility patches, and preflight checks. `scripts/run_ragen.sh` generates the reduced-memory run configuration from `strategic_blocking.yaml`. The packaged entry point completed a full GPU rerun on November 8, 2026. A clean installation remains unverified. See [A1 and A2 validation](docs/a1-a2-validation.md) for adapter recovery, reload checks, and limitations.
 
 ## Verified progress
 
@@ -110,12 +110,20 @@ The main checkpoint contains 336 finite LoRA tensors. All 168 LoRA B tensors, wh
 
 However, every sampled episode received the same loss reward, so the GRPO advantages and reward-driven policy-gradient loss were zero. The observed update was primarily driven by entropy regularization, rather than by a difference between winning and losing trajectories. This run verifies the training path; it does not establish that A learned strategic blocking.
 
+## Packaged rerun and adapter recovery
+
+Run train-one-QOwTZfVo completed one fresh training iteration using the packaged launcher. All 10 environment tests, CPU/GPU LoRA checks, and two FSDP offload cycles passed. Model and optimizer checkpoints were saved. The iteration took approximately 414.7 seconds; all four episodes lost, mean return was -1, and GRPO advantages and policy-gradient loss remained zero.
+
+Separately, the original train-one-F5JCCw3d adapter was recovered using scripts/export_pilot_adapter.py. All 336 LoRA tensors were finite and matched the source exactly after saving. PEFT reload succeeded. Two fixed maze prompts produced exactly identical next-token logits before and after export with the checkpoint's frozen base weights and CPU float32 SDPA.
+
+This verifies recovery and inference equivalence, not improved game performance. The generation smoke test did not follow the action format. These are two independent one-iteration runs, not a continuous two-iteration training run.
+
 ## Known limitations and next steps
 
 - **Reward-driven learning is not yet demonstrated.** Develop a training set or curriculum that produces informative success/failure variation while preserving the specified terminal rewards.
-- **Adapter export needs repair.** The smoke test's standalone `lora_adapter/adapter_model.safetensors` file is empty. The main FSDP checkpoint retains the LoRA weights, but exporting and reloading a usable adapter has not yet been validated.
-- **Clean-install reproducibility is pending.** The repository includes the launcher, preflight checks, and guarded patches for optional FlashAttention imports, turn-level reward-statistic alignment, and parameter/optimizer device transfers. The successful environment still reports dependency conflicts. Its exact RAGEN revision was not recorded, so applying the patches to arbitrary upstream versions is not guaranteed.
-- **Only one training iteration has completed.** Multi-iteration stability, model improvement, and meaningful loss/reward curves remain to be tested.
+- **Automatic adapter export still needs repair.** The separate recovery script now produces a validated adapter from the original full checkpoint. RAGEN's own exporter remains unfixed. Exact upstream base-model revision and independent Colab loading still need confirmation.
+- **Clean-install reproducibility is pending.** The repository includes the launcher, preflight checks, and guarded patches for optional FlashAttention imports, turn-level reward-statistic alignment, and parameter/optimizer device transfers. The successful environment still reports dependency conflicts. The rerun records RAGEN revision 9d021fc782a4a9e8e047f13c1cd706b32f16d8f2 plus local patches. The original run did not record its revision; arbitrary upstream versions remain unsupported.
+- **Continuous multi-iteration training is pending.** Two independent one-iteration runs have completed. Multi-iteration stability, model improvement, and meaningful loss/reward curves remain untested.
 - **Post-training evaluation is pending.** Compare the trained adapter with the same base model and decoding/context settings used before RL, alongside the shortest-path and immediate-blocking baselines.
 - **Held-out evaluation is pending.** The current fixtures are fixed demonstrations; changing their reset seed does not create unseen mazes. Add separate training and evaluation layouts before making generalization claims.
 - **Learned blocking timing is pending.** The scripted waiting example verifies the environment mechanics only. A second model size is optional, subject to compute availability.
@@ -124,6 +132,12 @@ However, every sampled episode received the same loss reward, so the GRPO advant
 
 | File | Purpose |
 | --- | --- |
+| scripts/export_pilot_adapter.py | Strict recovery of the original pilot LoRA tensors |
+| scripts/verify_recovered_adapter.py | PEFT reload and CPU inference equivalence checks |
+| scripts/run_a1_a2.sh | Evidence capture and both validation stages |
+| test_export_pilot_adapter.py | Seven adapter-recovery guard tests |
+| docs/a1-a2-validation.md | Milestone results and remaining work |
+| docs/a1-a2-2026-11-08.json | Compact validation evidence |
 | `maze.py` | Race rules, shortest paths, and observations |
 | `demo.py` | Scripted policies and six reproducible cases |
 | `episodes.json` | Full scripted demonstration traces |

@@ -1,0 +1,64 @@
+{
+  "date": "2026-11-08",
+  "project_revision_before_this_change": "7bbe048441d2830534f24bbdf78861a0f023f30d",
+  "ragen_revision": "9d021fc782a4a9e8e047f13c1cd706b32f16d8f2",
+  "ragen_local_patches_required": true,
+  "environment_tests_passed": 10,
+  "adapter_recovery_guard_tests_passed": 7,
+  "a1": {
+    "completed": true,
+    "run_id": "train-one-QOwTZfVo",
+    "training_iterations": 1,
+    "fresh_run_not_resume": true,
+    "episodes": 4,
+    "successes": 0,
+    "mean_episode_return": -1.0,
+    "advantage_min_mean_max": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "policy_gradient_loss": 0.0,
+    "actor_gradient_norm": 0.009006260428577662,
+    "iteration_seconds": 414.712792003,
+    "model_and_optimizer_checkpoints_saved": true,
+    "dependency_conflicts_remain": true
+  },
+  "a2": {
+    "source_run_id": "train-one-F5JCCw3d",
+    "tensor_count": 336,
+    "nonzero_lora_B_tensor_count": 168,
+    "adapter_size_bytes": 17640136,
+    "source_checkpoint_sha256": "0424accc34f84142256d00ad0f807b97e57d66db94c5b770f71a048d718c6626",
+    "safetensors_roundtrip_exact": true,
+    "peft_reload_verified": true,
+    "peft_tensor_mapping_exact": true,
+    "full_checkpoint_reference_loaded_strictly": true,
+    "base_weights_source": "Frozen base tensors from the original full checkpoint",
+    "upstream_base_revision_verified": false,
+    "backend": "CPU float32 SDPA",
+    "fixture_scope": "Two fixed maze prompts; not the full RAGEN evaluation protocol",
+    "comparisons": [
+      {
+        "layout": "slides",
+        "max_abs_logit_difference": 0.0,
+        "same_greedy_next_token": true
+      },
+      {
+        "layout": "costly",
+        "max_abs_logit_difference": 0.0,
+        "same_greedy_next_token": true
+      }
+    ],
+    "generation_smoke_test_response": "Please provide the coordinates for A and B so I can assist you further.",
+    "adapter_sha256": "1490f1bc66a4f7e8a21ff8290bcff926513f6210ea037d815d566974d983d046",
+    "strategic_learning_demonstrated": false,
+    "automatic_ragen_export_fixed": false,
+    "independent_colab_reload_verified": false
+  },
+  "provenance": {
+    "a1_log": "results/a1-a2-ZgMHXXWL/packaged-training.log",
+    "a2_report": "results/a1-a2-ZgMHXXWL/adapter-verification.json",
+    "recovery_report": "results/a1-a2-ZgMHXXWL/recovered_adapter/recovery_report.json"
+  }
+}
