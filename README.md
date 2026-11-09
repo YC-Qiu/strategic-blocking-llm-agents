@@ -1,12 +1,32 @@
-# Taking a Detour to Win â€” Strategic Blocking in LLM Agents
+# Taking a Detour to Win - Strategic Blocking in LLM Agents
 
 - **Team:** YC Qiu and Prakeerth Prasad
 - **Course:** Agentic AI
-- **Status:** Five-update balanced LoRA/GRPO pilot and matched evaluation completed. Navigation success improved on the two fixed training maps; strategic blocking remains unproven.
+- **Status:** Local blocking pilot evaluated: 20% to 92% success on the fixed blocking fixture. Prospective transfer evaluation and final submission assembly are pending.
 
 Can a reinforcement-learning-trained LLM agent learn when it is worth leaving its own shortest route to block an opponent, then returning to finish first? This pilot studies both the cost of a blocking detour and the timing of obstacle placement. Only A is trained; B follows a fixed shortest-path policy.
 
 ## Latest verified milestone
+
+The mixed blocking/navigation stage completed five updates. Under the same
+corrected sampling protocol, short-blocking success increased from 10/50 (20%)
+for the starting adapter to 46/50 (92%) for the final adapter; the original base
+won 1/50 (2%). All five fixed-map scores improved in this sample. All 1,000
+recorded trajectories were replayed. Removing the first block from each of the
+46 final-adapter wins made the fixed remaining action sequence lose.
+
+This is strong development-fixture evidence, not general strategic reasoning.
+Only one training chain and one final evaluation seed are available. Frozen
+prospective maps and the Colab notebook are prepared; their LLM evaluations
+have not yet been run.
+
+- [Verified results, curves and limitations](docs/final-pilot-results.md)
+- [Offline interactive case replay](docs/blocking-case.html)
+- [Frozen transfer experiment](docs/frozen-transfer-plan.md)
+- [Colab notebook](notebooks/colab-transfer.ipynb) and [handoff guide](docs/colab-transfer.md)
+- [Earlier two-step results](docs/two-step-pilot-results.md)
+
+## Earlier balanced navigation milestone
 
 The balanced pilot trained Qwen2.5-0.5B-Instruct with LoRA/GRPO for five updates,
 using eight samples per direction per update. Both training groups had mixed

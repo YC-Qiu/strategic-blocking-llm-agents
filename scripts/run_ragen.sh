@@ -11,8 +11,8 @@ cd "$RAGEN_DIR"
 mode=${1:-slides}
 case "$mode" in
     slides|costly) stage=before_rl ;;
-    train-one|train-warmup|train-five|train-sync|train-balanced) stage=train ;;
-    *) echo "Usage: bash scripts/run_ragen.sh [slides|costly|train-one|train-warmup|train-five|train-sync|train-balanced] [--check-only]" >&2; exit 2 ;;
+    train-one|train-warmup|train-five|train-sync|train-balanced|train-two-step|train-blocking) stage=train ;;
+    *) echo "Usage: bash scripts/run_ragen.sh [slides|costly|train-one|train-warmup|train-five|train-sync|train-balanced|train-two-step|train-blocking] [--check-only]" >&2; exit 2 ;;
 esac
 mkdir -p "$PROJECT/results/$stage"
 run_dir=$(mktemp -d "$PROJECT/results/$stage/$mode-XXXXXXXX")
@@ -43,7 +43,7 @@ cfg["actor_rollout_ref"] = dict(rollout=dict(tensor_model_parallel_size=1,
     val_kwargs=dict(do_sample=False, temperature=0)))
 cfg["output"].update(dir=str(out), filename="rollout.pkl", format="pkl",
                      append_timestamp=False, save_pkl_backup=False, save_jsonl_backup=False)
-if mode in ("train-one", "train-warmup", "train-five", "train-sync", "train-balanced"):
+if mode in ("train-one", "train-warmup", "train-five", "train-sync", "train-balanced", "train-two-step", "train-blocking"):
     cfg["system"] = {"CUDA_VISIBLE_DEVICES": "0"}
     # Train adapters to limit gradient and optimizer memory on the local machine.
     cfg["lora"] = dict(rank=8, alpha=16, target_modules="all-linear")
@@ -72,7 +72,7 @@ if mode in ("train-one", "train-warmup", "train-five", "train-sync", "train-bala
     cfg["trainer"].update(total_training_steps=1, val_before_train=False, test_freq=-1,
         save_freq=1, logger=["console"], n_gpus_per_node=1, nnodes=1,
         default_local_dir=str(out/"checkpoints"))
-if mode in ("train-warmup", "train-five", "train-sync", "train-balanced"):
+if mode in ("train-warmup", "train-five", "train-sync", "train-balanced", "train-two-step", "train-blocking"):
     from copy import deepcopy
     warmup = deepcopy(cfg["custom_envs"]["BlockingSlides"])
     warmup["env_config"]["layout"] = "warmup_right"
@@ -86,7 +86,7 @@ if mode in ("train-warmup", "train-five", "train-sync", "train-balanced"):
     # Isolate the reward-driven objective in this diagnostic iteration.
     cfg["actor_rollout_ref"]["actor"]["entropy_coeff"] = 0.0
     cfg["actor_rollout_ref"]["actor"]["optim"]["weight_decay"] = 0.0
-if mode in ("train-five", "train-sync", "train-balanced"):
+if mode in ("train-five", "train-sync", "train-balanced", "train-two-step", "train-blocking"):
     # Fresh continuous pilot, not five independent one-step runs.
     cfg["trainer"].update(experiment_name="strategic-blocking-five-step-pilot",
         total_training_steps=5, val_before_train=True, test_freq=1,
@@ -109,13 +109,45 @@ if mode == "train-balanced":
     cfg["trainer"]["experiment_name"] = "strategic-blocking-balanced-five-step-pilot"
     cfg["es_manager"]["train"].update(env_groups=2, group_size=8,
         env_configs=dict(tags=["BlockingWarmupRight", "BlockingWarmupLeft"], n_groups=[1, 1]))
+if mode in ("train-two-step", "train-blocking"):
+    import json
+    adapter_arg = os.environ.get("PILOT_ADAPTER")
+    if not adapter_arg:
+        raise ValueError("Set PILOT_ADAPTER to the source pilot's lora_adapter directory.")
+    sys.path.insert(0, str(Path(os.environ["PROJECT"]) / "scripts"))
+    from verify_warm_start import inspect_adapter
+    source = inspect_adapter(Path(adapter_arg).expanduser())
+    (out / "warm-start.json").write_text(json.dumps(source, indent=2) + "\n", encoding="utf-8", newline="\n")
+    cfg["actor_rollout_ref"]["model"]["lora_adapter_path"] = source["adapter_path"]
+    cfg["trainer"]["experiment_name"] = "strategic-blocking-two-step-warm-start"
+    for direction in ("Right", "Left"):
+        tag = "BlockingWarmup" + direction
+        cfg["custom_envs"]["BlockingRetention" + direction] = deepcopy(cfg["custom_envs"][tag])
+        cfg["custom_envs"][tag]["env_config"]["layout"] = "warmup_two_" + direction.lower()
+    cfg["es_manager"]["train"].update(env_groups=2, group_size=8,
+        env_configs=dict(tags=["BlockingWarmupRight", "BlockingWarmupLeft"], n_groups=[1, 1]))
+    cfg["es_manager"]["val"].update(env_groups=4, group_size=1,
+        env_configs=dict(tags=["BlockingWarmupRight", "BlockingWarmupLeft", "BlockingRetentionRight", "BlockingRetentionLeft"], n_groups=[1, 1, 1, 1]))
+if mode == "train-blocking":
+    blocking = deepcopy(cfg["custom_envs"]["BlockingWarmupRight"])
+    blocking["env_config"]["layout"] = "blocking_short"
+    cfg["custom_envs"]["BlockingShort"] = blocking
+    # Three separate GRPO groups: blocking practice plus navigation rehearsal.
+    cfg["es_manager"]["train"].update(env_groups=3, group_size=8,
+        env_configs=dict(tags=["BlockingShort", "BlockingWarmupRight", "BlockingWarmupLeft"],
+                         n_groups=[1, 1, 1]))
+    cfg["es_manager"]["val"].update(env_groups=5, group_size=1,
+        env_configs=dict(tags=["BlockingShort", "BlockingWarmupRight", "BlockingWarmupLeft",
+                               "BlockingRetentionRight", "BlockingRetentionLeft"],
+                         n_groups=[1, 1, 1, 1, 1]))
+    cfg["trainer"]["experiment_name"] = "strategic-blocking-mixed-warm-start"
 text = yaml.safe_dump(cfg, sort_keys=False)
 path.write_text(text)
 (out/"config.yaml").write_text(text)
 PY
 
 printf 'Results: %s\n' "$run_dir"
-if [[ "$mode" == train-one || "$mode" == train-warmup || "$mode" == train-five || "$mode" == train-sync || "$mode" == train-balanced ]]; then
+if [[ "$mode" == train-one || "$mode" == train-warmup || "$mode" == train-five || "$mode" == train-sync || "$mode" == train-balanced || "$mode" == train-two-step || "$mode" == train-blocking ]]; then
     python "$PROJECT/scripts/patch_ragen.py" --ragen-dir "$RAGEN_DIR"
     # Fail early on actor import errors before allocating models and KV cache.
     python -c 'from ragen.workers.actor.dp_actor import DataParallelPPOActor; print("RAGEN actor import passed")'
@@ -131,7 +163,10 @@ if [[ "$mode" == train-one || "$mode" == train-warmup || "$mode" == train-five |
         exit 0
     fi
     python -u train.py --config-name "$name" 2>&1 | tee "$run_dir/run.log"
-    if [[ "$mode" == train-five || "$mode" == train-sync || "$mode" == train-balanced ]]; then
+    if [[ "$mode" == train-two-step || "$mode" == train-blocking ]]; then
+        python "$PROJECT/scripts/verify_warm_start.py" "$run_dir"
+    fi
+    if [[ "$mode" == train-five || "$mode" == train-sync || "$mode" == train-balanced || "$mode" == train-two-step || "$mode" == train-blocking ]]; then
         python "$PROJECT/scripts/summarize_training.py" "$run_dir"
     fi
     printf 'Training log: %s/run.log\n' "$run_dir"

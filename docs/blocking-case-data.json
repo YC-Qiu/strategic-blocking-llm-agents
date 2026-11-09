@@ -1,0 +1,872 @@
+{
+  "source_run": "paired-eval-trum2mve",
+  "episode": 100,
+  "actions": [
+    "move up",
+    "block right",
+    "move down",
+    "move down",
+    "move right",
+    "move right",
+    "move right"
+  ],
+  "layout": [
+    "########",
+    "#B...b.#",
+    "#.#A##.#",
+    "#.....a#",
+    "########"
+  ],
+  "actual": [
+    {
+      "map": [
+        "########",
+        "#B...b.#",
+        "#.#A##.#",
+        "#.....a#",
+        "########"
+      ],
+      "a": [
+        2,
+        3
+      ],
+      "b": [
+        1,
+        1
+      ],
+      "goal_a": [
+        3,
+        6
+      ],
+      "goal_b": [
+        1,
+        5
+      ],
+      "block": null,
+      "block_available": true,
+      "round": 0,
+      "max_rounds": 32,
+      "turn": "B",
+      "legal_actions": [],
+      "event": "Initial state; B moves first",
+      "result": null
+    },
+    {
+      "map": [
+        "########",
+        "#.B..b.#",
+        "#.#A##.#",
+        "#.....a#",
+        "########"
+      ],
+      "a": [
+        2,
+        3
+      ],
+      "b": [
+        1,
+        2
+      ],
+      "goal_a": [
+        3,
+        6
+      ],
+      "goal_b": [
+        1,
+        5
+      ],
+      "block": null,
+      "block_available": true,
+      "round": 1,
+      "max_rounds": 32,
+      "turn": "A",
+      "legal_actions": [
+        "wait",
+        "move up",
+        "block up",
+        "move down",
+        "block down"
+      ],
+      "event": "B follows its shortest path",
+      "result": null
+    },
+    {
+      "map": [
+        "########",
+        "#.BA.b.#",
+        "#.#.##.#",
+        "#.....a#",
+        "########"
+      ],
+      "a": [
+        1,
+        3
+      ],
+      "b": [
+        1,
+        2
+      ],
+      "goal_a": [
+        3,
+        6
+      ],
+      "goal_b": [
+        1,
+        5
+      ],
+      "block": null,
+      "block_available": true,
+      "round": 1,
+      "max_rounds": 32,
+      "turn": "B",
+      "legal_actions": [],
+      "event": "A: move up",
+      "result": null
+    },
+    {
+      "map": [
+        "########",
+        "#..*.b.#",
+        "#.#.##.#",
+        "#.....a#",
+        "########"
+      ],
+      "a": [
+        1,
+        3
+      ],
+      "b": [
+        1,
+        3
+      ],
+      "goal_a": [
+        3,
+        6
+      ],
+      "goal_b": [
+        1,
+        5
+      ],
+      "block": null,
+      "block_available": true,
+      "round": 2,
+      "max_rounds": 32,
+      "turn": "A",
+      "legal_actions": [
+        "wait",
+        "move right",
+        "block right",
+        "move down",
+        "block down",
+        "move left",
+        "block left"
+      ],
+      "event": "B follows its shortest path",
+      "result": null
+    },
+    {
+      "map": [
+        "########",
+        "#..*Xb.#",
+        "#.#.##.#",
+        "#.....a#",
+        "########"
+      ],
+      "a": [
+        1,
+        3
+      ],
+      "b": [
+        1,
+        3
+      ],
+      "goal_a": [
+        3,
+        6
+      ],
+      "goal_b": [
+        1,
+        5
+      ],
+      "block": [
+        1,
+        4
+      ],
+      "block_available": false,
+      "round": 2,
+      "max_rounds": 32,
+      "turn": "B",
+      "legal_actions": [],
+      "event": "A: block right",
+      "result": null
+    },
+    {
+      "map": [
+        "########",
+        "#..AXb.#",
+        "#.#B##.#",
+        "#.....a#",
+        "########"
+      ],
+      "a": [
+        1,
+        3
+      ],
+      "b": [
+        2,
+        3
+      ],
+      "goal_a": [
+        3,
+        6
+      ],
+      "goal_b": [
+        1,
+        5
+      ],
+      "block": [
+        1,
+        4
+      ],
+      "block_available": false,
+      "round": 3,
+      "max_rounds": 32,
+      "turn": "A",
+      "legal_actions": [
+        "wait",
+        "move down",
+        "move left"
+      ],
+      "event": "B follows its shortest path",
+      "result": null
+    },
+    {
+      "map": [
+        "########",
+        "#...Xb.#",
+        "#.#*##.#",
+        "#.....a#",
+        "########"
+      ],
+      "a": [
+        2,
+        3
+      ],
+      "b": [
+        2,
+        3
+      ],
+      "goal_a": [
+        3,
+        6
+      ],
+      "goal_b": [
+        1,
+        5
+      ],
+      "block": [
+        1,
+        4
+      ],
+      "block_available": false,
+      "round": 3,
+      "max_rounds": 32,
+      "turn": "B",
+      "legal_actions": [],
+      "event": "A: move down",
+      "result": null
+    },
+    {
+      "map": [
+        "########",
+        "#...Xb.#",
+        "#.#A##.#",
+        "#..B..a#",
+        "########"
+      ],
+      "a": [
+        2,
+        3
+      ],
+      "b": [
+        3,
+        3
+      ],
+      "goal_a": [
+        3,
+        6
+      ],
+      "goal_b": [
+        1,
+        5
+      ],
+      "block": [
+        1,
+        4
+      ],
+      "block_available": false,
+      "round": 4,
+      "max_rounds": 32,
+      "turn": "A",
+      "legal_actions": [
+        "wait",
+        "move up",
+        "move down"
+      ],
+      "event": "B follows its shortest path",
+      "result": null
+    },
+    {
+      "map": [
+        "########",
+        "#...Xb.#",
+        "#.#.##.#",
+        "#..*..a#",
+        "########"
+      ],
+      "a": [
+        3,
+        3
+      ],
+      "b": [
+        3,
+        3
+      ],
+      "goal_a": [
+        3,
+        6
+      ],
+      "goal_b": [
+        1,
+        5
+      ],
+      "block": [
+        1,
+        4
+      ],
+      "block_available": false,
+      "round": 4,
+      "max_rounds": 32,
+      "turn": "B",
+      "legal_actions": [],
+      "event": "A: move down",
+      "result": null
+    },
+    {
+      "map": [
+        "########",
+        "#...Xb.#",
+        "#.#.##.#",
+        "#..AB.a#",
+        "########"
+      ],
+      "a": [
+        3,
+        3
+      ],
+      "b": [
+        3,
+        4
+      ],
+      "goal_a": [
+        3,
+        6
+      ],
+      "goal_b": [
+        1,
+        5
+      ],
+      "block": [
+        1,
+        4
+      ],
+      "block_available": false,
+      "round": 5,
+      "max_rounds": 32,
+      "turn": "A",
+      "legal_actions": [
+        "wait",
+        "move up",
+        "move right",
+        "move left"
+      ],
+      "event": "B follows its shortest path",
+      "result": null
+    },
+    {
+      "map": [
+        "########",
+        "#...Xb.#",
+        "#.#.##.#",
+        "#...*.a#",
+        "########"
+      ],
+      "a": [
+        3,
+        4
+      ],
+      "b": [
+        3,
+        4
+      ],
+      "goal_a": [
+        3,
+        6
+      ],
+      "goal_b": [
+        1,
+        5
+      ],
+      "block": [
+        1,
+        4
+      ],
+      "block_available": false,
+      "round": 5,
+      "max_rounds": 32,
+      "turn": "B",
+      "legal_actions": [],
+      "event": "A: move right",
+      "result": null
+    },
+    {
+      "map": [
+        "########",
+        "#...Xb.#",
+        "#.#.##.#",
+        "#...ABa#",
+        "########"
+      ],
+      "a": [
+        3,
+        4
+      ],
+      "b": [
+        3,
+        5
+      ],
+      "goal_a": [
+        3,
+        6
+      ],
+      "goal_b": [
+        1,
+        5
+      ],
+      "block": [
+        1,
+        4
+      ],
+      "block_available": false,
+      "round": 6,
+      "max_rounds": 32,
+      "turn": "A",
+      "legal_actions": [
+        "wait",
+        "move right",
+        "move left"
+      ],
+      "event": "B follows its shortest path",
+      "result": null
+    },
+    {
+      "map": [
+        "########",
+        "#...Xb.#",
+        "#.#.##.#",
+        "#....*a#",
+        "########"
+      ],
+      "a": [
+        3,
+        5
+      ],
+      "b": [
+        3,
+        5
+      ],
+      "goal_a": [
+        3,
+        6
+      ],
+      "goal_b": [
+        1,
+        5
+      ],
+      "block": [
+        1,
+        4
+      ],
+      "block_available": false,
+      "round": 6,
+      "max_rounds": 32,
+      "turn": "B",
+      "legal_actions": [],
+      "event": "A: move right",
+      "result": null
+    },
+    {
+      "map": [
+        "########",
+        "#...Xb.#",
+        "#.#.##.#",
+        "#....AB#",
+        "########"
+      ],
+      "a": [
+        3,
+        5
+      ],
+      "b": [
+        3,
+        6
+      ],
+      "goal_a": [
+        3,
+        6
+      ],
+      "goal_b": [
+        1,
+        5
+      ],
+      "block": [
+        1,
+        4
+      ],
+      "block_available": false,
+      "round": 7,
+      "max_rounds": 32,
+      "turn": "A",
+      "legal_actions": [
+        "wait",
+        "move right",
+        "move left"
+      ],
+      "event": "B follows its shortest path",
+      "result": null
+    },
+    {
+      "map": [
+        "########",
+        "#...Xb.#",
+        "#.#.##.#",
+        "#.....*#",
+        "########"
+      ],
+      "a": [
+        3,
+        6
+      ],
+      "b": [
+        3,
+        6
+      ],
+      "goal_a": [
+        3,
+        6
+      ],
+      "goal_b": [
+        1,
+        5
+      ],
+      "block": [
+        1,
+        4
+      ],
+      "block_available": false,
+      "round": 7,
+      "max_rounds": 32,
+      "turn": null,
+      "legal_actions": [],
+      "event": "A: move right",
+      "result": "A"
+    }
+  ],
+  "counterfactual": [
+    {
+      "map": [
+        "########",
+        "#B...b.#",
+        "#.#A##.#",
+        "#.....a#",
+        "########"
+      ],
+      "a": [
+        2,
+        3
+      ],
+      "b": [
+        1,
+        1
+      ],
+      "goal_a": [
+        3,
+        6
+      ],
+      "goal_b": [
+        1,
+        5
+      ],
+      "block": null,
+      "block_available": true,
+      "round": 0,
+      "max_rounds": 32,
+      "turn": "B",
+      "legal_actions": [],
+      "event": "Initial state; B moves first",
+      "result": null
+    },
+    {
+      "map": [
+        "########",
+        "#.B..b.#",
+        "#.#A##.#",
+        "#.....a#",
+        "########"
+      ],
+      "a": [
+        2,
+        3
+      ],
+      "b": [
+        1,
+        2
+      ],
+      "goal_a": [
+        3,
+        6
+      ],
+      "goal_b": [
+        1,
+        5
+      ],
+      "block": null,
+      "block_available": true,
+      "round": 1,
+      "max_rounds": 32,
+      "turn": "A",
+      "legal_actions": [
+        "wait",
+        "move up",
+        "block up",
+        "move down",
+        "block down"
+      ],
+      "event": "B follows its shortest path",
+      "result": null
+    },
+    {
+      "map": [
+        "########",
+        "#.BA.b.#",
+        "#.#.##.#",
+        "#.....a#",
+        "########"
+      ],
+      "a": [
+        1,
+        3
+      ],
+      "b": [
+        1,
+        2
+      ],
+      "goal_a": [
+        3,
+        6
+      ],
+      "goal_b": [
+        1,
+        5
+      ],
+      "block": null,
+      "block_available": true,
+      "round": 1,
+      "max_rounds": 32,
+      "turn": "B",
+      "legal_actions": [],
+      "event": "A: move up",
+      "result": null
+    },
+    {
+      "map": [
+        "########",
+        "#..*.b.#",
+        "#.#.##.#",
+        "#.....a#",
+        "########"
+      ],
+      "a": [
+        1,
+        3
+      ],
+      "b": [
+        1,
+        3
+      ],
+      "goal_a": [
+        3,
+        6
+      ],
+      "goal_b": [
+        1,
+        5
+      ],
+      "block": null,
+      "block_available": true,
+      "round": 2,
+      "max_rounds": 32,
+      "turn": "A",
+      "legal_actions": [
+        "wait",
+        "move right",
+        "block right",
+        "move down",
+        "block down",
+        "move left",
+        "block left"
+      ],
+      "event": "B follows its shortest path",
+      "result": null
+    },
+    {
+      "map": [
+        "########",
+        "#..*.b.#",
+        "#.#.##.#",
+        "#.....a#",
+        "########"
+      ],
+      "a": [
+        1,
+        3
+      ],
+      "b": [
+        1,
+        3
+      ],
+      "goal_a": [
+        3,
+        6
+      ],
+      "goal_b": [
+        1,
+        5
+      ],
+      "block": null,
+      "block_available": true,
+      "round": 2,
+      "max_rounds": 32,
+      "turn": "B",
+      "legal_actions": [],
+      "event": "A: wait (first block removed)",
+      "result": null
+    },
+    {
+      "map": [
+        "########",
+        "#..ABb.#",
+        "#.#.##.#",
+        "#.....a#",
+        "########"
+      ],
+      "a": [
+        1,
+        3
+      ],
+      "b": [
+        1,
+        4
+      ],
+      "goal_a": [
+        3,
+        6
+      ],
+      "goal_b": [
+        1,
+        5
+      ],
+      "block": null,
+      "block_available": true,
+      "round": 3,
+      "max_rounds": 32,
+      "turn": "A",
+      "legal_actions": [
+        "wait",
+        "move right",
+        "move down",
+        "block down",
+        "move left",
+        "block left"
+      ],
+      "event": "B follows its shortest path",
+      "result": null
+    },
+    {
+      "map": [
+        "########",
+        "#...Bb.#",
+        "#.#A##.#",
+        "#.....a#",
+        "########"
+      ],
+      "a": [
+        2,
+        3
+      ],
+      "b": [
+        1,
+        4
+      ],
+      "goal_a": [
+        3,
+        6
+      ],
+      "goal_b": [
+        1,
+        5
+      ],
+      "block": null,
+      "block_available": true,
+      "round": 3,
+      "max_rounds": 32,
+      "turn": "B",
+      "legal_actions": [],
+      "event": "A: move down",
+      "result": null
+    },
+    {
+      "map": [
+        "########",
+        "#....B.#",
+        "#.#A##.#",
+        "#.....a#",
+        "########"
+      ],
+      "a": [
+        2,
+        3
+      ],
+      "b": [
+        1,
+        5
+      ],
+      "goal_a": [
+        3,
+        6
+      ],
+      "goal_b": [
+        1,
+        5
+      ],
+      "block": null,
+      "block_available": true,
+      "round": 4,
+      "max_rounds": 32,
+      "turn": null,
+      "legal_actions": [],
+      "event": "B follows its shortest path",
+      "result": "B"
+    }
+  ]
+}

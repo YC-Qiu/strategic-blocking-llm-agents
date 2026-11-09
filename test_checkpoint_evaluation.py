@@ -38,6 +38,39 @@ class EvaluationTests(unittest.TestCase):
         result = evaluation.compare_base_tensor(torch.tensor([1000.0001]), torch.tensor([1000.0]), True, "bfloat16")
         self.assertFalse(result["accepted"])
 
+    def test_fp32_epsilon_extension_requires_exact_rollout_tensor(self):
+        import torch
+        cached = torch.tensor([1.0, 0.0], dtype=torch.bfloat16)
+        saved = cached.float()
+        saved[0] += torch.finfo(torch.float32).eps
+        result = evaluation.compare_base_tensor(saved, cached, True, "bfloat16")
+        self.assertTrue(result["accepted"])
+        self.assertTrue(result["rollout_exact_extension_used"])
+        self.assertEqual(result["rollout_different_elements"], 0)
+        saved[1] = 1e-10
+        result = evaluation.compare_base_tensor(saved, cached, True, "bfloat16")
+        self.assertFalse(result["accepted"])
+        self.assertFalse(result["rollout_exact_extension_used"])
+
+    def test_extension_rejects_larger_drift_even_when_bf16_matches(self):
+        import torch
+        cached = torch.tensor([1.0], dtype=torch.bfloat16)
+        saved = cached.float() + 2 * torch.finfo(torch.float32).eps
+        result = evaluation.compare_base_tensor(saved, cached, True, "bfloat16")
+        self.assertEqual(result["rollout_different_elements"], 0)
+        self.assertFalse(result["accepted"])
+
+    def test_extension_preserves_target_dtype_and_rollout_guards(self):
+        import torch
+        cached = torch.tensor([1.0], dtype=torch.bfloat16)
+        saved = cached.float() + torch.finfo(torch.float32).eps
+        for value, target, dtype in [(saved, False, "bfloat16"),
+                                     (saved.double(), True, "bfloat16"),
+                                     (saved, True, "float32")]:
+            with self.subTest(dtype=dtype, target=target, saved_dtype=value.dtype):
+                result = evaluation.compare_base_tensor(value, cached, target, dtype)
+                self.assertFalse(result["accepted"])
+
     def test_base_shape_and_finiteness_are_required(self):
         import torch
         with self.assertRaisesRegex(ValueError, "shapes"):
@@ -60,9 +93,27 @@ class EvaluationTests(unittest.TestCase):
             wrapper.generate(["a", "b", "c"], SimpleNamespace(seed=None))
             wrapper.env_ids = [2, 0]
             wrapper.generate(["c2", "a2"], SimpleNamespace(seed=None))
-            self.assertEqual([p.seed for p in calls[0]["sampling_params"]], [40, 1040, 2040])
-            self.assertEqual([p.seed for p in calls[1]["sampling_params"]], [2041, 41])
+            self.assertEqual([p.seed for p in calls[0]["sampling_params"]], [evaluation.request_seed(40, i, 0) for i in (0, 1, 2)])
+            self.assertEqual([p.seed for p in calls[1]["sampling_params"]], [evaluation.request_seed(40, i, 1) for i in (2, 0)])
             self.assertIs(calls[0]["lora_request"], request)
+
+    def test_seed_domains_do_not_repeat_the_legacy_turn_overlap(self):
+        old = evaluation.request_seed(40, 2, 1, "legacy-linear-v1")
+        self.assertEqual(old, evaluation.request_seed(41, 2, 0, "legacy-linear-v1"))
+        first = {evaluation.request_seed(40, i, t) for i in range(250) for t in range(32)}
+        second = {evaluation.request_seed(41, i, t) for i in range(250) for t in range(32)}
+        self.assertEqual(len(first), 8000)
+        self.assertEqual(len(second), 8000)
+        self.assertFalse(first & second)
+        self.assertTrue(all(0 <= seed < 2**63 for seed in first | second))
+
+    def test_invalid_seed_domain_is_rejected(self):
+        for args in [(-1, 0, 0), (1, -1, 0), (1, 0, -1), (1, 0, 0, "unknown")]:
+            with self.subTest(args=args), self.assertRaises(ValueError):
+                evaluation.request_seed(*args)
+
+    def test_legacy_seed_protocol_remains_explicitly_available(self):
+        self.assertEqual(evaluation.request_seed(40, 2, 1, "legacy-linear-v1"), 2041)
 
     def test_missing_adapter_registration_is_rejected(self):
         engine = SimpleNamespace(generate=lambda *a, **k: [object()], llm_engine=SimpleNamespace(list_loras=lambda: []))

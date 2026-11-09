@@ -1,0 +1,16 @@
+{
+  "protocol_id": "hf-colab-v1",
+  "backend": "Transformers + PEFT, FP16, SDPA, batch size 1",
+  "instruction": "You control A. Reach a before B reaches b. B moves first each round,\nalways by a shortest path. The map shows walls (#), open cells (.),\nrunners A and B, goals a and b, an obstacle (X), and shared occupancy (*).\nEach turn move one cell, wait, or place your single permanent obstacle\non an adjacent empty cell while keeping both goals reachable. Runners\nmay pass each other. Choose exactly one listed legal action and put it\ninside <answer>...</answer>. Win +1, loss -1, timeout 0.\n\nYou choose A's action only. B has already moved. Copy one exact string from Legal actions, including its direction if present. Return it inside <answer>...</answer>. Use words, never an option number. Do not add an explanation.",
+  "history_turns": 2,
+  "max_new_tokens": 128,
+  "max_context_tokens": 2048,
+  "sampling": {
+    "temperature": 1.0,
+    "top_p": 1.0,
+    "top_k": 0
+  },
+  "invalid_output": "Malformed or illegal actions execute wait and consume a turn. Unlike RAGEN, malformed output is not retried without advancing.",
+  "comparison_scope": "Compare all three policies within this backend; never pool with RAGEN results.",
+  "tested_status": "CPU helpers tested; Colab GPU execution not yet verified."
+}

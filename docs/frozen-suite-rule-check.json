@@ -1,0 +1,134 @@
+[
+  {
+    "name": "frozen_block_mirror",
+    "direct": {
+      "result": "B",
+      "actions": [
+        "move down",
+        "move left",
+        "move left"
+      ]
+    },
+    "winning_actions": [
+      "block up",
+      "move down",
+      "move left",
+      "move left",
+      "move left"
+    ]
+  },
+  {
+    "name": "frozen_block_vertical",
+    "direct": {
+      "result": "B",
+      "actions": [
+        "move up",
+        "move right",
+        "move right"
+      ]
+    },
+    "winning_actions": [
+      "block down",
+      "move up",
+      "move right",
+      "move right",
+      "move right"
+    ]
+  },
+  {
+    "name": "frozen_block_wide",
+    "direct": {
+      "result": "B",
+      "actions": [
+        "move down",
+        "move right",
+        "move right",
+        "move right"
+      ]
+    },
+    "winning_actions": [
+      "block up",
+      "move down",
+      "move right",
+      "move right",
+      "move right",
+      "move right"
+    ]
+  },
+  {
+    "name": "frozen_block_wide_mirror",
+    "direct": {
+      "result": "B",
+      "actions": [
+        "move down",
+        "move left",
+        "move left",
+        "move left"
+      ]
+    },
+    "winning_actions": [
+      "block up",
+      "move down",
+      "move left",
+      "move left",
+      "move left",
+      "move left"
+    ]
+  },
+  {
+    "name": "frozen_direct_near",
+    "direct": {
+      "result": "A",
+      "actions": [
+        "move right"
+      ]
+    },
+    "winning_actions": [
+      "move right"
+    ]
+  },
+  {
+    "name": "frozen_direct_near_mirror",
+    "direct": {
+      "result": "A",
+      "actions": [
+        "move left"
+      ]
+    },
+    "winning_actions": [
+      "move left"
+    ]
+  },
+  {
+    "name": "frozen_navigation_three",
+    "direct": {
+      "result": "A",
+      "actions": [
+        "move right",
+        "move right",
+        "move right"
+      ]
+    },
+    "winning_actions": [
+      "move right",
+      "move right",
+      "move right"
+    ]
+  },
+  {
+    "name": "frozen_navigation_three_mirror",
+    "direct": {
+      "result": "A",
+      "actions": [
+        "move left",
+        "move left",
+        "move left"
+      ]
+    },
+    "winning_actions": [
+      "move left",
+      "move left",
+      "move left"
+    ]
+  }
+]

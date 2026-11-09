@@ -1,0 +1,76 @@
+{
+  "suite_id": "prospective-transfer-v1",
+  "status": "Frozen before any LLM evaluation on these maps; no results yet.",
+  "scope": "Small authored prospective transfer test for frozen existing checkpoints, not a broad unbiased benchmark.",
+  "model_id": "Qwen/Qwen2.5-0.5B-Instruct",
+  "base_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "policies": {
+    "before": {
+      "training_run": "train-two-step-sFYit8xQ",
+      "files": {
+        "adapter_config.json": "75475f2e0eab2486d8c70644f7df7657b9525f496dd310499307a18fca308a2f",
+        "adapter_model.safetensors": "1801c9752b5b17f2b6518b58f242227e71ec149d0d30d0a19e842dc2eb2f9908"
+      }
+    },
+    "after": {
+      "training_run": "train-blocking-N6WUl30K",
+      "files": {
+        "adapter_config.json": "b0220c7ef2fb8ec179f5ce7fca162442345ada071060087a1dd6b73f8e456120",
+        "adapter_model.safetensors": "063411e0c5500f48a548ae7d1b949f301eb98d8c73869cb40d196a51d71d1f93"
+      }
+    }
+  },
+  "episodes_per_map": 50,
+  "experiment_seed": 20261112,
+  "max_rounds": 32,
+  "maps": [
+    {
+      "name": "frozen_block_mirror",
+      "layout": "########\n#.b...B#\n#.##A#.#\n#a.....#\n########",
+      "category": "symmetry",
+      "expected_direct_outcome": "B"
+    },
+    {
+      "name": "frozen_block_vertical",
+      "layout": "########\n#.....a#\n#.#A##.#\n#B...b.#\n########",
+      "category": "symmetry",
+      "expected_direct_outcome": "B"
+    },
+    {
+      "name": "frozen_block_wide",
+      "layout": "#########\n#B....b.#\n#.#A###.#\n#......a#\n#########",
+      "category": "longer blocking corridor",
+      "expected_direct_outcome": "B"
+    },
+    {
+      "name": "frozen_block_wide_mirror",
+      "layout": "#########\n#.b....B#\n#.###A#.#\n#a......#\n#########",
+      "category": "longer blocking corridor",
+      "expected_direct_outcome": "B"
+    },
+    {
+      "name": "frozen_direct_near",
+      "layout": "########\n#B...b.#\n#.#.##.#\n#....Aa#\n########",
+      "category": "direct-win control",
+      "expected_direct_outcome": "A"
+    },
+    {
+      "name": "frozen_direct_near_mirror",
+      "layout": "########\n#.b...B#\n#.##.#.#\n#aA....#\n########",
+      "category": "direct-win control",
+      "expected_direct_outcome": "A"
+    },
+    {
+      "name": "frozen_navigation_three",
+      "layout": "########\n#A..a..#\n#.####.#\n#B....b#\n########",
+      "category": "three-step navigation",
+      "expected_direct_outcome": "A"
+    },
+    {
+      "name": "frozen_navigation_three_mirror",
+      "layout": "########\n#..a..A#\n#.####.#\n#b....B#\n########",
+      "category": "three-step navigation",
+      "expected_direct_outcome": "A"
+    }
+  ]
+}

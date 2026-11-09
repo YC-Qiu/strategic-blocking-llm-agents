@@ -71,6 +71,8 @@ def compare_base_tensor(saved, cached, allow_roundoff, rollout_dtype):
 
     Both evaluated policies use the same cached base. The absolute bound is only
     permitted for FP32 LoRA target weights; all other weights must match exactly.
+    A narrow extension up to FP32 epsilon additionally requires exact equality
+    of the whole tensor after conversion to the recorded rollout dtype.
     BF16 equality is reported separately, because tiny values can cross a BF16
     rounding boundary even when the FP32 difference is very small.
     """
@@ -95,12 +97,20 @@ def compare_base_tensor(saved, cached, allow_roundoff, rollout_dtype):
         if not torch.isfinite(cast_a).all() or not torch.isfinite(cast_b).all():
             raise ValueError("Non-finite base tensor after the rollout dtype conversion.")
         rollout_different += int((cast_a != cast_b).sum())
-    limit = 1e-7 if allow_roundoff and saved.dtype == torch.float32 else 0.0
+    eligible = allow_roundoff and saved.dtype == torch.float32
+    limit = 1e-7 if eligible else 0.0
+    # This is a fixed absolute cap, not a relative tolerance or a per-value ULP.
+    extension = bool(eligible and maximum > limit
+                     and maximum <= torch.finfo(torch.float32).eps
+                     and rollout_different == 0)
+    if extension:
+        limit = torch.finfo(torch.float32).eps
     return {
         "checkpoint_dtype": str(saved.dtype), "cached_dtype": str(cached.dtype),
         "element_count": saved.numel(), "raw_different_elements": raw_different,
         "rollout_different_elements": rollout_different,
         "max_absolute_difference": maximum, "allowed_absolute_difference": limit,
+        "rollout_exact_extension_used": extension,
         "accepted": maximum <= limit,
     }
 
@@ -165,7 +175,12 @@ def prepare_models(actor, output, rollout_dtype):
     changed = [key for key, item in checks.items() if item["raw_different_elements"]]
     cast_changed = [key for key, item in checks.items() if item["rollout_different_elements"]]
     audit = {
-        "policy": "Exact equality outside LoRA targets; at most 1e-7 absolute drift in FP32 LoRA target weights.",
+        "policy": "Exact equality outside FP32 LoRA targets; target absolute drift <=1e-7, "
+                  "or <=FP32 epsilon (1.1920928955078125e-7) only if the entire tensor "
+                  "matches exactly after conversion to the recorded rollout dtype.",
+        "rollout_exact_extension_tensors": [
+            key for key, item in checks.items() if item["rollout_exact_extension_used"]
+        ],
         "rollout_dtype": rollout_dtype, "failed_tensors": failed,
         "raw_different_tensors": changed, "rollout_different_tensors": cast_changed,
         "max_absolute_difference": max(item["max_absolute_difference"] for item in checks.values()),
@@ -201,13 +216,36 @@ def prepare_models(actor, output, rollout_dtype):
     return snapshot, adapter
 
 
+SEED_SCHEMES = ("sha256-v2", "legacy-linear-v1")
+
+
+def request_seed(experiment_seed, env_id, turn, scheme="sha256-v2"):
+    """Derive a stable request seed; both policies deliberately share it.
+
+    Domain separation removes the old overlap between adjacent experiment seeds
+    and turn numbers. Hash collisions remain theoretically possible in 63 bits.
+    Environment IDs depend on the recorded layout order and episode count.
+    """
+    if min(experiment_seed, env_id, turn) < 0:
+        raise ValueError("Seed, environment ID and turn must be nonnegative.")
+    if scheme == "legacy-linear-v1":
+        if turn >= 1000:
+            raise ValueError("Legacy seed scheme supports fewer than 1000 turns.")
+        return experiment_seed + env_id * 1000 + turn
+    if scheme != "sha256-v2":
+        raise ValueError(f"Unknown seed scheme: {scheme}")
+    payload = f"strategic-blocking/sha256-v2/{experiment_seed}/{env_id}/{turn}"
+    return int.from_bytes(hashlib.sha256(payload.encode("ascii")).digest()[:8], "big") & ((1 << 63) - 1)
+
+
 class SeededEngine:
     """Assign seeds by stable environment ID and turn, even as episodes finish."""
 
-    def __init__(self, engine, adapter_request, seed, trace_path):
+    def __init__(self, engine, adapter_request, seed, trace_path, seed_scheme="sha256-v2"):
         self.engine = engine
         self.adapter_request = adapter_request
         self.seed = seed
+        self.seed_scheme = seed_scheme
         self.trace_path = trace_path
         self.env_ids = []
         self.turns = Counter()
@@ -221,9 +259,10 @@ class SeededEngine:
             if env_id < 0 or turn >= 1000:
                 raise ValueError("Unsupported environment ID or turn count.")
             item = deepcopy(sampling_params)
-            item.seed = self.seed + env_id * 1000 + turn
+            item.seed = request_seed(self.seed, env_id, turn, self.seed_scheme)
             params.append(item)
             records.append({"env_id": env_id, "turn": turn, "seed": item.seed,
+                            "seed_scheme": self.seed_scheme,
                             "prompt_sha256": hashlib.sha256(prompt.encode()).hexdigest(),
                             "adapter_enabled": self.adapter_request is not None})
             self.turns[env_id] += 1
@@ -279,7 +318,7 @@ def worker(args):
         actor = EvaluationWorker(config, tokenizer)
     finally:
         proxy_module.LLM = original_llm
-    actor.llm = SeededEngine(actor.llm, request, args.seed, destination / "generation-trace.jsonl")
+    actor.llm = SeededEngine(actor.llm, request, args.seed, destination / "generation-trace.jsonl", args.seed_scheme)
     proxy = proxy_module.LLMAgentProxy(config, actor, tokenizer)
     rollouts = proxy.rollout(DataProto(batch=None, non_tensor_batch=None, meta_info={
         "eos_token_id": tokenizer.eos_token_id, "pad_token_id": tokenizer.pad_token_id,
@@ -309,9 +348,9 @@ def comparison(output, layouts, count):
     traces = {}
     for name in summaries:
         rows = [json.loads(x) for x in (output / name / "generation-trace.jsonl").read_text().splitlines()]
-        traces[name] = {r["env_id"]: (r["seed"], r["prompt_sha256"]) for r in rows if r["turn"] == 0}
+        traces[name] = {r["env_id"]: (r["seed"], r["prompt_sha256"], r.get("seed_scheme", "legacy-linear-v1")) for r in rows if r["turn"] == 0}
     if traces["base"] != traces["adapter"] or len(traces["base"]) != len(layouts) * count:
-        raise ValueError("Initial prompts or sampling seeds differ across the comparison.")
+        raise ValueError("Initial prompts, sampling seeds or seed schemes differ across the comparison.")
     rows, action_distributions, cases = [], [], []
     for layout in layouts:
         for name, summary in summaries.items():
@@ -354,7 +393,7 @@ def comparison(output, layouts, count):
         writer.writerows(rows)
     lines = ["# Base versus final LoRA evaluation", "", "| Layout | Model | Wins | Success rate | 95% Wilson interval | Unresolved |", "|---|---|---:|---:|---:|---:|"]
     for row in rows:
-        lines.append(f"| {row['layout']} | {row['model']} | {row['wins']}/{count} | {row['success_rate']:.1%} | {row['success_ci95_low']:.1%}–{row['success_ci95_high']:.1%} | {row['unresolved']} |")
+        lines.append(f"| {row['layout']} | {row['model']} | {row['wins']}/{count} | {row['success_rate']:.1%} | {row['success_ci95_low']:.1%}-{row['success_ci95_high']:.1%} | {row['unresolved']} |")
     lines.extend(["", "These are fixed fixtures, not a held-out map benchmark. The intervals describe sampling uncertainty for each fixed policy. Repeated training seeds and broader tests are needed for a robust improvement claim.", "", "Raw trajectories are in each model's episodes.jsonl. No explicit reasoning text is requested."])
     lines.extend(["", "Both policies use the same cached original base. This measures the exported LoRA's effect, not an exact replay of the full FP32 checkpoint. See base-weight-audit.json for checkpoint drift."])
     (output / "comparison.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
@@ -370,6 +409,7 @@ def main():
     parser.add_argument("--episodes-per-layout", type=int, default=50)
     parser.add_argument("--layouts", nargs="+", default=["warmup_right", "warmup_left", "blocking_short"])
     parser.add_argument("--seed", type=int, default=20261108)
+    parser.add_argument("--seed-scheme", choices=SEED_SCHEMES, default="sha256-v2")
     parser.add_argument("--output", type=Path)
     parser.add_argument("--worker", choices=["base", "adapter"], help=argparse.SUPPRESS)
     parser.add_argument("--prepare-only", action="store_true")
@@ -406,13 +446,16 @@ def main():
     gc.collect()
     config = evaluation_config(recorded, args.layouts, args.episodes_per_layout, snapshot, args.seed)
     (args.output / "evaluation-config.yaml").write_text(yaml.safe_dump(config, sort_keys=False), encoding="utf-8")
-    source_files = [args.project / name for name in ("maze.py", "ragen_maze.py", "curriculum.py", "scripts/probe_reward_signal.py", "scripts/export_pilot_adapter.py")]
+    source_files = [args.project / name for name in ("maze.py", "ragen_maze.py", "curriculum.py", "frozen_eval.py", "evaluation/frozen-transfer-v1.json", "scripts/probe_reward_signal.py", "scripts/export_pilot_adapter.py")]
     source_files += [Path(__file__), args.training_run / "composed.yaml"]
     source_files += [args.ragen_dir / "ragen/llm_agent" / name for name in ("agent_proxy.py", "ctx_manager.py", "es_manager.py")]
     write_json(args.output / "manifest.json", {"training_run": str(args.training_run), "step": args.step,
                "layouts": args.layouts, "episodes_per_layout": args.episodes_per_layout,
                "seed": args.seed, "sampling": {"temperature": 1.0, "top_p": 1.0, "top_k": -1},
-               "seed_rule": "seed + env_id * 1000 + turn_index", "updates_weights": False,
+               "seed_scheme": args.seed_scheme,
+               "seed_rule": ("SHA256 domain-separated experiment seed, env_id and turn; first 8 bytes masked to 63 bits"
+                             if args.seed_scheme == "sha256-v2" else "seed + env_id * 1000 + turn_index"),
+               "updates_weights": False,
                "source_sha256": {str(path): file_hash(path) for path in source_files}})
     with (args.output / "dependencies.txt").open("w", encoding="utf-8") as stream:
         subprocess.run([sys.executable, "-m", "pip", "freeze"], stdout=stream, check=True)
@@ -425,7 +468,7 @@ def main():
         command = [sys.executable, "-u", str(Path(__file__).resolve()), "--worker", name,
                    "--project", str(args.project), "--ragen-dir", str(args.ragen_dir),
                    "--training-run", str(args.training_run), "--output", str(args.output),
-                   "--seed", str(args.seed), "--episodes-per-layout", str(args.episodes_per_layout), "--layouts", *args.layouts]
+                   "--seed", str(args.seed), "--seed-scheme", args.seed_scheme, "--episodes-per-layout", str(args.episodes_per_layout), "--layouts", *args.layouts]
         with log_path.open("w", encoding="utf-8") as log:
             result = subprocess.run(command, cwd=args.ragen_dir, env=environment, stdout=log, stderr=subprocess.STDOUT)
         if result.returncode:

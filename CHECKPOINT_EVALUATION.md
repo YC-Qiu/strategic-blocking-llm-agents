@@ -29,7 +29,11 @@ This evaluates two policies on three fixed maps, for 300 episodes total:
 The script verifies the automatic LoRA export exactly against the checkpoint.
 It audits every frozen checkpoint tensor against the cached base. Outside LoRA
 target matrices, equality must be exact. For FP32 LoRA target matrices only, it
-permits at most `1e-7` absolute difference, without a relative tolerance. Repeated
+permits at most `1e-7` absolute difference, without a relative tolerance. A narrow
+extension allows at most FP32 epsilon (`1.1920928955078125e-7`) only when the entire
+tensor matches exactly after conversion to the recorded rollout dtype. This is a
+fixed absolute cap, not a relative tolerance. The audit records every tensor that
+uses this extension. Repeated
 LoRA merge/unmerge operations can introduce small FP32 roundoff. Shapes and finite
 values are checked, and larger or unexpected changes stop evaluation. Raw and
 rollout-precision differences are saved even when the audit passes.
@@ -49,8 +53,18 @@ checks the registered adapter IDs.
 
 The configuration retains the recorded training instructions, context window,
 turn limit and action parser. Evaluation uses temperature 1.0, top-p 1.0 and
-top-k -1. Distinct request seeds depend on environment ID and turn number, so
-finishing one episode does not shift the random seeds assigned to other episodes.
+top-k -1. The default `--seed-scheme sha256-v2` hashes a versioned domain, experiment
+seed, environment ID and turn into a nonnegative 63-bit request seed. Finishing
+one episode does not shift the seeds assigned to other episodes. Both policies
+share the same derived seeds; the policy name is deliberately excluded. Layout
+order and episode count still determine environment IDs and must match between
+comparisons. Hash collisions are theoretically possible; this is not proof of
+statistically independent random streams.
+
+Historical runs used `seed + env_id * 1000 + turn`. Adjacent experiment seeds
+therefore reused some cross-turn request seeds. Use `--seed-scheme legacy-linear-v1`
+only to reproduce that protocol. New reports record the scheme in the manifest
+and generation trace. Do not treat different schemes as matched sampled pairs.
 Initial prompt hashes and seeds must match across policies. This does not promise
 bitwise reproducibility across GPU types or library versions.
 
@@ -101,3 +115,14 @@ The CPU tests check seed alignment after episodes finish, adapter-registration
 failure handling, configuration preservation, uncertainty intervals and summary
 consistency. Prepare-only checks configuration construction; it does not verify
 weights or run inference. The GPU path must still be exercised in Ubuntu.
+
+## Warm-start evaluation audit
+
+The audit for `train-two-step-sFYit8xQ` originally stopped at layer 0's query and
+key projection matrices: each had maximum absolute drift of
+`1.1920928955078125e-7`, and both matched the cached base exactly in BF16.
+This is consistent with numerical roundoff, but the audit alone does not prove
+its cause. The narrow extension above accepts this case without permitting larger
+drift or overlooking conversion differences elsewhere in the same tensor.
+Other matrices still have recorded BF16 differences under the existing `1e-7`
+policy, so this remains exported-adapter evaluation, not exact checkpoint replay.

@@ -1,0 +1,940 @@
+[
+  {
+    "run": "paired-eval-fsx8vobm",
+    "seed": 20261111,
+    "seed_scheme": "sha256-v2",
+    "policies": {
+      "base": {
+        "replayed_episodes": 250,
+        "verified_manager_rejections": 1,
+        "blocking_cases": [
+          {
+            "episode_index": 112,
+            "actions": [
+              "block up",
+              "wait",
+              "wait",
+              "move down",
+              "wait",
+              "wait",
+              "move right",
+              "move right",
+              "wait",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          }
+        ]
+      },
+      "adapter": {
+        "replayed_episodes": 250,
+        "verified_manager_rejections": 0,
+        "blocking_cases": [
+          {
+            "episode_index": 102,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 112,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 115,
+            "actions": [
+              "move up",
+              "block right",
+              "move left",
+              "move right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 120,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move left",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 131,
+            "actions": [
+              "move up",
+              "block right",
+              "move left",
+              "move right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 133,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 142,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 144,
+            "actions": [
+              "block up",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 146,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move up",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 148,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          }
+        ]
+      }
+    },
+    "source_sha256": {
+      "base\\summary.json": "78fb58b6ca5110d223aa443a8a17e0cb309b6fea9621fc7469866eba729d940f",
+      "base\\episodes.jsonl": "f3b6ddce50d4fb9c3226030d879e92422acb82e7d00fc383cf5ed3f52b0b11da",
+      "adapter\\summary.json": "064379976714f112efd4acb93cdf68e65cd40bda82cdd3c81aa8e755d1746852",
+      "adapter\\episodes.jsonl": "90d9bd4efee5a84ba94800ca4b0d6a65e06fa4d56bcac1e7dff850611728c6e3"
+    }
+  },
+  {
+    "run": "paired-eval-trum2mve",
+    "seed": 20261111,
+    "seed_scheme": "sha256-v2",
+    "policies": {
+      "base": {
+        "replayed_episodes": 250,
+        "verified_manager_rejections": 1,
+        "blocking_cases": [
+          {
+            "episode_index": 112,
+            "actions": [
+              "block up",
+              "wait",
+              "wait",
+              "move down",
+              "wait",
+              "wait",
+              "move right",
+              "move right",
+              "wait",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          }
+        ]
+      },
+      "adapter": {
+        "replayed_episodes": 250,
+        "verified_manager_rejections": 0,
+        "blocking_cases": [
+          {
+            "episode_index": 100,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 101,
+            "actions": [
+              "move up",
+              "block right",
+              "move left",
+              "move right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 102,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 103,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 104,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 105,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 106,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 108,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 109,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 110,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 111,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 112,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 114,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 115,
+            "actions": [
+              "move up",
+              "block right",
+              "move left",
+              "move right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 116,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 117,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 118,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 119,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 120,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 121,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 123,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 124,
+            "actions": [
+              "move up",
+              "block right",
+              "move left",
+              "move right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 125,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 126,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 127,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 128,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 130,
+            "actions": [
+              "move up",
+              "block right",
+              "move left",
+              "move right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 131,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 132,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 133,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 134,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 135,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 136,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 137,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 138,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 139,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 140,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 141,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 142,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 143,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 144,
+            "actions": [
+              "block up",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 145,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 146,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 147,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 148,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          },
+          {
+            "episode_index": 149,
+            "actions": [
+              "move up",
+              "block right",
+              "move down",
+              "move down",
+              "move right",
+              "move right",
+              "move right"
+            ],
+            "first_block_removed": true,
+            "counterfactual_result": "B",
+            "counterfactual_a_actions": 3
+          }
+        ]
+      }
+    },
+    "source_sha256": {
+      "base\\summary.json": "78fb58b6ca5110d223aa443a8a17e0cb309b6fea9621fc7469866eba729d940f",
+      "base\\episodes.jsonl": "f3b6ddce50d4fb9c3226030d879e92422acb82e7d00fc383cf5ed3f52b0b11da",
+      "adapter\\summary.json": "bef5239b572a6c9bb61e99a0e220e3f40dd4d416cf8019d9badc5d7dffaea602",
+      "adapter\\episodes.jsonl": "5337ab6a68629edc43f73403ae52b8cdaebb708643ff9a24fb2a023bffd4c6e6"
+    }
+  }
+]

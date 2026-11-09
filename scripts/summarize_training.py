@@ -63,10 +63,13 @@ def summarize(run_dir):
     fig, axes = plt.subplots(2, 2, figsize=(11, 7), constrained_layout=True)
     panels = [
         ('Episode return', [('train/charts/avg_episode_return', 'Training samples'),
+                            ('val-env/BlockingShort/episodic_return', 'Greedy: blocking'),
                             ('val-env/BlockingWarmupRight/episodic_return', 'Greedy: right'),
                             ('val-env/BlockingWarmupLeft/episodic_return', 'Greedy: left')]),
         ('Policy-gradient loss', [('actor/pg_loss', 'Actor loss')]),
-        ('Success fraction', [('train/BlockingWarmupRight/success', 'Training: right'),
+        ('Success fraction', [('train/BlockingShort/success', 'Training: blocking'),
+                              ('val-env/BlockingShort/success', 'Greedy: blocking'),
+                              ('train/BlockingWarmupRight/success', 'Training: right'),
                               ('train/BlockingWarmupLeft/success', 'Training: left'),
                               ('val-env/BlockingWarmupRight/success', 'Greedy: right'),
                               ('val-env/BlockingWarmupLeft/success', 'Greedy: left')]),
@@ -82,7 +85,7 @@ def summarize(run_dir):
         axis.grid(alpha=0.25)
         if axis.lines:
             axis.legend(fontsize=8)
-    fig.suptitle('Navigation warmup pilot: observed metrics, no smoothing')
+    fig.suptitle('Strategic blocking pilot: observed metrics, no smoothing')
     fig.savefig(run_dir / 'learning-curves.png', dpi=160)
     fig.savefig(run_dir / 'learning-curves.pdf')
     plt.close(fig)
@@ -96,11 +99,19 @@ def summarize(run_dir):
         print('WARNING: no saved actor checkpoint found in this run.')
     for row in train_rows:
         rates = [f"{name}={row[key]:.1%}" for name, key in (
+            ("blocking", "train/BlockingShort/success"),
             ("right", "train/BlockingWarmupRight/success"),
             ("left", "train/BlockingWarmupLeft/success"),
         ) if key in row]
         if rates:
             print(f"Training success at step {row['step']}: " + ", ".join(rates))
+    for row in rows:
+        retention = [f"{name}={row[key]:.1%}" for name, key in (
+            ("right", "val-env/BlockingRetentionRight/success"),
+            ("left", "val-env/BlockingRetentionLeft/success"),
+        ) if key in row]
+        if retention:
+            print(f"One-step greedy retention at step {row['step']}: " + ", ".join(retention))
     print(f'Curves and metrics: {run_dir}')
 
 
