@@ -2,9 +2,36 @@
 
 - **Team:** YC Qiu and Prakeerth Prasad
 - **Course:** Agentic AI
-- **Status:** Packaged local training rerun and standalone LoRA recovery/reload verified; strategic learning remains unverified.
+- **Status:** Five-update balanced LoRA/GRPO pilot and matched evaluation completed. Navigation success improved on the two fixed training maps; strategic blocking remains unproven.
 
 Can a reinforcement-learning-trained LLM agent learn when it is worth leaving its own shortest route to block an opponent, then returning to finish first? This pilot studies both the cost of a blocking detour and the timing of obstacle placement. Only A is trained; B follows a fixed shortest-path policy.
+
+## Latest verified milestone
+
+The balanced pilot trained Qwen2.5-0.5B-Instruct with LoRA/GRPO for five updates,
+using eight samples per direction per update. Both training groups had mixed
+success/failure rewards in every iteration. The final checkpoint and automatic
+336-tensor adapter export were saved and verified.
+
+| Fixed map | Original base | Balanced adapter | Difference |
+| --- | ---: | ---: | ---: |
+| One-step right | 17/50 (34%) | 47/50 (94%) | +60 percentage points |
+| One-step left | 1/50 (2%) | 32/50 (64%) | +62 percentage points |
+| Short blocking | 1/50 (2%) | 0/50 (0%) | -2 percentage points |
+
+These are matched sampled evaluations of the exported adapter on the same cached
+base model, not held-out generalization or exact FP32 checkpoint replay. All 300
+trajectories were replayed against the environment. Only one training seed was
+tested. Overall invalid-action rates remain higher for the adapter: 67/325 (20.6%)
+versus 42/364 (11.5%) for the base. The balanced run used twice the training episode
+budget of the earlier right-only pilot, so that comparison does not isolate the
+effect of curriculum composition.
+
+![Balanced pilot learning curves](docs/figures/balanced-pilot-learning-curves.png)
+
+See [the milestone analysis](docs/balanced-pilot-results.md),
+[curated metrics](docs/balanced-pilot-results.json), and
+[evaluation instructions](CHECKPOINT_EVALUATION.md).
 
 ## Quick start
 
@@ -13,7 +40,7 @@ Run inside this directory with Python 3.10+ (standard library only):
 ```powershell
 python demo.py
 python demo.py --trace episodes.json
-python -m unittest -v
+python -m unittest test_maze test_ragen_maze -v
 ```
 
 ## Reproductions
@@ -45,7 +72,7 @@ At an A decision point call `race.observe()` after `race.advance_b()`, then appl
 
 ## RAGEN integration
 
-`ragen_maze.py` exposes the race as `StrategicBlockingEnv`, with `slides` and `costly` layouts. Reset advances B before presenting A's first observation. Each step executes A's action and advances B again unless the race has ended. The adapter uses a 32-round limit.
+`ragen_maze.py` exposes the race as `StrategicBlockingEnv`, with `slides`, `costly`, and five small curriculum layouts. Reset advances B before presenting A's first observation. Each step executes A's action and advances B again unless the race has ended. The adapter uses a 32-round limit.
 
 The native simulator and the training adapter handle invalid actions differently:
 
@@ -108,7 +135,7 @@ On November 7, 2026, run `train-one-F5JCCw3d` completed one training iteration a
 
 The main checkpoint contains 336 finite LoRA tensors. All 168 LoRA B tensors, which were initialized to zero, are nonzero after training. This confirms that adapter weights changed. CPU/GPU LoRA checks and two FSDP offload/update cycles also passed before the full run.
 
-However, every sampled episode received the same loss reward, so the GRPO advantages and reward-driven policy-gradient loss were zero. The observed update was primarily driven by entropy regularization, rather than by a difference between winning and losing trajectories. This run verifies the training path; it does not establish that A learned strategic blocking.
+However, every sampled episode received the same loss reward, so the GRPO advantages and reward-driven policy-gradient loss were zero. The observed update is not evidence of reward-driven learning. Entropy regularization and optimizer effects can change weights despite a zero policy-gradient term; their individual contributions have not been isolated. This run verifies the training path; it does not establish that A learned strategic blocking.
 
 ## Packaged rerun and adapter recovery
 
@@ -118,15 +145,30 @@ Separately, the original train-one-F5JCCw3d adapter was recovered using scripts/
 
 This verifies recovery and inference equivalence, not improved game performance. The generation smoke test did not follow the action format. These are two independent one-iteration runs, not a continuous two-iteration training run.
 
+## Reward signal and continuous training
+
+The initial sparse-reward probe found mixed outcomes only on the one-step right
+fixture. Subsequent navigation pilots produced nonzero GRPO advantages. The
+balanced five-update pilot now has mixed outcomes in both direction groups,
+separate training/validation curves, saved checkpoints and post-training results.
+The historical runbooks preserve the debugging sequence; the latest milestone
+above supersedes their earlier pending-work statements.
+
 ## Known limitations and next steps
 
-- **Reward-driven learning is not yet demonstrated.** Develop a training set or curriculum that produces informative success/failure variation while preserving the specified terminal rewards.
-- **Automatic adapter export still needs repair.** The separate recovery script now produces a validated adapter from the original full checkpoint. RAGEN's own exporter remains unfixed. Exact upstream base-model revision and independent Colab loading still need confirmation.
-- **Clean-install reproducibility is pending.** The repository includes the launcher, preflight checks, and guarded patches for optional FlashAttention imports, turn-level reward-statistic alignment, and parameter/optimizer device transfers. The successful environment still reports dependency conflicts. The rerun records RAGEN revision 9d021fc782a4a9e8e047f13c1cd706b32f16d8f2 plus local patches. The original run did not record its revision; arbitrary upstream versions remain unsupported.
-- **Continuous multi-iteration training is pending.** Two independent one-iteration runs have completed. Multi-iteration stability, model improvement, and meaningful loss/reward curves remain untested.
-- **Post-training evaluation is pending.** Compare the trained adapter with the same base model and decoding/context settings used before RL, alongside the shortest-path and immediate-blocking baselines.
-- **Held-out evaluation is pending.** The current fixtures are fixed demonstrations; changing their reset seed does not create unseen mazes. Add separate training and evaluation layouts before making generalization claims.
-- **Learned blocking timing is pending.** The scripted waiting example verifies the environment mechanics only. A second model size is optional, subject to compute availability.
+- **Strategic blocking is not learned yet.** The balanced adapter had zero wins
+  on the short blocking fixture in 50 samples.
+- **Generalization and replication remain pending.** Test longer routes, new
+  layouts and independent training seeds. Reset seeds do not change fixed maps.
+- **Action validity still needs improvement.** Higher navigation success does
+  not imply better compliance with the legal-action protocol.
+- **No explicit reasoning traces were collected.** Action-only case studies
+  describe observed behavior, not the model's internal reasoning.
+- **Independent Colab loading and clean installation remain pending.** The local
+  patched RAGEN stack works but has recorded dependency conflicts. Original
+  checkpoint PEFT reload was verified separately; current adapters ran in vLLM.
+- **Additional environments, upstream contribution and final deliverables remain
+  pending.** Extra maze layouts are variants of the same environment.
 
 ## Repository contents
 
@@ -146,10 +188,19 @@ This verifies recovery and inference equivalence, not improved game performance.
 | `test_ragen_maze.py` | Adapter tests |
 | `strategic_blocking.yaml` | Initial RAGEN environment configuration |
 | `RAGEN.md` | Registration and initial integration instructions |
-| `scripts/run_ragen.sh` | Before-RL evaluation and one-iteration LoRA/GRPO launcher |
+| `scripts/run_ragen.sh` | Before-RL evaluation and bounded LoRA/GRPO training modes |
 | `scripts/patch_ragen.py` | Guarded compatibility patches for an external RAGEN checkout |
 | `scripts/check_ragen.py` | CPU/GPU LoRA and two-cycle FSDP offload preflight |
 | `docs/local-training.md` | Local setup, commands, and validation scope |
 | `docs/smoke-test-2026-11-07.json` | Curated metrics from the completed smoke test |
 
-Generated runs and model checkpoints are local artifacts and should not be committed. This README records the initial findings; curated evaluation summaries and learning curves will be added after further validation.
+Generated runs and model checkpoints remain ignored local artifacts. Only curated result summaries and the selected learning-curve figure are versioned.
+
+## Reproduce the current pilot
+
+```bash
+conda activate ragen
+bash scripts/run_ragen.sh train-balanced
+# Use the actual new training directory printed by the launcher.
+python scripts/evaluate_checkpoint.py --training-run results/train/train-balanced-REPLACE_WITH_RUN_ID
+```

@@ -1,8 +1,9 @@
-"""RAGEN environment interface for the two existing race fixtures."""
+"""RAGEN environment interface for fixed race and curriculum fixtures."""
 
 from dataclasses import dataclass
 
 from demo import COSTLY_MAP, SLIDE_MAP
+from curriculum import CURRICULUM_MAPS
 from maze import Maze, Race
 
 
@@ -16,7 +17,7 @@ class StrategicBlockingEnv:
     """Use RAGEN's language action path: the manager passes parsed strings."""
 
     def __init__(self, config):
-        layouts = {"slides": SLIDE_MAP, "costly": COSTLY_MAP}
+        layouts = {"slides": SLIDE_MAP, "costly": COSTLY_MAP, **CURRICULUM_MAPS}
         self.config = config
         self.maze = Maze(layouts[config.layout])
         self.race = None

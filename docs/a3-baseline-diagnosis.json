@@ -1,0 +1,179 @@
+{
+  "date": "2026-11-08",
+  "project_revision_before_change": "4ec0433",
+  "scope": "Two previously saved greedy base-model episodes and scripted fixture checks; not a new sampled model run.",
+  "greedy_episodes": [
+    {
+      "initial_observation_sha256": "81d23048b4993a9fdd38c1955c7adedab9253681f21c49c4a3763b99f4097380",
+      "result": "B",
+      "resolved": true,
+      "observed_return": -1.0,
+      "turn_count": 8,
+      "format_error_count": 0,
+      "known_action_validity_count": 8,
+      "invalid_parsed_action_count": 0,
+      "parsed_actions": [
+        "wait",
+        "wait",
+        "move right",
+        "move right",
+        "move down",
+        "move up",
+        "move down",
+        "move up"
+      ],
+      "executed_actions": [
+        "wait",
+        "wait",
+        "move right",
+        "move right",
+        "move down",
+        "move up",
+        "move down",
+        "move up"
+      ],
+      "block_count": 0,
+      "wait_count": 2,
+      "layout": "slides",
+      "source": "results/before_rl/actions-only-HFKjWPwm/episode.jsonl",
+      "source_sha256": "fcfce18d2202f9c579abb0eb5f369a20af9e90157c8a103adc4df1be6fec34f9"
+    },
+    {
+      "initial_observation_sha256": "d753c834f2048a55dd10ae3403015b90d235c63b32e257811d3ff498de259934",
+      "result": "B",
+      "resolved": true,
+      "observed_return": -1.0,
+      "turn_count": 8,
+      "format_error_count": 0,
+      "known_action_validity_count": 8,
+      "invalid_parsed_action_count": 0,
+      "parsed_actions": [
+        "wait",
+        "wait",
+        "move right",
+        "move right",
+        "move down",
+        "move up",
+        "move down",
+        "move up"
+      ],
+      "executed_actions": [
+        "wait",
+        "wait",
+        "move right",
+        "move right",
+        "move down",
+        "move up",
+        "move down",
+        "move up"
+      ],
+      "block_count": 0,
+      "wait_count": 2,
+      "layout": "costly",
+      "source": "results/before_rl/costly-obBhc2jW/episode.jsonl",
+      "source_sha256": "8ac85a61019e2297f1b785e8922a55da54d3a2a7a30bedaaccd4e1d32e89b215"
+    }
+  ],
+  "scripted_curriculum_checks": {
+    "warmup_right": {
+      "direct": {
+        "result": "A",
+        "reward": 1,
+        "a_actual": 1,
+        "b_actual": 1,
+        "a_full": 1,
+        "b_full": 3
+      },
+      "wait": {
+        "result": "B",
+        "reward": -1,
+        "a_actual": 2,
+        "b_actual": 3,
+        "a_full": 3,
+        "b_full": 3
+      }
+    },
+    "warmup_left": {
+      "direct": {
+        "result": "A",
+        "reward": 1,
+        "a_actual": 1,
+        "b_actual": 1,
+        "a_full": 1,
+        "b_full": 3
+      },
+      "wait": {
+        "result": "B",
+        "reward": -1,
+        "a_actual": 2,
+        "b_actual": 3,
+        "a_full": 3,
+        "b_full": 3
+      }
+    },
+    "warmup_two_right": {
+      "direct": {
+        "result": "A",
+        "reward": 1,
+        "a_actual": 2,
+        "b_actual": 2,
+        "a_full": 2,
+        "b_full": 4
+      },
+      "wait": {
+        "result": "B",
+        "reward": -1,
+        "a_actual": 3,
+        "b_actual": 4,
+        "a_full": 5,
+        "b_full": 4
+      }
+    },
+    "warmup_two_left": {
+      "direct": {
+        "result": "A",
+        "reward": 1,
+        "a_actual": 2,
+        "b_actual": 2,
+        "a_full": 2,
+        "b_full": 4
+      },
+      "wait": {
+        "result": "B",
+        "reward": -1,
+        "a_actual": 3,
+        "b_actual": 4,
+        "a_full": 5,
+        "b_full": 4
+      }
+    },
+    "blocking_short": {
+      "direct": {
+        "result": "B",
+        "reward": -1,
+        "a_actual": 3,
+        "b_actual": 4,
+        "a_full": 4,
+        "b_full": 4
+      },
+      "wait": {
+        "result": "B",
+        "reward": -1,
+        "a_actual": 3,
+        "b_actual": 4,
+        "a_full": 7,
+        "b_full": 4
+      },
+      "block_up_then_direct": {
+        "result": "A",
+        "reward": 1,
+        "a_actual": 5,
+        "b_actual": 5,
+        "a_full": 5,
+        "b_full": 12
+      }
+    }
+  },
+  "sampled_gpu_probe_completed": false,
+  "strategic_learning_demonstrated": false
+}

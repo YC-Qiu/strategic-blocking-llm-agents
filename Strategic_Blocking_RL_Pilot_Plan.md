@@ -1,13 +1,21 @@
 # Strategic Blocking RL Pilot Execution Plan
 
-## Progress update after A1 and A2 validation
+## Progress after balanced training and paired evaluation
 
-A1 is complete for the existing local environment: the packaged launcher finished a full GPU run, saved checkpoints, and recorded the RAGEN revision and local patches.
+| Task | Current evidence | Remaining scope |
+| --- | --- | --- |
+| A1 Local framework | Full GPU rollout/update/save runs completed | Clean-install reproducibility |
+| A2 Adapter handling | Original PEFT reload checked; current automatic export and vLLM evaluation work | Independent Colab handoff |
+| A3 Reward signal | Both direction groups have mixed rewards in all five balanced updates | Informative blocking curriculum |
+| A4 Training curves | Five-update runs, metrics and saved checkpoints available | Longer-run stability if needed |
+| A5 Improvement | Right 34% to 94%; left 2% to 64%, 50 samples each | Replication, generalization, action validity and blocking |
+| A6-A9 and teammate tasks | Integration and action-only case-study groundwork exists | Handoff, extra environment, contribution packaging and final deliverables |
 
-A2 tensor recovery, PEFT loading, and inference equivalence are verified for the original November 7 checkpoint. Automatic RAGEN export, exact upstream base-model revision, and independent Colab handoff remain pending. Strategic learning is not demonstrated.
-
-A3 through A7 and final reporting remain pending. A8 has partial environment-integration groundwork. No new Colab completion evidence is available. The task sections below describe planned work, not completed tasks. See [the validation record](docs/a1-a2-validation.md).
-
+These navigation results are on fixed training maps. Blocking success remains
+0/50 for the balanced adapter. No new Colab completion is claimed. See
+[the current evidence](docs/balanced-pilot-results.md). The A0 table below records
+the historical starting point; later task sections describe the intended scope,
+not automatic completion of every acceptance criterion.
 
 This plan divides the Strategic Blocking RL pilot into two coordinated workstreams. YC owns local Ubuntu training with RAGEN. Prakeerth owns Google Colab evaluation, baselines, visualizations, and case studies. Both use the same existing Qwen model and maze environment.
 
@@ -21,7 +29,7 @@ The plan targets all three required outcomes and all four bonus categories. Bonu
 
 ### A0 Establish the starting point and grading targets
 
-| Component | Current evidence | Remaining work |
+| Component | Starting evidence | Work identified at the starting point |
 | --- | --- | --- |
 | Environment | Maze rules, fixed BFS opponent, six scripted demonstrations, and 10 passing tests | Extend layouts and preserve rule consistency |
 | RAGEN integration | Adapter and packaged launcher, compatibility patches, and preflight checks | Verify the packaged entry point with a complete GPU run |
@@ -86,6 +94,8 @@ Use the actual environment name if it differs. Record the RAGEN revision togethe
 **Deliver:** adapter directory, base model/revision, tokenizer revision or files, training step, LoRA configuration, export procedure, and reload check. The current empty standalone adapter must not be used.
 
 ### A3 Make the reward signal informative
+
+**November 8 status:** In progress. Five curriculum fixtures, a 28-episode sampled probe, baseline trajectory diagnosis, and 11 additional tests are prepared. All 28 local tests pass; GPU probe execution and informative trainer advantages remain unverified. See [the A3 runbook](docs/reward-signal-probe.md).
 
 Keep the main experiment's reward definition: A win +1, B win -1, timeout 0, with no intermediate reward.
 

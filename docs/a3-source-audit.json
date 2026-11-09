@@ -1,0 +1,15 @@
+{
+  "source_audit": "a3-source-audit-giwi3xk7",
+  "scope": "Captured installed function bodies executed on synthetic CPU tensors; no live training batch was captured.",
+  "checks_passed": [
+    "last_assistant_turn_mask",
+    "prompt_and_padding_excluded",
+    "episode_deduplication_with_duplicate_turn",
+    "masked_advantages",
+    "advantage_extrema_match_logged_run",
+    "generic_length_metric_mismatch_reproduced"
+  ],
+  "mask_scope": "Includes assistant role/header and answer-prefix tokens, not exclusively newly generated tokens.",
+  "logged_advantage_min": -0.3535528779029846,
+  "logged_advantage_max": 2.474870204925537
+}

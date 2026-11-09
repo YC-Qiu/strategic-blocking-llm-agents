@@ -1,0 +1,248 @@
+{
+  "run_id": "a3-probe-9cdws2a6",
+  "model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "updates_weights": false,
+  "groups": [
+    {
+      "layout": "warmup_right",
+      "episode_count": 4,
+      "outcome_counts": {
+        "B": 3,
+        "A": 1
+      },
+      "returns": [
+        -1.0,
+        -1.0,
+        -1.0,
+        1.0
+      ],
+      "all_episodes_resolved": true,
+      "reward_variance": 0.75,
+      "informative_terminal_group": true,
+      "format_errors": 0,
+      "invalid_parsed_actions": 2,
+      "known_action_validity_count": 7,
+      "blocked_episodes": 1
+    },
+    {
+      "layout": "warmup_left",
+      "episode_count": 4,
+      "outcome_counts": {
+        "B": 4
+      },
+      "returns": [
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "all_episodes_resolved": true,
+      "reward_variance": 0.0,
+      "informative_terminal_group": false,
+      "format_errors": 0,
+      "invalid_parsed_actions": 0,
+      "known_action_validity_count": 8,
+      "blocked_episodes": 0
+    },
+    {
+      "layout": "warmup_two_right",
+      "episode_count": 4,
+      "outcome_counts": {
+        "B": 4
+      },
+      "returns": [
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "all_episodes_resolved": true,
+      "reward_variance": 0.0,
+      "informative_terminal_group": false,
+      "format_errors": 0,
+      "invalid_parsed_actions": 1,
+      "known_action_validity_count": 12,
+      "blocked_episodes": 3
+    },
+    {
+      "layout": "warmup_two_left",
+      "episode_count": 4,
+      "outcome_counts": {
+        "B": 4
+      },
+      "returns": [
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "all_episodes_resolved": true,
+      "reward_variance": 0.0,
+      "informative_terminal_group": false,
+      "format_errors": 0,
+      "invalid_parsed_actions": 3,
+      "known_action_validity_count": 12,
+      "blocked_episodes": 2
+    },
+    {
+      "layout": "blocking_short",
+      "episode_count": 4,
+      "outcome_counts": {
+        "B": 4
+      },
+      "returns": [
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "all_episodes_resolved": true,
+      "reward_variance": 0.0,
+      "informative_terminal_group": false,
+      "format_errors": 0,
+      "invalid_parsed_actions": 1,
+      "known_action_validity_count": 12,
+      "blocked_episodes": 2
+    },
+    {
+      "layout": "slides",
+      "episode_count": 4,
+      "outcome_counts": {
+        "B": 4
+      },
+      "returns": [
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "all_episodes_resolved": true,
+      "reward_variance": 0.0,
+      "informative_terminal_group": false,
+      "format_errors": 0,
+      "invalid_parsed_actions": 3,
+      "known_action_validity_count": 32,
+      "blocked_episodes": 1
+    },
+    {
+      "layout": "costly",
+      "episode_count": 4,
+      "outcome_counts": {
+        "B": 4
+      },
+      "returns": [
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "all_episodes_resolved": true,
+      "reward_variance": 0.0,
+      "informative_terminal_group": false,
+      "format_errors": 0,
+      "invalid_parsed_actions": 5,
+      "known_action_validity_count": 32,
+      "blocked_episodes": 1
+    }
+  ],
+  "episode_count": 28,
+  "wins": 1,
+  "known_action_validity_count": 115,
+  "invalid_parsed_actions": 15,
+  "answer_tag_diagnostic_errors": 0,
+  "warmup_episodes": [
+    {
+      "initial_observation_sha256": "da67ec2ec435676902a3ab5ce84d2aae92ab251cf1e1b51575a0ff6a31eabf19",
+      "result": "B",
+      "resolved": true,
+      "observed_return": -1.0,
+      "turn_count": 2,
+      "format_error_count": 0,
+      "known_action_validity_count": 2,
+      "invalid_parsed_action_count": 2,
+      "parsed_actions": [
+        "route down, across, or wait",
+        "route down, across, or wait"
+      ],
+      "executed_actions": [
+        "wait",
+        "wait"
+      ],
+      "block_count": 0,
+      "wait_count": 2,
+      "episode_index": 0,
+      "layout": "warmup_right"
+    },
+    {
+      "initial_observation_sha256": "da67ec2ec435676902a3ab5ce84d2aae92ab251cf1e1b51575a0ff6a31eabf19",
+      "result": "B",
+      "resolved": true,
+      "observed_return": -1.0,
+      "turn_count": 2,
+      "format_error_count": 0,
+      "known_action_validity_count": 2,
+      "invalid_parsed_action_count": 0,
+      "parsed_actions": [
+        "move down",
+        "move down"
+      ],
+      "executed_actions": [
+        "move down",
+        "move down"
+      ],
+      "block_count": 0,
+      "wait_count": 0,
+      "episode_index": 1,
+      "layout": "warmup_right"
+    },
+    {
+      "initial_observation_sha256": "da67ec2ec435676902a3ab5ce84d2aae92ab251cf1e1b51575a0ff6a31eabf19",
+      "result": "B",
+      "resolved": true,
+      "observed_return": -1.0,
+      "turn_count": 2,
+      "format_error_count": 0,
+      "known_action_validity_count": 2,
+      "invalid_parsed_action_count": 0,
+      "parsed_actions": [
+        "move down",
+        "block down"
+      ],
+      "executed_actions": [
+        "move down",
+        "block down"
+      ],
+      "block_count": 1,
+      "wait_count": 0,
+      "episode_index": 2,
+      "layout": "warmup_right"
+    },
+    {
+      "initial_observation_sha256": "da67ec2ec435676902a3ab5ce84d2aae92ab251cf1e1b51575a0ff6a31eabf19",
+      "result": "A",
+      "resolved": true,
+      "observed_return": 1.0,
+      "turn_count": 1,
+      "format_error_count": 0,
+      "known_action_validity_count": 1,
+      "invalid_parsed_action_count": 0,
+      "parsed_actions": [
+        "move right"
+      ],
+      "executed_actions": [
+        "move right"
+      ],
+      "block_count": 0,
+      "wait_count": 0,
+      "episode_index": 3,
+      "layout": "warmup_right"
+    }
+  ],
+  "source_sha256": {
+    "summary.json": "9229890ae94fabaa818835e61d545945adce59fc1d762947b7f3662f4175adff",
+    "episodes.jsonl": "e03d282844d5d9e9b54ce500062616cf272dd674be2cb444395acd803f2a2377",
+    "config.yaml": "cb64659f0268642c91f5ffd5583e1a0b19d6f894e17d31989f0be8b83a51c86d"
+  },
+  "training_grpo_group_alignment_verified": false,
+  "strategic_learning_demonstrated": false
+}

@@ -1,4 +1,4 @@
-"""Apply the three guarded compatibility patches used by the smoke test.
+"""Apply guarded compatibility patches for the local RAGEN workflow.
 
 Run this CLI against a separate RAGEN checkout. Each patch checks the source
 layout, saves a backup, and skips a change already marked as applied.
@@ -124,3 +124,13 @@ if marker not in source:
     print(f"Restored actor update device transfers; backup: {backup}")
 else:
     print("Actor update offload patch already applied.")
+
+# This environment has no reference answer text; preserve null ground truths.
+from patch_generation_dump import patch_generation_dump
+patch_generation_dump(root)
+
+from patch_early_stop_checkpoint import patch_early_stop_checkpoint
+patch_early_stop_checkpoint(root)
+
+from patch_lora_sync import patch_lora_sync
+patch_lora_sync(root)
