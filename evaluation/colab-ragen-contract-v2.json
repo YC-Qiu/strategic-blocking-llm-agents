@@ -1,0 +1,218 @@
+{
+  "source_sha256": {
+    "ctx_manager.py": "8740af5a9a500fc1746ae65e9ef87ae2cb936a6dfe77df2ee7ad2b93622f2dba",
+    "es_manager.py": "ff24ba5cd1be5f195f0c060e1ff43d6b2775093f29837c568232e6f6471e70f8",
+    "agent_proxy.py": "8a32c2a518885ea1cade3625c699254820483a57f233f671541a104651d2efbe"
+  },
+  "configs": {
+    "train-two-step-sFYit8xQ": {
+      "config_sha256": "75dfa2d4713d8d50cdc44b58707947e0cc6f58c67471f46a630c8a36f93b6141",
+      "agent_proxy": {
+        "context_window_mode": "limited_multi_turn",
+        "max_context_window": 2,
+        "batch_adjust_mode": "copy",
+        "max_turn": 32,
+        "action_sep": "||",
+        "max_actions_per_turn": 1,
+        "use_turn_scores": false,
+        "enable_think": false,
+        "reward_normalization": {
+          "grouping": "state",
+          "method": "identity"
+        }
+      },
+      "environments": {
+        "BlockingSlides": {
+          "env_type": "strategic_blocking",
+          "max_actions_per_traj": 32,
+          "max_tokens": 100,
+          "parallel_friendly": false,
+          "max_workers": 1,
+          "env_instruction": "You control A. Reach a before B reaches b. B moves first each round,\nalways by a shortest path. The map shows walls (#), open cells (.),\nrunners A and B, goals a and b, an obstacle (X), and shared occupancy (*).\nEach turn move one cell, wait, or place your single permanent obstacle\non an adjacent empty cell while keeping both goals reachable. Runners\nmay pass each other. Choose exactly one listed legal action and put it\ninside <answer>...</answer>. Win +1, loss -1, timeout 0.\n\nYou choose A's action only. B has already moved. Copy one exact string from Legal actions, including its direction if present. Return it inside <answer>...</answer>. Use words, never an option number. Do not add an explanation.",
+          "env_config": {
+            "layout": "slides",
+            "max_rounds": 32
+          }
+        },
+        "BlockingCostly": {
+          "env_type": "strategic_blocking",
+          "max_actions_per_traj": 32,
+          "max_tokens": 100,
+          "parallel_friendly": false,
+          "max_workers": 1,
+          "env_instruction": "You control A. Reach a before B reaches b. B moves first each round,\nalways by a shortest path. The map shows walls (#), open cells (.),\nrunners A and B, goals a and b, an obstacle (X), and shared occupancy (*).\nEach turn move one cell, wait, or place your single permanent obstacle\non an adjacent empty cell while keeping both goals reachable. Runners\nmay pass each other. Choose exactly one listed legal action and put it\ninside <answer>...</answer>. Win +1, loss -1, timeout 0.\n\nYou choose A's action only. B has already moved. Copy one exact string from Legal actions, including its direction if present. Return it inside <answer>...</answer>. Use words, never an option number. Do not add an explanation.",
+          "env_config": {
+            "layout": "costly",
+            "max_rounds": 32
+          }
+        },
+        "BlockingWarmupRight": {
+          "env_type": "strategic_blocking",
+          "max_actions_per_traj": 32,
+          "max_tokens": 100,
+          "parallel_friendly": false,
+          "max_workers": 1,
+          "env_instruction": "You control A. Reach a before B reaches b. B moves first each round,\nalways by a shortest path. The map shows walls (#), open cells (.),\nrunners A and B, goals a and b, an obstacle (X), and shared occupancy (*).\nEach turn move one cell, wait, or place your single permanent obstacle\non an adjacent empty cell while keeping both goals reachable. Runners\nmay pass each other. Choose exactly one listed legal action and put it\ninside <answer>...</answer>. Win +1, loss -1, timeout 0.\n\nYou choose A's action only. B has already moved. Copy one exact string from Legal actions, including its direction if present. Return it inside <answer>...</answer>. Use words, never an option number. Do not add an explanation.",
+          "env_config": {
+            "layout": "warmup_two_right",
+            "max_rounds": 32
+          }
+        },
+        "BlockingWarmupLeft": {
+          "env_type": "strategic_blocking",
+          "max_actions_per_traj": 32,
+          "max_tokens": 100,
+          "parallel_friendly": false,
+          "max_workers": 1,
+          "env_instruction": "You control A. Reach a before B reaches b. B moves first each round,\nalways by a shortest path. The map shows walls (#), open cells (.),\nrunners A and B, goals a and b, an obstacle (X), and shared occupancy (*).\nEach turn move one cell, wait, or place your single permanent obstacle\non an adjacent empty cell while keeping both goals reachable. Runners\nmay pass each other. Choose exactly one listed legal action and put it\ninside <answer>...</answer>. Win +1, loss -1, timeout 0.\n\nYou choose A's action only. B has already moved. Copy one exact string from Legal actions, including its direction if present. Return it inside <answer>...</answer>. Use words, never an option number. Do not add an explanation.",
+          "env_config": {
+            "layout": "warmup_two_left",
+            "max_rounds": 32
+          }
+        },
+        "BlockingRetentionRight": {
+          "env_type": "strategic_blocking",
+          "max_actions_per_traj": 32,
+          "max_tokens": 100,
+          "parallel_friendly": false,
+          "max_workers": 1,
+          "env_instruction": "You control A. Reach a before B reaches b. B moves first each round,\nalways by a shortest path. The map shows walls (#), open cells (.),\nrunners A and B, goals a and b, an obstacle (X), and shared occupancy (*).\nEach turn move one cell, wait, or place your single permanent obstacle\non an adjacent empty cell while keeping both goals reachable. Runners\nmay pass each other. Choose exactly one listed legal action and put it\ninside <answer>...</answer>. Win +1, loss -1, timeout 0.\n\nYou choose A's action only. B has already moved. Copy one exact string from Legal actions, including its direction if present. Return it inside <answer>...</answer>. Use words, never an option number. Do not add an explanation.",
+          "env_config": {
+            "layout": "warmup_right",
+            "max_rounds": 32
+          }
+        },
+        "BlockingRetentionLeft": {
+          "env_type": "strategic_blocking",
+          "max_actions_per_traj": 32,
+          "max_tokens": 100,
+          "parallel_friendly": false,
+          "max_workers": 1,
+          "env_instruction": "You control A. Reach a before B reaches b. B moves first each round,\nalways by a shortest path. The map shows walls (#), open cells (.),\nrunners A and B, goals a and b, an obstacle (X), and shared occupancy (*).\nEach turn move one cell, wait, or place your single permanent obstacle\non an adjacent empty cell while keeping both goals reachable. Runners\nmay pass each other. Choose exactly one listed legal action and put it\ninside <answer>...</answer>. Win +1, loss -1, timeout 0.\n\nYou choose A's action only. B has already moved. Copy one exact string from Legal actions, including its direction if present. Return it inside <answer>...</answer>. Use words, never an option number. Do not add an explanation.",
+          "env_config": {
+            "layout": "warmup_left",
+            "max_rounds": 32
+          }
+        }
+      },
+      "format_penalty": 0.0
+    },
+    "train-blocking-N6WUl30K": {
+      "config_sha256": "db7d0730f99b73035fc73b7e490de96e86452e8afb4d82eae250cfcaa1b08671",
+      "agent_proxy": {
+        "context_window_mode": "limited_multi_turn",
+        "max_context_window": 2,
+        "batch_adjust_mode": "copy",
+        "max_turn": 32,
+        "action_sep": "||",
+        "max_actions_per_turn": 1,
+        "use_turn_scores": false,
+        "enable_think": false,
+        "reward_normalization": {
+          "grouping": "state",
+          "method": "identity"
+        }
+      },
+      "environments": {
+        "BlockingSlides": {
+          "env_type": "strategic_blocking",
+          "max_actions_per_traj": 32,
+          "max_tokens": 100,
+          "parallel_friendly": false,
+          "max_workers": 1,
+          "env_instruction": "You control A. Reach a before B reaches b. B moves first each round,\nalways by a shortest path. The map shows walls (#), open cells (.),\nrunners A and B, goals a and b, an obstacle (X), and shared occupancy (*).\nEach turn move one cell, wait, or place your single permanent obstacle\non an adjacent empty cell while keeping both goals reachable. Runners\nmay pass each other. Choose exactly one listed legal action and put it\ninside <answer>...</answer>. Win +1, loss -1, timeout 0.\n\nYou choose A's action only. B has already moved. Copy one exact string from Legal actions, including its direction if present. Return it inside <answer>...</answer>. Use words, never an option number. Do not add an explanation.",
+          "env_config": {
+            "layout": "slides",
+            "max_rounds": 32
+          }
+        },
+        "BlockingCostly": {
+          "env_type": "strategic_blocking",
+          "max_actions_per_traj": 32,
+          "max_tokens": 100,
+          "parallel_friendly": false,
+          "max_workers": 1,
+          "env_instruction": "You control A. Reach a before B reaches b. B moves first each round,\nalways by a shortest path. The map shows walls (#), open cells (.),\nrunners A and B, goals a and b, an obstacle (X), and shared occupancy (*).\nEach turn move one cell, wait, or place your single permanent obstacle\non an adjacent empty cell while keeping both goals reachable. Runners\nmay pass each other. Choose exactly one listed legal action and put it\ninside <answer>...</answer>. Win +1, loss -1, timeout 0.\n\nYou choose A's action only. B has already moved. Copy one exact string from Legal actions, including its direction if present. Return it inside <answer>...</answer>. Use words, never an option number. Do not add an explanation.",
+          "env_config": {
+            "layout": "costly",
+            "max_rounds": 32
+          }
+        },
+        "BlockingWarmupRight": {
+          "env_type": "strategic_blocking",
+          "max_actions_per_traj": 32,
+          "max_tokens": 100,
+          "parallel_friendly": false,
+          "max_workers": 1,
+          "env_instruction": "You control A. Reach a before B reaches b. B moves first each round,\nalways by a shortest path. The map shows walls (#), open cells (.),\nrunners A and B, goals a and b, an obstacle (X), and shared occupancy (*).\nEach turn move one cell, wait, or place your single permanent obstacle\non an adjacent empty cell while keeping both goals reachable. Runners\nmay pass each other. Choose exactly one listed legal action and put it\ninside <answer>...</answer>. Win +1, loss -1, timeout 0.\n\nYou choose A's action only. B has already moved. Copy one exact string from Legal actions, including its direction if present. Return it inside <answer>...</answer>. Use words, never an option number. Do not add an explanation.",
+          "env_config": {
+            "layout": "warmup_two_right",
+            "max_rounds": 32
+          }
+        },
+        "BlockingWarmupLeft": {
+          "env_type": "strategic_blocking",
+          "max_actions_per_traj": 32,
+          "max_tokens": 100,
+          "parallel_friendly": false,
+          "max_workers": 1,
+          "env_instruction": "You control A. Reach a before B reaches b. B moves first each round,\nalways by a shortest path. The map shows walls (#), open cells (.),\nrunners A and B, goals a and b, an obstacle (X), and shared occupancy (*).\nEach turn move one cell, wait, or place your single permanent obstacle\non an adjacent empty cell while keeping both goals reachable. Runners\nmay pass each other. Choose exactly one listed legal action and put it\ninside <answer>...</answer>. Win +1, loss -1, timeout 0.\n\nYou choose A's action only. B has already moved. Copy one exact string from Legal actions, including its direction if present. Return it inside <answer>...</answer>. Use words, never an option number. Do not add an explanation.",
+          "env_config": {
+            "layout": "warmup_two_left",
+            "max_rounds": 32
+          }
+        },
+        "BlockingRetentionRight": {
+          "env_type": "strategic_blocking",
+          "max_actions_per_traj": 32,
+          "max_tokens": 100,
+          "parallel_friendly": false,
+          "max_workers": 1,
+          "env_instruction": "You control A. Reach a before B reaches b. B moves first each round,\nalways by a shortest path. The map shows walls (#), open cells (.),\nrunners A and B, goals a and b, an obstacle (X), and shared occupancy (*).\nEach turn move one cell, wait, or place your single permanent obstacle\non an adjacent empty cell while keeping both goals reachable. Runners\nmay pass each other. Choose exactly one listed legal action and put it\ninside <answer>...</answer>. Win +1, loss -1, timeout 0.\n\nYou choose A's action only. B has already moved. Copy one exact string from Legal actions, including its direction if present. Return it inside <answer>...</answer>. Use words, never an option number. Do not add an explanation.",
+          "env_config": {
+            "layout": "warmup_right",
+            "max_rounds": 32
+          }
+        },
+        "BlockingRetentionLeft": {
+          "env_type": "strategic_blocking",
+          "max_actions_per_traj": 32,
+          "max_tokens": 100,
+          "parallel_friendly": false,
+          "max_workers": 1,
+          "env_instruction": "You control A. Reach a before B reaches b. B moves first each round,\nalways by a shortest path. The map shows walls (#), open cells (.),\nrunners A and B, goals a and b, an obstacle (X), and shared occupancy (*).\nEach turn move one cell, wait, or place your single permanent obstacle\non an adjacent empty cell while keeping both goals reachable. Runners\nmay pass each other. Choose exactly one listed legal action and put it\ninside <answer>...</answer>. Win +1, loss -1, timeout 0.\n\nYou choose A's action only. B has already moved. Copy one exact string from Legal actions, including its direction if present. Return it inside <answer>...</answer>. Use words, never an option number. Do not add an explanation.",
+          "env_config": {
+            "layout": "warmup_left",
+            "max_rounds": 32
+          }
+        },
+        "BlockingShort": {
+          "env_type": "strategic_blocking",
+          "max_actions_per_traj": 32,
+          "max_tokens": 100,
+          "parallel_friendly": false,
+          "max_workers": 1,
+          "env_instruction": "You control A. Reach a before B reaches b. B moves first each round,\nalways by a shortest path. The map shows walls (#), open cells (.),\nrunners A and B, goals a and b, an obstacle (X), and shared occupancy (*).\nEach turn move one cell, wait, or place your single permanent obstacle\non an adjacent empty cell while keeping both goals reachable. Runners\nmay pass each other. Choose exactly one listed legal action and put it\ninside <answer>...</answer>. Win +1, loss -1, timeout 0.\n\nYou choose A's action only. B has already moved. Copy one exact string from Legal actions, including its direction if present. Return it inside <answer>...</answer>. Use words, never an option number. Do not add an explanation.",
+          "env_config": {
+            "layout": "blocking_short",
+            "max_rounds": 32
+          }
+        }
+      },
+      "format_penalty": 0.0
+    }
+  },
+  "context_methods": {
+    "_parse_response": "def _parse_response(self, response: str) -> List:\n        pattern = r'<think>(.*?)</think>\\s*<answer>(.*?)</answer>' if self.config.agent_proxy.enable_think else r'<answer>(.*?)</answer>'\n        match = re.search(pattern, response, re.DOTALL)\n        if not match:\n            # think_content, action_content, actions = \"\", \"\", [] # do not remove this kind of invalid string\n            llm_response, actions = response, []\n        else:\n            if self.config.agent_proxy.enable_think:\n                think_content, action_content = match.group(1), match.group(2)\n            else:\n                think_content, action_content = \"\", match.group(1)\n\n                \n            for special_token in self.special_token_list:\n                action_content = action_content.replace(special_token, \"\").strip()\n                think_content = think_content.replace(special_token, \"\").strip()\n            \n            actions = [action.strip() for action in action_content.split(self.action_sep) if action.strip()]\n            max_actions = self.config.agent_proxy.max_actions_per_turn\n\n            if len(actions) > max_actions:\n                actions = actions[:max_actions] #Only the first MAX_ACTIONS actions are kept in the rollout.\n                action_content = (\" \" + self.action_sep + \" \").join(actions)\n\n            llm_response = f\"<think>{think_content}</think><answer>{action_content}</answer>\" if self.config.agent_proxy.enable_think else f\"<answer>{action_content}</answer>\"\n        return llm_response, actions",
+    "_build_format_prompt": "def _build_format_prompt(self, env_id: int) -> Tuple[str, str]:\n        \"\"\"Build FORMAT_PROMPT and LENGTH_PROMPT for an environment.\"\"\"\n        FORMAT_PROMPT = (\n            \"<think> [Your thoughts] </think> <answer> [your answer] </answer>\"\n            if self.config.agent_proxy.enable_think\n            else \"<answer> [your answer] </answer>\"\n        )\n        LENGTH_PROMPT = f\"Max response length: {self.env_config_lookup[env_id]['max_tokens']} words (tokens).\"\n        return FORMAT_PROMPT, LENGTH_PROMPT",
+    "_build_system_content": "def _build_system_content(self, env_id: int) -> str:\n        env_instruction = self.prefix_lookup.get(env_id, \"\")\n        if env_instruction:\n            return \"You're a helpful assistant. \" + env_instruction\n        return \"You're a helpful assistant. \"",
+    "_build_turn_state_content": "def _build_turn_state_content(\n        self,\n        turn: Dict,\n        turn_number: int,\n        env_id: int,\n        include_warning: bool = False,\n    ) -> str:\n        \"\"\"Build state content for a single turn.\"\"\"\n        FORMAT_PROMPT, LENGTH_PROMPT = self._build_format_prompt(env_id)\n        warning = \"\"\n        if include_warning and turn.get('manager_invalid_action'):\n            warning = \"No valid action provided previously. Environment state remains the same. Please try again.\\n\"\n\n        content = f\"\\nTurn {turn_number}:\\n\"\n        content += (\n            f\"State:\\n{turn['state']}\\n{warning}\"\n            f\"You have {turn['actions_left']} actions left. Always output: {FORMAT_PROMPT} \"\n            f\"with no extra text. Strictly follow this format. {LENGTH_PROMPT}\\n\"\n        )\n        return content",
+    "_build_infer_multi_turn_messages": "def _build_infer_multi_turn_messages(\n        self,\n        env_output: Dict,\n        history: List[Dict],\n        turn_offset: int,\n    ) -> List[Dict]:\n        \"\"\"Build messages for multi-turn inference (full or limited_multi_turn).\"\"\"\n        messages = [\n            {\"role\": \"system\", \"content\": self._build_system_content(env_output[\"env_id\"])},\n            {\"role\": \"user\", \"content\": \"\"}\n        ]\n\n        for idx, content in enumerate(history):\n            actual_turn = idx + 1 + turn_offset\n            if \"state\" in content:\n                messages[-1][\"content\"] += self._build_turn_state_content(\n                    content, actual_turn, env_output[\"env_id\"], include_warning=True\n                )\n            if \"llm_response\" in content:\n                messages.append({\"role\": \"assistant\", \"content\": content[\"llm_response\"]})\n            if \"reward\" in content:\n                messages.append({\"role\": \"user\", \"content\": f\"Reward:\\n{content['reward']}\\n\"})\n\n        return messages"
+  },
+  "source_notes": {
+    "prefill": "ctx_manager.py:1257-1263 appends <answer> after apply_chat_template.",
+    "restore": "ctx_manager.py:1400-1406 decodes then restores the opening prefix.",
+    "retry": "es_manager.py:224-247 leaves state unchanged on empty parsed actions.",
+    "budget": "agent_proxy.py:242 loops over max_turn, including rejected responses."
+  }
+}

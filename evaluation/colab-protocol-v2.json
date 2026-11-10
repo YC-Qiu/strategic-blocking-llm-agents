@@ -1,0 +1,41 @@
+{
+  "protocol_id": "hf-colab-v2",
+  "backend": "Transformers + PEFT, FP16, SDPA, batch size 1; not exact RAGEN/vLLM replay",
+  "instruction": "You control A. Reach a before B reaches b. B moves first each round,\nalways by a shortest path. The map shows walls (#), open cells (.),\nrunners A and B, goals a and b, an obstacle (X), and shared occupancy (*).\nEach turn move one cell, wait, or place your single permanent obstacle\non an adjacent empty cell while keeping both goals reachable. Runners\nmay pass each other. Choose exactly one listed legal action and put it\ninside <answer>...</answer>. Win +1, loss -1, timeout 0.\n\nYou choose A's action only. B has already moved. Copy one exact string from Legal actions, including its direction if present. Return it inside <answer>...</answer>. Use words, never an option number. Do not add an explanation.",
+  "history_turns_including_current": 2,
+  "max_manager_turns": 32,
+  "max_actions_per_traj": 32,
+  "max_rounds": 32,
+  "prompt_response_words": 100,
+  "max_new_tokens": 128,
+  "max_context_tokens": 2048,
+  "assistant_prefix": "<answer>",
+  "action_sep": "||",
+  "sampling": {
+    "temperature": 1.0,
+    "top_p": 1.0,
+    "top_k": 0
+  },
+  "parsing": "Restore only the prefilled opening tag, then use the captured RAGEN parser. No bare-action fallback.",
+  "invalid_output": "No parsed action: reward 0, unchanged environment, one manager turn consumed. Parsed illegal action: environment executes wait.",
+  "seed_domain": "hf-colab-v1",
+  "seed_note": "Preserve v1 request seeds at the same map/episode/manager-turn index; changed histories do not imply paired trajectories.",
+  "context_overflow": "Abort rather than silently truncate; parity is claimed only for inputs within the context budget.",
+  "smoke": {
+    "layouts": [
+      "warmup_right",
+      "warmup_left",
+      "blocking_short"
+    ],
+    "episodes_per_map": 5,
+    "minimum_turns_per_policy": 15,
+    "maximum_format_error_rate": 0.05,
+    "criteria": "All policies separately meet the format threshold. No win-rate or legal-action-rate criterion."
+  },
+  "full_run_guard": {
+    "minimum_turns_per_policy": 30,
+    "maximum_format_error_rate": 0.05
+  },
+  "disclosure": "Protocol repair after inspecting failed v1 outputs on these maps. Not a newly blind held-out evaluation. Keep checkpoints, maps and episode count fixed.",
+  "contract_sha256": "acd812ca5c0e66e792d0d65b7f9a0f2cc36ddb89632349c7de3b7dc2f8cb89f4"
+}

@@ -1,0 +1,40 @@
+{
+  "run": "colab-transfer-mkvz25_e",
+  "episodes": 1200,
+  "outcomes": {
+    "B": 1200
+  },
+  "files_sha256": {
+    "comparison.md": "79ea3f2bc6965b8872d520cf08fae22abe5b81292f02f7a470601bd0c69638e4",
+    "COMPLETE": "f080b36a5be29804e69f9023c0e248232741a19584b1e28914411e1f7d970e7e",
+    "dependencies.txt": "35d764c8468f61ad9dd43f0531ed79211bc6686243e0479af94267d53b6dc818",
+    "episodes.jsonl": "ceb4680796c60e84bdd7620e3ac5b2e56fb854a243f8ce2d50cc6a17b4ec7083",
+    "manifest.json": "a6d3ff619bf3a91de97bda3d35cbb357a112989629b7d17504e3d5637a9ffac5",
+    "summary.json": "0bf2c8d87ff040ff045e84bd58e4b59108c3b260f8c577bdee74221b72f6b78f"
+  },
+  "policies": {
+    "base": {
+      "turns": 1400,
+      "format_errors": 1397,
+      "executed_actions": {
+        "wait": 1399,
+        "block down": 1
+      }
+    },
+    "before": {
+      "turns": 1400,
+      "format_errors": 1400,
+      "executed_actions": {
+        "wait": 1400
+      }
+    },
+    "after": {
+      "turns": 1400,
+      "format_errors": 1400,
+      "executed_actions": {
+        "wait": 1400
+      }
+    }
+  },
+  "status": "Invalid policy comparison: near-universal format rejection. Exact contribution of each interface mismatch requires v2 GPU validation."
+}
