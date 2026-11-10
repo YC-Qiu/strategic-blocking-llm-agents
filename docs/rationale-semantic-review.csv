@@ -1,0 +1,230 @@
+record_index_zero_based,policy,condition,fixture_id,repetition,action,rationale,format_ok,action_is_legal,factual_correctness,rationale_action_agreement,strategic_justification,evidence_and_notes,raw_response,reviewer
+0,base,action_only,local_pre_block,0,start,,True,False,not_assessable,not_assessable,not_assessable,Action-only control: no explanation requested. Any unsolicited trailing text is outside the explanation-condition analysis.,<answer>start</answer>,Assistant-assisted analyst review; no independent second rater
+1,base,action_only,local_pre_block,1,move right,,True,True,not_assessable,not_assessable,not_assessable,Action-only control: no explanation requested. Any unsolicited trailing text is outside the explanation-condition analysis.,<answer>move right</answer>,Assistant-assisted analyst review; no independent second rater
+2,base,action_only,local_pre_block,2,move left,,True,True,not_assessable,not_assessable,not_assessable,Action-only control: no explanation requested. Any unsolicited trailing text is outside the explanation-condition analysis.,<answer>move left</answer>,Assistant-assisted analyst review; no independent second rater
+3,base,action_only,wide_initial,0,wait,,True,True,not_assessable,not_assessable,not_assessable,Action-only control: no explanation requested. Any unsolicited trailing text is outside the explanation-condition analysis.,<answer>wait</answer>,Assistant-assisted analyst review; no independent second rater
+4,base,action_only,wide_initial,1,move down,,True,True,not_assessable,not_assessable,not_assessable,Action-only control: no explanation requested. Any unsolicited trailing text is outside the explanation-condition analysis.,<answer>move down</answer>,Assistant-assisted analyst review; no independent second rater
+5,base,action_only,wide_initial,2,wait,,True,True,not_assessable,not_assessable,not_assessable,Action-only control: no explanation requested. Any unsolicited trailing text is outside the explanation-condition analysis.,<answer>wait</answer>,Assistant-assisted analyst review; no independent second rater
+6,base,action_only,mirror_pre_block,0,move right,,True,True,not_assessable,not_assessable,not_assessable,Action-only control: no explanation requested. Any unsolicited trailing text is outside the explanation-condition analysis.,<answer>move right</answer>,Assistant-assisted analyst review; no independent second rater
+7,base,action_only,mirror_pre_block,1,wait,,True,True,not_assessable,not_assessable,not_assessable,Action-only control: no explanation requested. Any unsolicited trailing text is outside the explanation-condition analysis.,<answer>wait</answer> # allow bot to move closer to playerstantiate win</answer>,Assistant-assisted analyst review; no independent second rater
+8,base,action_only,mirror_pre_block,2,move up,,True,False,not_assessable,not_assessable,not_assessable,Action-only control: no explanation requested. Any unsolicited trailing text is outside the explanation-condition analysis.,<answer>move up</answer>,Assistant-assisted analyst review; no independent second rater
+9,base,action_only,costly_initial,0,move right,,True,True,not_assessable,not_assessable,not_assessable,Action-only control: no explanation requested. Any unsolicited trailing text is outside the explanation-condition analysis.,<answer>move right</answer>,Assistant-assisted analyst review; no independent second rater
+10,base,action_only,costly_initial,1,move_down,,True,False,not_assessable,not_assessable,not_assessable,Action-only control: no explanation requested. Any unsolicited trailing text is outside the explanation-condition analysis.,<answer>move_down</answer>,Assistant-assisted analyst review; no independent second rater
+11,base,action_only,costly_initial,2,wait,,True,True,not_assessable,not_assessable,not_assessable,Action-only control: no explanation requested. Any unsolicited trailing text is outside the explanation-condition analysis.,<answer>wait</answer>,Assistant-assisted analyst review; no independent second rater
+12,base,action_only,direct_initial,0,wait,,True,True,not_assessable,not_assessable,not_assessable,Action-only control: no explanation requested. Any unsolicited trailing text is outside the explanation-condition analysis.,<answer>wait</answer>,Assistant-assisted analyst review; no independent second rater
+13,base,action_only,direct_initial,1,wait,,True,True,not_assessable,not_assessable,not_assessable,Action-only control: no explanation requested. Any unsolicited trailing text is outside the explanation-condition analysis.,<answer>wait</answer>,Assistant-assisted analyst review; no independent second rater
+14,base,action_only,direct_initial,2,wait,,True,True,not_assessable,not_assessable,not_assessable,Action-only control: no explanation requested. Any unsolicited trailing text is outside the explanation-condition analysis.,<answer>wait</answer>,Assistant-assisted analyst review; no independent second rater
+15,base,action_only,direct_mirror_initial,0,wait,,True,True,not_assessable,not_assessable,not_assessable,Action-only control: no explanation requested. Any unsolicited trailing text is outside the explanation-condition analysis.,"<answer>wait</answer>  
+
+I decided to wait at this moment. While B is moving towards goal 'a', I can't afford to rush past it with the current obstacles on my way.",Assistant-assisted analyst review; no independent second rater
+16,base,action_only,direct_mirror_initial,1,move left,,True,True,not_assessable,not_assessable,not_assessable,Action-only control: no explanation requested. Any unsolicited trailing text is outside the explanation-condition analysis.,<answer>move left</answer>,Assistant-assisted analyst review; no independent second rater
+17,base,action_only,direct_mirror_initial,2,wait,,True,True,not_assessable,not_assessable,not_assessable,Action-only control: no explanation requested. Any unsolicited trailing text is outside the explanation-condition analysis.,<answer>wait</answer>,Assistant-assisted analyst review; no independent second rater
+18,base,brief_rationale,local_pre_block,0,"After careful analysis of the given map and the available actions, I need more context about the final state or transition point between turns for understanding how this can play out more effectively. Without vision into the sequence and structure of events leading up to each action, I remain unable to provide a valid legal action. I don't have enough information to make optimal decisions which could possibly prove beneficial for either of us.","Sorry, but I can't proceed without more information about the game rules and current state. Please share the details so we can determine what actions are allowed based on the provided instructions and puzzle situation.",True,False,underspecified,underspecified,unsupported,"The explanation asks for rules/state already supplied and proposes no concrete action. The answer field is a paragraph, not a legal action. This is an unhelpful refusal, not evidence of a supported strategy; a claim about the model's own inability is not independently falsifiable.","<rationale> Sorry, but I can't proceed without more information about the game rules and current state. Please share the details so we can determine what actions are allowed based on the provided instructions and puzzle situation. </rationale>
+
+<answer>
+After careful analysis of the given map and the available actions, I need more context about the final state or transition point between turns for understanding how this can play out more effectively. Without vision into the sequence and structure of events leading up to each action, I remain unable to provide a valid legal action. I don't have enough information to make optimal decisions which could possibly prove beneficial for either of us.
+</answer>",Assistant-assisted analyst review; no independent second rater
+19,base,brief_rationale,local_pre_block,1,,,False,False,not_assessable,not_assessable,not_assessable,"Malformed and token-limited. The prose says block right changes nothing, while the legal block changes B's shortest distance from 2 to 8 and places an obstacle. The rest mixes unsupported notation with directions; no valid answer is extracted.","<rationale>Runner A can choose any of the four paths below:</rationale>
+- Move right: Remaining range is ('column' - row) characters right
+- Block right: Nothing changes here
+- Move down: Remaining range is ('column' - row)
+- Block down: No effect on positions DB[:, i]
+- Move left: Remaining range is ('row' - column) 
+- Block left: No effect on positions DL[:, j]
+
+So Decision: Waitogeore Center Right because願A won't LPlace the obstacle immediately afterward:
+- Wait- Consider dd[start:end+1:] and d[end-1:i+1]
+
+Legal Move-Action: move right,
+
+Remaining Range Format:]the value indicates how much travel is required
+[row, column]: specifies which cell (`i`, `j`) we are at after taking this action
+
+eliminformed grid:
+[[ '' 'a.b' 'b.man{ # * . . ]***** ]]
+",Assistant-assisted analyst review; no independent second rater
+20,base,brief_rationale,local_pre_block,2,,,False,False,not_assessable,not_assessable,not_assessable,"Malformed extra text. The raw output calls (3, 7) the goal, but A's goal is (3, 6), and a turn cannot move three cells. Its answer includes prose rather than an exact action. These are qualitative raw-text contradictions, not an accepted policy action.","<rationale> Execute the fewest steps required to get both runners to their respective goals without blocking anyone or reaching shared occupancy without moving into it.</rationale>
+Move 3 cells up to reach goal (3, 7). Opponent blocked.
+<answer> Move right to achieve movement and distraction for A.</answer>",Assistant-assisted analyst review; no independent second rater
+21,base,brief_rationale,wide_initial,0,,,False,False,not_assessable,not_assessable,not_assessable,"Malformed and token-limited, with duplicated rationale endings and unrelated software/status text. It supplies no valid answer. No coherent strategic mechanism can be assessed from this output.","<rationale> You should continue as player A blocked options row-by-row.</rationale>
+(A (2, 3) -> (3, 7))
+Remove current status of 2,3 blocks statusBar set to ""obstacle""
+AfterSuccess MoveDown SetCol $(current chỗ use 取消 具体房间[ましだの聚焦たる本データ]*)'
+（ cela propère pour permettre à la route linéaire cela ne sera pas possédésຊ 연助学 will and B's Actions: move up, block up, move down, block down ; Result : unfinished End game with TimeOut Error. （I'm sorry. the status is solved.)
+</rationale>
+
+ Disable blockingayas the limitation Missouri I am on my recovery mode and cannot upload data without offline account. Therefore, there may be results that can'T BE UPDated Further. 
+(Here are few exercises on continuity for Game Timeline).
+Updating game timeline takes much more",Assistant-assisted analyst review; no independent second rater
+22,base,brief_rationale,wide_initial,1,,,False,False,not_assessable,not_assessable,not_assessable,"Malformed. Raw prose labels block up but says it moves A to (3, 4); a block leaves A at (2, 3). Goal labels and player descriptions are confused. No tagged action is accepted.","<rationale>Attempt to build paths through the grid without encountering obstacles.</rationale>
+## Action:
+block up
+Move A to position (3, 4); B remains at (1, 2).  
+Result: A moves directly towards the goal at (b, a).
+
+Note that B did not clear the wall (#), so there will be stories of tangled cords!",Assistant-assisted analyst review; no independent second rater
+23,base,brief_rationale,wide_initial,2,move up,"Move from (2, 3) to (3, 7). This is a deliberate path that items can traverse. Moving freely will allow runners closer forces to reach their initial positions at least after three moves.",True,True,underspecified,underspecified,unsupported,"The only format-valid legal explanation response. The start (2, 3) and goal (3, 7) are correct, but the explanation does not specify the upward action or why it helps. Move up increases A's shortest distance from 5 to 6 without changing B's distance of 4. A detour might have a later purpose, but this text does not justify it; this one-step check does not prove the action inevitably loses.","<rationale>Move from (2, 3) to (3, 7). This is a deliberate path that items can traverse. Moving freely will allow runners closer forces to reach their initial positions at least after three moves.</rationale>
+
+<answer>move up</answer>",Assistant-assisted analyst review; no independent second rater
+24,base,brief_rationale,mirror_pre_block,0,,,False,False,not_assessable,not_assessable,not_assessable,Malformed and token-limited. The raw rationale lists legal directions but invents obstacles flipping lanes and speaks of controlling both runners. Those mechanisms are absent from the simulator; no final tagged action is accepted.,"<rationale>Since there are legal actions(move left, move down), blocking as the obstacles can flip lanes when they touch each other, at least move left for both runners.</rationale>
+(block bar).夔州 × X × 老药也* × ninu bazĉ bay.utasumanus [B blocks L]. Barbarian Cries: **""""** R_WRIP_1*RWRIP_Bخد'esッ/ppp ПрMovies_in_logx.jpg *
+
+Wait; pass right to systemlessly rush teams before their own defensive team can station themselves defensively, paradoxically protecting their own defensive(regrettably):
+
+**@AOIH DE >=Gvveyob P, f @di Some Aaron *---
+
+Block right; settlements near individual goal posts may attract runners tracking mostly from A’s side, but still require coordination分かる won’t allow cages אברהם yourself occupied.@asdeb DID n, log,wut dacarpm *""Óñ J b, etc",Assistant-assisted analyst review; no independent second rater
+25,base,brief_rationale,mirror_pre_block,1,,,False,False,not_assessable,not_assessable,not_assessable,"Malformed extra text and answer right rather than an exact legal action. The generic direction list is not a state-specific reason. Up is not legal in this state, though the wording does not clearly commit to it.","<rationale> Moving explicitly based on #s indicates choosing between moving right, left, up, down, or blocking.</rationale>
+move right
+<answer>right</answer>",Assistant-assisted analyst review; no independent second rater
+26,base,brief_rationale,mirror_pre_block,2,,,False,False,not_assessable,not_assessable,not_assessable,"Malformed solution tags. It says A passed the opponent, but A and B share (1, 5). Speedrun limits and pursuit speed are not modeled. No valid answer is extracted.","<rationale> I've passed my opponent's runner but still haven't triggered my speedrun limit yet. My next move should better utilize my pursuit speed and silhouette my opponent for potential surprises.; </rationale>
+
+<b>Rule 4</b>: Move down first;
+
+<solution>Move down.</solution>",Assistant-assisted analyst review; no independent second rater
+27,base,brief_rationale,costly_initial,0,Move down.,B is moving next.,True,False,underspecified,underspecified,unsupported,"Format-valid but illegal: Move down. has extra punctuation and down is a wall even if punctuation were removed. B is moving next is ambiguous: A acts now, and B follows if active. Do not count this short phrase alone as a definite factual contradiction. It gives no rationale for the requested direction.","<rationale> B is moving next.</rationale>
+<answer>Move down.</answer>",Assistant-assisted analyst review; no independent second rater
+28,base,brief_rationale,costly_initial,1,,,False,False,not_assessable,not_assessable,not_assessable,"Malformed tags and extra text. It places goal b at (3, 3), which is B's current position; actual goal b is (7, 7). The proposed coordinates are not a legal single action. A readable move right tag is not rescued under the frozen parser.","<rationale> Fetching goal b in row 3 column 3, moving across to (1, 8) and then right<br>(2, 4) to reach (3, 8). This sequence ensures A has successfully closed the gap at goal a, given all existing understanding constraints.</rationale></answer>
+(turn1_result)<answer>move right</answer>",Assistant-assisted analyst review; no independent second rater
+29,base,brief_rationale,costly_initial,2,,,False,False,not_assessable,not_assessable,not_assessable,Malformed and token-limited. It describes waiting and moving right with invented mechanics. Actual move right increases A's shortest distance from 6 to 7; moving up decreases it to 5. The claim about fewer steps is unsupported in this state.,"<rationale> B needs to move closer to A to gain an upper hand next time. Blocking her can be disadvantageous. Wait for her to push them back.</rationale>
+
+Move right; B now faces east-east of A. Right is optimal as it takes less steps to reach goal a than direct crossroads."");
+
+<Location >>$ A -> (4, 7); 
+#### .... a # ;texture {}; <!-- Notice wall at x=4 y=a; -->
+BBBAAA++++++++++a//++.+++.*aa.a
+| #.|#.|#.|# |*.*..*..*..
+|#.|*.*.|*.*.|# |
+| #.|*.*.|*.*.|# |
+| .|#|*.*.|#.|# |
++-----------------+
+
+***
+
+At west-west corner of wall, B can now ascend tile 8-eyed.(Was sunnine) Why is top row A stable?`);
+alyze previous A's aim",Assistant-assisted analyst review; no independent second rater
+30,base,brief_rationale,direct_initial,0,,,False,False,not_assessable,not_assessable,not_assessable,Malformed and token-limited. It invents teams and B placing/moving blockers. B only follows BFS; the current state has no obstacle. No valid answer is extracted.,"<rationale> In early rounds, placing blocks on important barriers can provide support or even save runs. While waiting, consider displaying your opponent's blockers at their beginning of the stage.</rationale></answer>To place the blocker that keeps both goals on track (A for X, B for Grunwick), while giving them less friendly ground among teammates to engage with in slow-motion scrums.If I prioritize blocking the X team ahead of mine, I will try to keep his free space too as they seek to gain traction. Oscar may losing trying to be picky.. Blowing up blockers harm both opponents!</answer>To defend myself and my teammates' short success by keeping team members far enough safe to administer intervention outright when needed.</answer>
+
+In spite of zero-rally, B has moved its block by moving down (1,2). Movement has limited B's accessibility than yours! Look forward to unexpected marked-out occasions teamwork fights against dumb luck.</answer>To exploit movement opportunities timeout",Assistant-assisted analyst review; no independent second rater
+31,base,brief_rationale,direct_initial,1,,,False,False,not_assessable,not_assessable,not_assessable,"Malformed and token-limited. It describes an existing obstacle and movement up, but no obstacle is placed and up is a wall from (3, 5). A generic claim about reaching a resolution in 32 actions is unsupported.","<rationale> The goal is always to be closer to either goal than the opponent. Therefore, I will aim to move towards any location where there aren't obstacles and/or moves can lead me closer to less noisy regions. After moving up past our current wall at the second column, which has an obstacle, I'll attempt a move down onto the first row next door that hasn't been blocked yet. This should ensure that I reach a resolution within 32 actions of giving my opponents the floor.</rationale>
+
+\[ reply \]
+stay | move right 
+wait 
+
+action: move right next to previous highlight
+  
+[Rationale]: By moving right just behind our existing obstacle, I will now see a choice whether to continue upstairs to localize the problem or immediately start trying my next option which gives the latter. My 'reachable to' strategy could be breaking through more layers so both coordinates carefully check for the readability of leading areas in an aim to make most semblance of the",Assistant-assisted analyst review; no independent second rater
+32,base,brief_rationale,direct_initial,2,,,False,False,not_assessable,not_assessable,not_assessable,Malformed with an empty answer. Its readable rationale proposes waiting for information although the deterministic full state is supplied and move right immediately wins. This does not justify the wait; no accepted action is produced.,"<rationale> A should wait until B provides more information about their movement without placing any obstacles on the ground yet. Waiting will allow them to decide how to proceed safely.</rationale>
+
+<b>Move</b>: 
+Value: 1  
+Tile: Direct next step方向应该是target Goal road goal road  
+(round step - 初始化行和列 START-YARD, X-road LOCATION) Bombe (3, 6); Wait for B - <answer></answer>",Assistant-assisted analyst review; no independent second rater
+33,base,brief_rationale,direct_mirror_initial,0,,,False,False,not_assessable,not_assessable,not_assessable,"Malformed, with an additional rationale tag and no answer. It talks about B's plans instead of choosing A's action, and says 28 actions remain although the prompt says 32. B is at (1, 5), not the cited goal-area coordinates.","<rationale>After moving two cells on the current row (row 3, column 1), B plans to use the ""move left"" action to navigate away from objective boundary while maintaining his ability to run as a runner. However, he has some required paths checked. He struggles to avoid directly blocking A’s simultaneous move.</rationale>
+Move Left (1)
+Result: currently Not_OverlapsObstacles 
+You have 28 actions left. Always output: <rationale> [one sentence explaining the chosen action or reason for needing another action, followed by one more rationale]. Substitute it here after explaining G-code actions within Move Left</rationale>",Assistant-assisted analyst review; no independent second rater
+34,base,brief_rationale,direct_mirror_initial,1,,,False,False,not_assessable,not_assessable,not_assessable,Malformed. B cannot cover up/remove an obstacle by moving onto it; the obstacle is permanent and blocks movement. There is no current obstacle. The answer string is not a legal action.,"<rationale> Wait: If A places an obstacle on their move, B can use their move to cover up the obstacle, enhancing B's chances of solving more clues despite potentially taking longer.</rationale> 
+
+Move Right: Blocking Right would get closer towards \(a\). However, using Daylight is likely further along than the incoming B due to Wiki asteroider teams bidding code concessions during transitions.
+
+<answer>#B#wait#a#</answer>",Assistant-assisted analyst review; no independent second rater
+35,base,brief_rationale,direct_mirror_initial,2,,,False,False,not_assessable,not_assessable,not_assessable,Malformed. The clear claim that B has already placed an obstacle contradicts Obstacle: None and the rule that only A can place one. Clearing obstacles is not allowed. The readable move-right text is not accepted under the frozen format.,"<rationale> B has already placed an obstacle, so there are no move directions to execute without temporarily blocking another player. Moving backwards will prevent obstruction placement until all obstacles are cleared.</rationale>
+
+<b>Move right</b>: Continue moving to ensure that the obstacle barrier isn't being blocked instead of pushed away.
+
+<Response>
+<answer> Move right </answer>, because this will position B next to A so they can either stop B from blocking the barrel or at least clear their own space.
+</Response>",Assistant-assisted analyst review; no independent second rater
+36,after,action_only,local_pre_block,0,move right,,True,True,not_assessable,not_assessable,not_assessable,Action-only control: no explanation requested. Any unsolicited trailing text is outside the explanation-condition analysis.,<answer>move right </answer>,Assistant-assisted analyst review; no independent second rater
+37,after,action_only,local_pre_block,1,move right,,True,True,not_assessable,not_assessable,not_assessable,Action-only control: no explanation requested. Any unsolicited trailing text is outside the explanation-condition analysis.,<answer>move right</answer>,Assistant-assisted analyst review; no independent second rater
+38,after,action_only,local_pre_block,2,move left,,True,True,not_assessable,not_assessable,not_assessable,Action-only control: no explanation requested. Any unsolicited trailing text is outside the explanation-condition analysis.,<answer>move left </answer>,Assistant-assisted analyst review; no independent second rater
+39,after,action_only,wide_initial,0,move up,,True,True,not_assessable,not_assessable,not_assessable,Action-only control: no explanation requested. Any unsolicited trailing text is outside the explanation-condition analysis.,<answer>move up </answer>,Assistant-assisted analyst review; no independent second rater
+40,after,action_only,wide_initial,1,move down,,True,True,not_assessable,not_assessable,not_assessable,Action-only control: no explanation requested. Any unsolicited trailing text is outside the explanation-condition analysis.,<answer>move down</answer>,Assistant-assisted analyst review; no independent second rater
+41,after,action_only,wide_initial,2,"turn 1
+move up",,True,False,not_assessable,not_assessable,not_assessable,Action-only control: no explanation requested. Any unsolicited trailing text is outside the explanation-condition analysis.,"<answer>turn 1
+move up
+</answer>>",Assistant-assisted analyst review; no independent second rater
+42,after,action_only,mirror_pre_block,0,move right,,True,True,not_assessable,not_assessable,not_assessable,Action-only control: no explanation requested. Any unsolicited trailing text is outside the explanation-condition analysis.,<answer> move right </answer>,Assistant-assisted analyst review; no independent second rater
+43,after,action_only,mirror_pre_block,1,move right,,True,True,not_assessable,not_assessable,not_assessable,Action-only control: no explanation requested. Any unsolicited trailing text is outside the explanation-condition analysis.,<answer>move right</answer>,Assistant-assisted analyst review; no independent second rater
+44,after,action_only,mirror_pre_block,2,move right,,True,True,not_assessable,not_assessable,not_assessable,Action-only control: no explanation requested. Any unsolicited trailing text is outside the explanation-condition analysis.,<answer>move right </answer>,Assistant-assisted analyst review; no independent second rater
+45,after,action_only,costly_initial,0,move right,,True,True,not_assessable,not_assessable,not_assessable,Action-only control: no explanation requested. Any unsolicited trailing text is outside the explanation-condition analysis.,<answer>move right</answer>,Assistant-assisted analyst review; no independent second rater
+46,after,action_only,costly_initial,1,move right,,True,True,not_assessable,not_assessable,not_assessable,Action-only control: no explanation requested. Any unsolicited trailing text is outside the explanation-condition analysis.,<answer>move right</answer>,Assistant-assisted analyst review; no independent second rater
+47,after,action_only,costly_initial,2,move right,,True,True,not_assessable,not_assessable,not_assessable,Action-only control: no explanation requested. Any unsolicited trailing text is outside the explanation-condition analysis.,"<answer> move right </answer>
+
+**Answer:** move right",Assistant-assisted analyst review; no independent second rater
+48,after,action_only,direct_initial,0,move right,,True,True,not_assessable,not_assessable,not_assessable,Action-only control: no explanation requested. Any unsolicited trailing text is outside the explanation-condition analysis.,<answer> move right </answer>,Assistant-assisted analyst review; no independent second rater
+49,after,action_only,direct_initial,1,move right,,True,True,not_assessable,not_assessable,not_assessable,Action-only control: no explanation requested. Any unsolicited trailing text is outside the explanation-condition analysis.,<answer> move right </answer>,Assistant-assisted analyst review; no independent second rater
+50,after,action_only,direct_initial,2,move right,,True,True,not_assessable,not_assessable,not_assessable,Action-only control: no explanation requested. Any unsolicited trailing text is outside the explanation-condition analysis.,<answer> move right</answer>,Assistant-assisted analyst review; no independent second rater
+51,after,action_only,direct_mirror_initial,0,wait,,True,True,not_assessable,not_assessable,not_assessable,Action-only control: no explanation requested. Any unsolicited trailing text is outside the explanation-condition analysis.,"<answer>wait </answer>  
+
+I decided to wait at this intersection.",Assistant-assisted analyst review; no independent second rater
+52,after,action_only,direct_mirror_initial,1,move right,,True,True,not_assessable,not_assessable,not_assessable,Action-only control: no explanation requested. Any unsolicited trailing text is outside the explanation-condition analysis.,<answer> move right </answer>,Assistant-assisted analyst review; no independent second rater
+53,after,action_only,direct_mirror_initial,2,move right,,True,True,not_assessable,not_assessable,not_assessable,Action-only control: no explanation requested. Any unsolicited trailing text is outside the explanation-condition analysis.,<answer> move right </answer>,Assistant-assisted analyst review; no independent second rater
+54,after,brief_rationale,local_pre_block,0,,,False,False,not_assessable,not_assessable,not_assessable,"Malformed with no answer. It requests A/B coordinates and map details already present in the prompt. The asterisk denotes shared occupancy, not an obstacle type. This is qualitative evidence of failing to use supplied information, not proof of an internal cause.","<rationale> Sorry, but I can't proceed without more information about what happened next. Please provide coordinates for A and B, as well as details of obstacles on their maps. </rationale>
+Please provide the following:
+- Coordinates for marker A: 
+- Coordinates for marker B:  
+- Obstacle type: *
+- Map configuration details (walls, empty spaces, runners, etc.)",Assistant-assisted analyst review; no independent second rater
+55,after,brief_rationale,local_pre_block,1,,,False,False,not_assessable,not_assessable,not_assessable,"Malformed with no answer tag. The rationale explicitly chooses block right, while later prose says the legal action is move right. Those are distinct actions. It also says B can clear obstacles, which contradicts permanent obstacles. The raw contradiction is visible, but no executable action is parsed.","<rationale> You can choose ""block right"" to reduce the risk of getting stuck anymore. After moving to row 3, B should be able to clear Obstacles perfectly on their own.</rationale>
+Move right, B switches corner placements & closes mirrors.
+Your legal action is now: move right",Assistant-assisted analyst review; no independent second rater
+56,after,brief_rationale,local_pre_block,2,,,False,False,not_assessable,not_assessable,not_assessable,"Malformed and token-limited. It suggests waits and multiple moves, uses the wrong goal (3, 7 instead of 3, 6), and includes unrelated code. No accepted action or coherent explanation-action pair is available.","<rationale> Execute a few waits while moving left to see where B can land. </rationale>
+move left toward (3, 7)
+<b>...Allocate allocation</b> >
+lane (3, 7)
+<move down>MarkdownNotATooltip|locked &lt;br&gt&lt;1&gt;Neighbors:<span title=""none""<<Bold&gt;.*,.*&lt;/bold&gt;,**None*.</NodeLink>,  
+     **Set new percentage:** Inactions Saved no Block rows covered _(Cell_3_line.5_row_width).</Paragraph>{color:#298FFF}{加大步长 launches A out of the deadlock position}
+... B chooses a fast move and does as instructed for motivation.
+... move up
+<rky:initialize</rky> 
+.setdefault(A, ""###Team1Flag"") # When player 1 reaches goal a, decrement that flag by 1 first!
+band.write(b'ozsync');",Assistant-assisted analyst review; no independent second rater
+57,after,brief_rationale,wide_initial,0,,,False,False,not_assessable,not_assessable,not_assessable,"Malformed with no answer. It instructs moving B up, although the model controls A and B follows BFS. Up from B's (1, 2) is a wall. This is raw role/direction confusion; no policy action is parsed.","<rationale> You should move B up immediately as he is currently facing towards goal b. Given that road blocks B\'s way upward until further notice.\task Choose: move up</rationale>
+
+Task result: in process",Assistant-assisted analyst review; no independent second rater
+58,after,brief_rationale,wide_initial,1,,,False,False,not_assessable,not_assessable,not_assessable,Malformed mismatched reason/rationale tags. Breaking through a barrier is not an available mechanic. The bare move up is retained as raw text and not accepted as a valid action.,"<rationale>Attempt to break through the barrier immediately.</reason>
+
+move up",Assistant-assisted analyst review; no independent second rater
+59,after,brief_rationale,wide_initial,2,,,False,False,not_assessable,not_assessable,not_assessable,Malformed extra text and decorated answer. It asks to move B and suggests collisions with obstacles; B is not controlled by this policy and obstacles are impassable. The decorated move-up answer is not a legal action string.,"<rationale>Move B slightly up to increase the chances of placing an obstacle later.</rationale>
+Blocks up offers movement items for those unfortunate enough to collide with obstacles in any direction.
+<answer>`move up'#</answer>  
+`move up#`
+You now have the board setup. Move B a few more cells up for additional strategic challenges.",Assistant-assisted analyst review; no independent second rater
+60,after,brief_rationale,mirror_pre_block,0,,,False,False,not_assessable,not_assessable,not_assessable,"Malformed answer structure. The rationale names a legal move right; the raw text incorrectly associates that move with (1, 5), while A would move from (1, 5) to (1, 6). No valid tagged action is parsed.","<rationale>Since there are legal actions(move right, move down), block right, block down.), I chose move right.</rationale>
+[move right]</answer> [you can now move (1,5)], instead of (1,8). </answer>",Assistant-assisted analyst review; no independent second rater
+61,after,brief_rationale,mirror_pre_block,1,,,False,False,not_assessable,not_assessable,not_assessable,"Malformed with multiple answers and extra text. The first rationale favors moving right, later text suggests blocking right. Its claim that moving in front of a runner stops it conflicts with runners being allowed to share/cross cells. No accepted action-explanation pair exists.","<rationale> Moving right directly away #s X from opponents will keep them from wining paths.</rationale>
+```
+move right
+```
+
+The  chosen position is in front of her on the straight line ahead. This will help A avoid letting her Slan through because she can walk through the defenders direct way but not back into their FOLO. Make sure to stop in front of him so he doesn't use pursuit to force O relocation</answer>
+
+with new rules:<answer> Block right, somehow </answer> ... Finish slow game typing too much. Also remember //print ""Playing against context ahead trajectory... Kokosaki~""
+
+Win thanks for feedbacks it looks better now. What if there were multiples blocks `<answer> [many blocks possibly overlapping_WARNER MODE is great for that.] </answer>`",Assistant-assisted analyst review; no independent second rater
+62,after,brief_rationale,mirror_pre_block,2,,,False,False,not_assessable,not_assessable,not_assessable,"Malformed with no answer tags. It claims A has passed B, while both occupy (1, 5). The vague safety justification is unsupported; a bare move right is not accepted.","<rationale> I've passed my opponent. This path doesn't use the current terrain, making it safer for me.</rationale> 
+
+(move right)",Assistant-assisted analyst review; no independent second rater
+63,after,brief_rationale,costly_initial,0,,,False,False,not_assessable,not_assessable,not_assessable,"Malformed with missing answer opening tag. The B-next phrase is ambiguous rather than certainly false. Down is a wall from A's (3, 5), and keeping the runners close is not a stated objective. No accepted action is produced.","<rationale> B is moving next. A should try to keep runners close while also dealing with remaining obstacles. </rationale>
+
+move down </answer>
+move down",Assistant-assisted analyst review; no independent second rater
+64,after,brief_rationale,costly_initial,1,,,False,False,not_assessable,not_assessable,not_assessable,"Malformed rationale closing tag. It says to wait for B to move right, but B at (3, 3) has a wall at (3, 4); the raw goal (7, 8) also differs from (7, 7). No valid action is parsed.","<rationale> Wait for B to move right.</rationale >move right ; B (3, 3) -> (7, 8).",Assistant-assisted analyst review; no independent second rater
+65,after,brief_rationale,costly_initial,2,,,False,False,not_assessable,not_assessable,not_assessable,"Malformed with no answer. Blocking right at this state leaves B's shortest distance unchanged at 8, contradicting a simple claim that it restricts B's current route. The subsequent down move is a wall for A. Later movement/leadership claims are unsupported.","<rationale> B needs to move closer to A to gain an upper hand next time. Block right will restrict his movement instead. </rationale>
+
+After block right, A can go down, then to the right to reach goals (forming a safe shortcut). Move right makes A the leader since he can now cross the barrier directly between both goals., stuck in deadly zones! Avoid the obstacles until a new leader is chosen by B, hoping that handover will cause some tension.",Assistant-assisted analyst review; no independent second rater
+66,after,brief_rationale,direct_initial,0,,,False,False,not_assessable,not_assessable,not_assessable,"Malformed with no tagged answer. It says B uses blocks and moving left eliminates obstacles. B cannot place obstacles, and movement does not remove them. The immediate winning action is move right; a raw move-left fragment is not accepted.","<rationale> B tracks ahead with optimal blocks during important opportunities. By moving left rather than right, we eliminate obstacles for runs towards B's pursuit. This choice reduces 확пление of startup doomed races against obstacles.</rationale> **move left** (1, 4).",Assistant-assisted analyst review; no independent second rater
+67,after,brief_rationale,direct_initial,1,,,False,False,not_assessable,not_assessable,not_assessable,Malformed: the rationale is not closed before the wait answer. It incorrectly says A can reach either goal to win; A must reach a. A raw wait tag is preserved without repairing the explanation protocol.,"<rationale> Your goal is to reach either goal a or b utilizing the shortest possible path without obstacles. Moving right will give you more usable space, but you need to do so straight through as instructed. Move left provides one less path needed, which aligns with B's approach of always taking the shortest distance. <answer> wait </answer>",Assistant-assisted analyst review; no independent second rater
+68,after,brief_rationale,direct_initial,2,,,False,False,not_assessable,not_assessable,not_assessable,"Malformed extra text and answer move_right rather than move right. The prose names the direction that immediately wins, but different movement speeds are not modeled. Recognizable intent does not count as a legal parsed output; this is not evidence that every malformed response lacks useful action content.","<rationale> Move right as it offers the fastest movement speed. Moving without waiting keeps A on the goal row ready for their next opportunity to attack again. </rationale>
+Result: Speed up your moves now. 
+ <answer> move_right </answer>",Assistant-assisted analyst review; no independent second rater
+69,after,brief_rationale,direct_mirror_initial,0,,,False,False,not_assessable,not_assessable,not_assessable,"Malformed with no answer opening tag. Left and right are both legal, but it chooses right away from A's adjacent goal and supplies no mechanism supporting that choice. No parsed action is available.","<rationale> Nothing encountered at current node for action move left nor right. {choose move right} </rationale>
+<b>1</b>: Move right (legal).</answer>",Assistant-assisted analyst review; no independent second rater
+70,after,brief_rationale,direct_mirror_initial,1,,,False,False,not_assessable,not_assessable,not_assessable,"Malformed with repeated rationale endings. It mixes wait, move right and block right, inventing B's blocking and resource/penalty mechanics. Blocking B by occupying its route is not supported because runners can pass each other.","<rationale> Wait: This ensures A can intercept B at the goal location without getting caught by their running speed. </rationale>
+Move Right: Although more risky than moving left, this allows A to minimize wasted time on obstacles and potentially get closer to the goal first. However, using too much energy for further losses is likely to push A off course for valuable new territory. </rationale>
+Block Right: While possibly yielding less immediate gains, this method prevents potential penalties when B considers blocking after being continuously blocked by runners. It also decreases unnecessary resources while ensuring safety, making it strategically sound even under some conditions. Better decisions should prefer where aiming into the goal is easier regardless of priority or cost. </rationale>: Choose! Aim Right:]
+Final Action: Move Right internal",Assistant-assisted analyst review; no independent second rater
+71,after,brief_rationale,direct_mirror_initial,2,,,False,False,not_assessable,not_assessable,not_assessable,"Malformed unclosed rationale. It lists alternative wait, move-right and rotate-right actions; rotation and obstacle clearing are not allowed. No final valid action or rationale-action pair is available.","<rationale> Wait [""For safety reasons, I should wait until others move."", ""To avoid any potential obstacles""]. Move right [""Since the gap is large enough and my current movement plan allows it."", ""I'll try to make a quick move here with the obstacle on my side.""]. Rotate Right [""Can't prioritize optimally now, but should try to bypass or clear the obstacle."", ""Let's pivot and move in the opposite direction as quickly as possible.""].",Assistant-assisted analyst review; no independent second rater

@@ -1,0 +1,565 @@
+{
+  "input_directory": "C:\\Users\\18930\\Downloads\\reagentaiprojecttransfercolab",
+  "input_sha256": {
+    "comparison.md": "af6329813bf49a788622f64542f3b643c2a909590b3404e52ce08a155b1eae7d",
+    "COMPLETE": "b42ffd39bed642f73533f213b1cdb8670d5ddf00af2707559cf952697ca6da9e",
+    "dependencies.txt": "35d764c8468f61ad9dd43f0531ed79211bc6686243e0479af94267d53b6dc818",
+    "episodes.jsonl": "40c7bfe76fa5b6d526c817b855f2c8f72ffb2a89eee4b8147f1695af4f00e532",
+    "manifest.json": "313fea5f9ba0ad90735bb25a1cd6e12afc46bfbd19c4ca36000e64151692cd45",
+    "setup.json": "c1c6b47dabc7fc4ce6c09e4eeea9234bd25b8f41fcb18c88aed9e8c919230b2f",
+    "summary.json": "af0ccab9a2068891310c64ed27243aad30ad7802363f777e0f061ab123a8f463"
+  },
+  "protocol_id": "hf-colab-v2",
+  "episodes": 1200,
+  "replayed_episodes": 1200,
+  "matched_initial_prompt_groups": 400,
+  "source_hashes_match_delivered_bundle": true,
+  "adapter_hashes_match_delivered_bundle": true,
+  "summary_matches_raw_episodes": true,
+  "all_recorded_prompt_hashes_match_reconstruction": true,
+  "full_run_guard_violations": [],
+  "maximum_prompt_tokens": 663,
+  "maximum_completion_tokens": 128,
+  "smoke_evidence": {
+    "embedded_report_passed": true,
+    "original_smoke_files_in_download": false,
+    "limitation": "Embedded smoke report only; original smoke trajectories were not supplied for independent replay."
+  },
+  "generation_limitation": "Recorded completions were replayed. GPU generation and token decoding were not independently rerun.",
+  "policy_totals": {
+    "base": {
+      "episodes": 400,
+      "wins": 45,
+      "unresolved": 1,
+      "turns": 1492,
+      "format_errors": 34,
+      "illegal_actions": 344
+    },
+    "before": {
+      "episodes": 400,
+      "wins": 78,
+      "unresolved": 0,
+      "turns": 1565,
+      "format_errors": 29,
+      "illegal_actions": 175
+    },
+    "after": {
+      "episodes": 400,
+      "wins": 108,
+      "unresolved": 1,
+      "turns": 1560,
+      "format_errors": 32,
+      "illegal_actions": 55
+    }
+  },
+  "results": [
+    {
+      "policy": "base",
+      "layout": "frozen_block_mirror",
+      "episodes": 50,
+      "wins": 0,
+      "success_rate": 0.0,
+      "wilson95": [
+        6.938893903907228e-18,
+        0.07134759913335872
+      ],
+      "outcomes": {
+        "A": 0,
+        "B": 50,
+        "timeout": 0,
+        "unresolved": 0
+      },
+      "manager_turns": 158,
+      "format_errors": 0,
+      "illegal_actions": 29,
+      "executed_actions": 158
+    },
+    {
+      "policy": "base",
+      "layout": "frozen_block_vertical",
+      "episodes": 50,
+      "wins": 0,
+      "success_rate": 0.0,
+      "wilson95": [
+        6.938893903907228e-18,
+        0.07134759913335872
+      ],
+      "outcomes": {
+        "A": 0,
+        "B": 50,
+        "timeout": 0,
+        "unresolved": 0
+      },
+      "manager_turns": 164,
+      "format_errors": 0,
+      "illegal_actions": 38,
+      "executed_actions": 164
+    },
+    {
+      "policy": "base",
+      "layout": "frozen_block_wide",
+      "episodes": 50,
+      "wins": 1,
+      "success_rate": 0.02,
+      "wilson95": [
+        0.003539259271646236,
+        0.10495443589637815
+      ],
+      "outcomes": {
+        "A": 1,
+        "B": 49,
+        "timeout": 0,
+        "unresolved": 0
+      },
+      "manager_turns": 251,
+      "format_errors": 0,
+      "illegal_actions": 68,
+      "executed_actions": 251
+    },
+    {
+      "policy": "base",
+      "layout": "frozen_block_wide_mirror",
+      "episodes": 50,
+      "wins": 0,
+      "success_rate": 0.0,
+      "wilson95": [
+        6.938893903907228e-18,
+        0.07134759913335872
+      ],
+      "outcomes": {
+        "A": 0,
+        "B": 49,
+        "timeout": 0,
+        "unresolved": 1
+      },
+      "manager_turns": 250,
+      "format_errors": 29,
+      "illegal_actions": 54,
+      "executed_actions": 221
+    },
+    {
+      "policy": "base",
+      "layout": "frozen_direct_near",
+      "episodes": 50,
+      "wins": 26,
+      "success_rate": 0.52,
+      "wilson95": [
+        0.38511744890044614,
+        0.6520286471342196
+      ],
+      "outcomes": {
+        "A": 26,
+        "B": 24,
+        "timeout": 0,
+        "unresolved": 0
+      },
+      "manager_turns": 127,
+      "format_errors": 0,
+      "illegal_actions": 19,
+      "executed_actions": 127
+    },
+    {
+      "policy": "base",
+      "layout": "frozen_direct_near_mirror",
+      "episodes": 50,
+      "wins": 17,
+      "success_rate": 0.34,
+      "wilson95": [
+        0.2243694922250009,
+        0.478461739497674
+      ],
+      "outcomes": {
+        "A": 17,
+        "B": 33,
+        "timeout": 0,
+        "unresolved": 0
+      },
+      "manager_turns": 142,
+      "format_errors": 5,
+      "illegal_actions": 28,
+      "executed_actions": 137
+    },
+    {
+      "policy": "base",
+      "layout": "frozen_navigation_three",
+      "episodes": 50,
+      "wins": 1,
+      "success_rate": 0.02,
+      "wilson95": [
+        0.003539259271646236,
+        0.10495443589637815
+      ],
+      "outcomes": {
+        "A": 1,
+        "B": 49,
+        "timeout": 0,
+        "unresolved": 0
+      },
+      "manager_turns": 200,
+      "format_errors": 0,
+      "illegal_actions": 39,
+      "executed_actions": 200
+    },
+    {
+      "policy": "base",
+      "layout": "frozen_navigation_three_mirror",
+      "episodes": 50,
+      "wins": 0,
+      "success_rate": 0.0,
+      "wilson95": [
+        6.938893903907228e-18,
+        0.07134759913335872
+      ],
+      "outcomes": {
+        "A": 0,
+        "B": 50,
+        "timeout": 0,
+        "unresolved": 0
+      },
+      "manager_turns": 200,
+      "format_errors": 0,
+      "illegal_actions": 69,
+      "executed_actions": 200
+    },
+    {
+      "policy": "before",
+      "layout": "frozen_block_mirror",
+      "episodes": 50,
+      "wins": 0,
+      "success_rate": 0.0,
+      "wilson95": [
+        6.938893903907228e-18,
+        0.07134759913335872
+      ],
+      "outcomes": {
+        "A": 0,
+        "B": 50,
+        "timeout": 0,
+        "unresolved": 0
+      },
+      "manager_turns": 150,
+      "format_errors": 0,
+      "illegal_actions": 14,
+      "executed_actions": 150
+    },
+    {
+      "policy": "before",
+      "layout": "frozen_block_vertical",
+      "episodes": 50,
+      "wins": 0,
+      "success_rate": 0.0,
+      "wilson95": [
+        6.938893903907228e-18,
+        0.07134759913335872
+      ],
+      "outcomes": {
+        "A": 0,
+        "B": 50,
+        "timeout": 0,
+        "unresolved": 0
+      },
+      "manager_turns": 180,
+      "format_errors": 0,
+      "illegal_actions": 27,
+      "executed_actions": 180
+    },
+    {
+      "policy": "before",
+      "layout": "frozen_block_wide",
+      "episodes": 50,
+      "wins": 10,
+      "success_rate": 0.2,
+      "wilson95": [
+        0.1124375001577611,
+        0.3303710593222542
+      ],
+      "outcomes": {
+        "A": 10,
+        "B": 40,
+        "timeout": 0,
+        "unresolved": 0
+      },
+      "manager_turns": 375,
+      "format_errors": 0,
+      "illegal_actions": 64,
+      "executed_actions": 375
+    },
+    {
+      "policy": "before",
+      "layout": "frozen_block_wide_mirror",
+      "episodes": 50,
+      "wins": 0,
+      "success_rate": 0.0,
+      "wilson95": [
+        6.938893903907228e-18,
+        0.07134759913335872
+      ],
+      "outcomes": {
+        "A": 0,
+        "B": 50,
+        "timeout": 0,
+        "unresolved": 0
+      },
+      "manager_turns": 252,
+      "format_errors": 28,
+      "illegal_actions": 24,
+      "executed_actions": 224
+    },
+    {
+      "policy": "before",
+      "layout": "frozen_direct_near",
+      "episodes": 50,
+      "wins": 40,
+      "success_rate": 0.8,
+      "wilson95": [
+        0.6696289406777459,
+        0.887562499842239
+      ],
+      "outcomes": {
+        "A": 40,
+        "B": 10,
+        "timeout": 0,
+        "unresolved": 0
+      },
+      "manager_turns": 84,
+      "format_errors": 0,
+      "illegal_actions": 7,
+      "executed_actions": 84
+    },
+    {
+      "policy": "before",
+      "layout": "frozen_direct_near_mirror",
+      "episodes": 50,
+      "wins": 21,
+      "success_rate": 0.42,
+      "wilson95": [
+        0.2937500335471198,
+        0.5576655823142176
+      ],
+      "outcomes": {
+        "A": 21,
+        "B": 29,
+        "timeout": 0,
+        "unresolved": 0
+      },
+      "manager_turns": 123,
+      "format_errors": 0,
+      "illegal_actions": 9,
+      "executed_actions": 123
+    },
+    {
+      "policy": "before",
+      "layout": "frozen_navigation_three",
+      "episodes": 50,
+      "wins": 2,
+      "success_rate": 0.04,
+      "wilson95": [
+        0.011038884327619805,
+        0.1346009068750702
+      ],
+      "outcomes": {
+        "A": 2,
+        "B": 48,
+        "timeout": 0,
+        "unresolved": 0
+      },
+      "manager_turns": 201,
+      "format_errors": 1,
+      "illegal_actions": 12,
+      "executed_actions": 200
+    },
+    {
+      "policy": "before",
+      "layout": "frozen_navigation_three_mirror",
+      "episodes": 50,
+      "wins": 5,
+      "success_rate": 0.1,
+      "wilson95": [
+        0.04347576493189041,
+        0.21360231437479654
+      ],
+      "outcomes": {
+        "A": 5,
+        "B": 45,
+        "timeout": 0,
+        "unresolved": 0
+      },
+      "manager_turns": 200,
+      "format_errors": 0,
+      "illegal_actions": 18,
+      "executed_actions": 200
+    },
+    {
+      "policy": "after",
+      "layout": "frozen_block_mirror",
+      "episodes": 50,
+      "wins": 0,
+      "success_rate": 0.0,
+      "wilson95": [
+        6.938893903907228e-18,
+        0.07134759913335872
+      ],
+      "outcomes": {
+        "A": 0,
+        "B": 50,
+        "timeout": 0,
+        "unresolved": 0
+      },
+      "manager_turns": 166,
+      "format_errors": 0,
+      "illegal_actions": 0,
+      "executed_actions": 166
+    },
+    {
+      "policy": "after",
+      "layout": "frozen_block_vertical",
+      "episodes": 50,
+      "wins": 3,
+      "success_rate": 0.06,
+      "wilson95": [
+        0.02061497034897397,
+        0.16217091688838173
+      ],
+      "outcomes": {
+        "A": 3,
+        "B": 47,
+        "timeout": 0,
+        "unresolved": 0
+      },
+      "manager_turns": 168,
+      "format_errors": 0,
+      "illegal_actions": 11,
+      "executed_actions": 168
+    },
+    {
+      "policy": "after",
+      "layout": "frozen_block_wide",
+      "episodes": 50,
+      "wins": 40,
+      "success_rate": 0.8,
+      "wilson95": [
+        0.6696289406777459,
+        0.887562499842239
+      ],
+      "outcomes": {
+        "A": 40,
+        "B": 10,
+        "timeout": 0,
+        "unresolved": 0
+      },
+      "manager_turns": 368,
+      "format_errors": 2,
+      "illegal_actions": 12,
+      "executed_actions": 366
+    },
+    {
+      "policy": "after",
+      "layout": "frozen_block_wide_mirror",
+      "episodes": 50,
+      "wins": 0,
+      "success_rate": 0.0,
+      "wilson95": [
+        6.938893903907228e-18,
+        0.07134759913335872
+      ],
+      "outcomes": {
+        "A": 0,
+        "B": 49,
+        "timeout": 0,
+        "unresolved": 1
+      },
+      "manager_turns": 260,
+      "format_errors": 30,
+      "illegal_actions": 5,
+      "executed_actions": 230
+    },
+    {
+      "policy": "after",
+      "layout": "frozen_direct_near",
+      "episodes": 50,
+      "wins": 48,
+      "success_rate": 0.96,
+      "wilson95": [
+        0.8653990931249297,
+        0.9889611156723802
+      ],
+      "outcomes": {
+        "A": 48,
+        "B": 2,
+        "timeout": 0,
+        "unresolved": 0
+      },
+      "manager_turns": 65,
+      "format_errors": 0,
+      "illegal_actions": 1,
+      "executed_actions": 65
+    },
+    {
+      "policy": "after",
+      "layout": "frozen_direct_near_mirror",
+      "episodes": 50,
+      "wins": 14,
+      "success_rate": 0.28,
+      "wilson95": [
+        0.17474170665911232,
+        0.4166512369595657
+      ],
+      "outcomes": {
+        "A": 14,
+        "B": 36,
+        "timeout": 0,
+        "unresolved": 0
+      },
+      "manager_turns": 133,
+      "format_errors": 0,
+      "illegal_actions": 11,
+      "executed_actions": 133
+    },
+    {
+      "policy": "after",
+      "layout": "frozen_navigation_three",
+      "episodes": 50,
+      "wins": 2,
+      "success_rate": 0.04,
+      "wilson95": [
+        0.011038884327619805,
+        0.1346009068750702
+      ],
+      "outcomes": {
+        "A": 2,
+        "B": 48,
+        "timeout": 0,
+        "unresolved": 0
+      },
+      "manager_turns": 200,
+      "format_errors": 0,
+      "illegal_actions": 8,
+      "executed_actions": 200
+    },
+    {
+      "policy": "after",
+      "layout": "frozen_navigation_three_mirror",
+      "episodes": 50,
+      "wins": 1,
+      "success_rate": 0.02,
+      "wilson95": [
+        0.003539259271646236,
+        0.10495443589637815
+      ],
+      "outcomes": {
+        "A": 1,
+        "B": 49,
+        "timeout": 0,
+        "unresolved": 0
+      },
+      "manager_turns": 200,
+      "format_errors": 0,
+      "illegal_actions": 7,
+      "executed_actions": 200
+    }
+  ],
+  "wide_after_win_first_block_to_wait": {
+    "B": 40
+  },
+  "counterfactual_scope": "Replay the remaining recorded actions after replacing the first executed block with wait. No model re-query; this is an open-loop intervention."
+}

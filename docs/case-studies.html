@@ -1,0 +1,28 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Strategic Blocking cases</title><style>body{font:17px/1.6 system-ui;margin:40px auto;max-width:1300px;color:#15263c;background:#f8fafc}article{background:white;border:1px solid #dbe2ea;padding:24px;margin:24px 0;border-radius:12px}img{width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f1f5f9;padding:16px}h1,h2{line-height:1.25}.scope{color:#475569}</style><h1>Strategic Blocking: four case studies</h1><p class="scope">Observed actions, verified outcomes, and explicit limits. These are not internal reasoning traces.</p><p>A (blue) and B (red): runners. a/b: goals. X: obstacle. *: shared occupancy. Dark cells: walls. Coordinates: zero-based (row, column). Covered goals remain listed below each map.</p>
+<article><h2>1. Learned local blocking success</h2><p>Recorded learned policy</p><img src="figures/case-local.png" alt="Learned local blocking success"><p>A enters the opponent corridor, blocks right, and returns toward its own goal. Blocking is functionally useful in this recorded trajectory; no explanation text was emitted. At the first block, B&#x27;s remaining shortest-path distance changes from 2 to 8 steps, measured before B&#x27;s next move. These distances exclude the action used to place the block.</p>
+<h3>Exact model outputs</h3><pre>&lt;answer&gt; move up &lt;/answer&gt;
+&lt;answer&gt;block right&lt;/answer&gt;
+&lt;answer&gt;move down&lt;/answer&gt;
+&lt;answer&gt;move down&lt;/answer&gt;
+&lt;answer&gt;move right&lt;/answer&gt;
+&lt;answer&gt;move right&lt;/answer&gt;
+&lt;answer&gt;move right&lt;/answer&gt;</pre>
+<p>Replacing the first executed block with wait changes the outcome to a B win when later recorded actions remain fixed. This is an open-loop intervention, not a fresh policy rollout.</p>
+<p class="scope">Selection: First successful local blocking episode.</p></article>
+<article><h2>2. Transfer success on a wider map</h2><p>Recorded learned policy</p><img src="figures/case-wide.png" alt="Transfer success on a wider map"><p>The final adapter blocks up immediately and reaches its goal. This illustrates the wide-map 40/50 result, not a generalization guarantee. At the first block, B&#x27;s remaining shortest-path distance changes from 4 to 12 steps, measured before B&#x27;s next move. These distances exclude the action used to place the block.</p>
+<h3>Exact model outputs</h3><pre>&lt;answer&gt;block up &lt;/answer&gt;
+&lt;answer&gt;move down&lt;/answer&gt;
+&lt;answer&gt;move right&lt;/answer&gt;
+&lt;answer&gt;move right&lt;/answer&gt;
+&lt;answer&gt;move right&lt;/answer&gt;
+&lt;answer&gt;move right&lt;/answer&gt;</pre>
+<p>Replacing the first executed block with wait changes the outcome to a B win when later recorded actions remain fixed. This is an open-loop intervention, not a fresh policy rollout.</p>
+<p class="scope">Selection: First after-policy episode with the stated layout and outcome in original file order.</p></article>
+<article><h2>3. Failure on the mirrored wide map</h2><p>Recorded learned policy</p><img src="figures/case-mirror.png" alt="Failure on the mirrored wide map"><p>The model moves up, blocks right, and moves down twice before B wins. A legal block and a plausible-looking sequence are insufficient for success. We cannot infer whether the cause is spatial reasoning, action bias, or something else from this trace alone. At the first block, B&#x27;s remaining shortest-path distance changes from 3 to 3 steps, measured before B&#x27;s next move. These distances exclude the action used to place the block. The obstacle is behind B relative to its route toward the left-side goal and does not delay its shortest route at that decision. This is a factual action-effect mismatch with a hypothetical delay claim, not an explanation the model actually emitted.</p>
+<h3>Exact model outputs</h3><pre>&lt;answer&gt; move up &lt;/answer&gt;
+&lt;answer&gt;block right&lt;/answer&gt;
+&lt;answer&gt;move down&lt;/answer&gt;
+&lt;answer&gt;move down&lt;/answer&gt;</pre>
+<p class="scope">Selection: First after-policy episode with the stated layout and outcome in original file order.</p></article>
+<article><h2>4. Scripted control: blocking can be costly</h2><p>Scripted control; not a model explanation</p><img src="figures/case-costly.png" alt="Scripted control: blocking can be costly"><p>The direct scripted policy wins in six A actions. The detour delays B but loses. This checks the task&#x27;s trade-off; it does not establish that the trained model recognizes when to avoid blocking.</p>
+<p class="scope">Selection: Pre-existing authored costly-detour control.</p></article></html>

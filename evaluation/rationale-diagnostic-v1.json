@@ -1,0 +1,25 @@
+{
+  "protocol_id": "rationale-diagnostic-v1",
+  "model_id": "Qwen/Qwen2.5-0.5B-Instruct",
+  "base_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "adapter_weights_sha256": "063411e0c5500f48a548ae7d1b949f301eb98d8c73869cb40d196a51d71d1f93",
+  "adapter_config_sha256": "b0220c7ef2fb8ec179f5ce7fca162442345ada071060087a1dd6b73f8e456120",
+  "policies": ["base", "after"],
+  "conditions": ["action_only", "brief_rationale"],
+  "repetitions": 3,
+  "max_new_tokens": 192,
+  "max_context_tokens": 2048,
+  "sampling": {"temperature": 1.0, "top_p": 1.0, "top_k": 0},
+  "fixtures": [
+    {"id": "local_pre_block", "layout": "blocking_short", "prefix_actions": ["move up"]},
+    {"id": "wide_initial", "layout": "frozen_block_wide", "prefix_actions": []},
+    {"id": "mirror_pre_block", "layout": "frozen_block_wide_mirror", "prefix_actions": ["move up"]},
+    {"id": "costly_initial", "layout": "costly", "prefix_actions": []},
+    {"id": "direct_initial", "layout": "frozen_direct_near", "prefix_actions": []},
+    {"id": "direct_mirror_initial", "layout": "frozen_direct_near_mirror", "prefix_actions": []}
+  ],
+  "selection": "Diagnostic states selected after inspecting previous results; this is exploratory analysis, not a new held-out benchmark. The local and mirrored pre-block states are each reconstructed with one legal prefix action; the other four states are initial A decisions after B moves.",
+  "history": "Fresh single-observation requests in both conditions. No historical model completions supplied. Prompt turn number restarts at one; environment round and remaining actions stay accurate.",
+  "review": "Manually label factual correctness, rationale/action agreement, and quality of strategic justification. Missing rationale is not assessable, not a fabricated explanation.",
+  "scope": "Only inference. No retraining, no full episodes, no primary evaluation overwrite. A rationale prompt changes model behavior and cannot reveal the cause of an earlier action-only decision."
+}

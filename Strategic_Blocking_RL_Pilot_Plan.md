@@ -1,21 +1,22 @@
 # Strategic Blocking RL Pilot Execution Plan
 
-## Progress after balanced training and paired evaluation
+## Current progress after Colab v2 and Bandit
 
-| Task | Current evidence | Remaining scope |
-| --- | --- | --- |
-| A1 Local framework | Full GPU rollout/update/save runs completed | Clean-install reproducibility |
-| A2 Adapter handling | Original PEFT reload checked; current automatic export and vLLM evaluation work | Independent Colab handoff |
-| A3 Reward signal | Both direction groups have mixed rewards in all five balanced updates | Informative blocking curriculum |
-| A4 Training curves | Five-update runs, metrics and saved checkpoints available | Longer-run stability if needed |
-| A5 Improvement | Right 34% to 94%; left 2% to 64%, 50 samples each | Replication, generalization, action validity and blocking |
-| A6-A9 and teammate tasks | Integration and action-only case-study groundwork exists | Handoff, extra environment, contribution packaging and final deliverables |
+See [the evidence and task status](docs/submission-status.md) for current A1-A9
+and B1-B10 progress. The sections below preserve the original execution plan;
+their proposed experiments are not claims of completion.
 
-These navigation results are on fixed training maps. Blocking success remains
-0/50 for the balanced adapter. No new Colab completion is claimed. See
-[the current evidence](docs/balanced-pilot-results.md). The A0 table below records
-the historical starting point; later task sections describe the intended scope,
-not automatic completion of every acceptance criterion.
+- Local blocking evaluation: 2% base, 20% before blocking training, 92% after on
+  the fixed short-blocking development fixture, 50 episodes per policy.
+- Colab v2: 1,200 episodes, all replayed. Wide-map success is 2% / 20% / 80%,
+  while its mirrored counterpart is 0% for all three policies. The v1 protocol
+  failure is preserved, and v2 is not described as a newly blind evaluation.
+- Native Bandit: five updates, nonzero advantages in every update, loss/reward
+  curves, 400 model evaluations, and four controls. No policy improvement shown.
+- Custom environment: local RAGEN registration and native/adapter replay verified.
+- Remaining: final case panels and report/presentation assembly, contribution
+  statement, and 1-2 final-project proposal slides. Explicit rationale diagnostics,
+  clean-install reproduction, and multi-training-seed replication are not complete.
 
 This plan divides the Strategic Blocking RL pilot into two coordinated workstreams. YC owns local Ubuntu training with RAGEN. Prakeerth owns Google Colab evaluation, baselines, visualizations, and case studies. Both use the same existing Qwen model and maze environment.
 

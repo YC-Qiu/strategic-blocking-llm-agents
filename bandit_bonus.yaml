@@ -1,0 +1,125 @@
+defaults:
+  - base
+  - _self_
+
+hydra:
+  searchpath:
+    - pkg://verl.trainer.config
+
+system:
+  CUDA_VISIBLE_DEVICES: "0"
+seed:
+  train: 20261115
+  val: 20261116
+model_path: Qwen/Qwen2.5-0.5B-Instruct
+lora:
+  rank: 8
+  alpha: 16
+  target_modules: all-linear
+ppo_mini_batch_size: 2
+micro_batch_size_per_gpu: 1
+
+agent_proxy:
+  enable_think: false
+  max_turn: 1
+  max_actions_per_turn: 1
+  context_window_mode: limited_multi_turn
+  max_context_window: 1
+  action_sep: "||"
+  use_turn_scores: false
+  reward_normalization:
+    grouping: state
+    method: identity
+
+algorithm:
+  adv_estimator: grpo
+  bi_level_gae: false
+  norm_adv_by_std_in_grpo: true
+  use_kl_in_reward: false
+
+actor_rollout_ref:
+  actor:
+    use_ref: false
+    use_kl_loss: false
+    entropy_coeff: 0.0
+    loss_agg_mode: seq-mean-token-mean
+    ppo_mini_batch_size: 2
+    ppo_micro_batch_size_per_gpu: 1
+    use_torch_compile: false
+    optim:
+      lr: 0.00002
+      weight_decay: 0.0
+    fsdp_config:
+      param_offload: true
+      optimizer_offload: true
+  model:
+    enable_gradient_checkpointing: true
+    override_config:
+      attn_implementation: sdpa
+    use_remove_padding: false
+  rollout:
+    tensor_model_parallel_size: 1
+    max_model_len: 2048
+    response_length: 64
+    gpu_memory_utilization: 0.50
+    max_num_seqs: 4
+    max_num_batched_tokens: 2048
+    enforce_eager: true
+    enable_chunked_prefill: false
+    load_format: safetensors
+    layered_summon: true
+    temperature: 1.0
+    do_sample: true
+    log_prob_micro_batch_size_per_gpu: 1
+    rollout_filter_value: 1.0
+    rollout_filter_include_zero: true
+    val_kwargs:
+      do_sample: false
+      temperature: 0.0
+
+trainer:
+  experiment_name: bandit-extra-credit-five-updates
+  total_training_steps: 5
+  val_before_train: true
+  test_freq: 1
+  validation_steps: 1
+  save_freq: 5
+  resume_mode: disable
+  logger: [console]
+  n_gpus_per_node: 1
+  nnodes: 1
+
+custom_envs:
+  BonusBanditTrain:
+    env_type: bandit
+    max_actions_per_traj: 1
+    max_tokens: 64
+    env_instruction: ""
+    parallel_friendly: false
+    max_workers: 1
+    env_config:
+      split: train
+  BonusBanditTest:
+    env_type: bandit
+    max_actions_per_traj: 1
+    max_tokens: 64
+    env_instruction: ""
+    parallel_friendly: false
+    max_workers: 1
+    env_config:
+      split: test
+
+es_manager:
+  format_penalty: 0.0
+  train:
+    env_groups: 2
+    group_size: 8
+    env_configs:
+      tags: [BonusBanditTrain]
+      n_groups: [2]
+  val:
+    env_groups: 16
+    group_size: 1
+    env_configs:
+      tags: [BonusBanditTrain]
+      n_groups: [16]

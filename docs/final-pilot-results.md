@@ -2,6 +2,12 @@
 
 **Team:** YC Qiu and Prakeerth Prasad
 
+**Historical milestone:** This document preserves the local evaluation before
+Colab v2, Bandit, and the explanation diagnostic. Pending-work statements below
+refer to that earlier stage. See [current submission status](submission-status.md),
+[Colab results](colab-v2-results.md), [Bandit results](bandit-results.md), and
+[explanation results](rationale-diagnostic-results.md) for subsequent evidence.
+
 **Scope:** One sequential training chain, fixed development maps, one final
 evaluation seed. Prospective transfer tests and Colab GPU execution are pending.
 

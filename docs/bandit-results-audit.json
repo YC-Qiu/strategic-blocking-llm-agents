@@ -1,0 +1,157 @@
+{
+  "run": "train-bandit-0WF04q1N",
+  "model_episode_records_checked": 400,
+  "unique_control_records_checked": 800,
+  "matched_model_prompts_and_seeds": true,
+  "summaries_recomputed": true,
+  "recorded_reward_matches_matched_control": true,
+  "updates": 5,
+  "nonzero_advantage_updates": 5,
+  "exported_adapter_hash_verified": true,
+  "source_checks": {
+    "bandit_bonus.yaml": "exact",
+    "scripts/bandit_bonus.py": "exact",
+    "scripts/run_bandit_bonus.sh": "exact",
+    "scripts/evaluate_checkpoint.py": "exact",
+    "scripts/export_pilot_adapter.py": "exact",
+    "scripts/summarize_training.py": "exact"
+  },
+  "native_environment_registration_record": {
+    "registration": {
+      "checked": true,
+      "module": "/home/ycqiu/RAGEN/ragen/env/__init__.py",
+      "key": "strategic_blocking"
+    },
+    "scripted_cases": [
+      {
+        "layout": "slides",
+        "policy": "direct",
+        "result": "B",
+        "reward": -1,
+        "adapter_matches_native_replay": true
+      },
+      {
+        "layout": "slides",
+        "policy": "scripted_detour",
+        "result": "A",
+        "reward": 1,
+        "adapter_matches_native_replay": true
+      },
+      {
+        "layout": "costly",
+        "policy": "direct",
+        "result": "A",
+        "reward": 1,
+        "adapter_matches_native_replay": true
+      },
+      {
+        "layout": "costly",
+        "policy": "scripted_detour",
+        "result": "B",
+        "reward": -1,
+        "adapter_matches_native_replay": true
+      }
+    ],
+    "invalid_parsed_action_consumes_turn": true,
+    "deterministic_reset": true,
+    "source_sha256": {
+      "maze.py": "cb71564e6e4f1a19a5306792593ef34b4b4ae952948908c96815778ae9d28ae3",
+      "demo.py": "bd47a86db7d33dc0b64274933cef0e6b03e2db85ae412afe25a4a8b5b9fadfe7",
+      "curriculum.py": "cc89051ed4d1894c594b3cf1cee0343c4d44ab1e2a188bd223cf508bc4042c72",
+      "ragen_maze.py": "c705019e935493237a132ce0f6e628e3c94893c1b6a9fc5dbd8b57e6ffdf9b64",
+      "strategic_blocking.yaml": "b0ad0bcdef76aba6aa1b9088764da6905e6779c83c680bd57344b8c60ed42ffa"
+    },
+    "scope": "Environment integration and scripted controls; these checks are not learned-policy evaluation."
+  },
+  "scope": "CPU record audit. Native stochastic environment and GPU generation were not rerun. Existing checkpoint verification and runtime registration records were inspected, not independently repeated.",
+  "results": {
+    "base": {
+      "episodes": 200,
+      "high_arm_choices": 100,
+      "high_arm_rate": 0.5,
+      "high_arm_wilson95": [
+        0.43136085960389187,
+        0.5686391403961082
+      ],
+      "invalid": 8,
+      "mean_observed_reward": 0.146,
+      "mean_expected_reward": 0.171,
+      "mean_expected_regret": 0.079
+    },
+    "adapter": {
+      "episodes": 200,
+      "high_arm_choices": 93,
+      "high_arm_rate": 0.465,
+      "high_arm_wilson95": [
+        0.3971856415700402,
+        0.5341335312763685
+      ],
+      "invalid": 6,
+      "mean_observed_reward": 0.1255,
+      "mean_expected_reward": 0.16675,
+      "mean_expected_regret": 0.08324999999999999
+    },
+    "uniform_random": {
+      "episodes": 200,
+      "high_arm_choices": 115,
+      "high_arm_rate": 0.575,
+      "high_arm_wilson95": [
+        0.5057093264785485,
+        0.6414638745648614
+      ],
+      "invalid": 0,
+      "mean_observed_reward": 0.1225,
+      "mean_expected_reward": 0.18625,
+      "mean_expected_regret": 0.06375
+    },
+    "first_position": {
+      "episodes": 200,
+      "high_arm_choices": 109,
+      "high_arm_rate": 0.545,
+      "high_arm_wilson95": [
+        0.47578611372488105,
+        0.6125178069011651
+      ],
+      "invalid": 0,
+      "mean_observed_reward": 0.1555,
+      "mean_expected_reward": 0.18175,
+      "mean_expected_regret": 0.06825
+    },
+    "always_low": {
+      "episodes": 200,
+      "high_arm_choices": 0,
+      "high_arm_rate": 0.0,
+      "high_arm_wilson95": [
+        1.734723475976807e-18,
+        0.018845326377266575
+      ],
+      "invalid": 0,
+      "mean_observed_reward": 0.1,
+      "mean_expected_reward": 0.1,
+      "mean_expected_regret": 0.15
+    },
+    "high_oracle": {
+      "episodes": 200,
+      "high_arm_choices": 200,
+      "high_arm_rate": 1.0,
+      "high_arm_wilson95": [
+        0.9811546736227335,
+        1
+      ],
+      "invalid": 0,
+      "mean_observed_reward": 0.19,
+      "mean_expected_reward": 0.25,
+      "mean_expected_regret": 0.0
+    }
+  },
+  "evidence_sha256": {
+    "run.log": "9d527b7cddd2be0bed9c9e50bf935b0a120f90aff74812b9e239d13e27cb69e2",
+    "comparison.json": "2344652f7cf0b16dadb55c925bc74d3b4716f6ae05aa65dcae498781d3a135d3",
+    "base/episodes.jsonl": "35c07c2b8985c5022d3e25b7e0d385e6b0bc1ec28051887aeda68e5d39472711",
+    "adapter/episodes.jsonl": "74a398b3685a67898b6ec74024acbafd6735b07aed5f7be4b4ff99461ae6ff31",
+    "base/controls.json": "44ded764e37202ad77547c563bbe329848342806cbc2cdfb3697640b59d50269",
+    "environment-contribution.json": "5bb0706f8c2c7db025aae7b0041ce479d87e407f31f43e83ca64529601afeb28",
+    "model-verification.json": "70876b0e8ba5603597fb7d9075e56f169fe74c9c66574f1e9b24d78b4453bc4a",
+    "bandit-learning-curves.png": "64089bd38523f0dbf365ab02238c0a704d2b30534495c8f31e2ed1a8bb16e5b4"
+  }
+}

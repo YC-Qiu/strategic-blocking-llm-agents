@@ -1,0 +1,190 @@
+{
+  "run": "rationale-v1-j4rtnkvx",
+  "generation_records_checked": 72,
+  "matched_prompt_groups_across_policies": 36,
+  "source_checks": {
+    "rationale_diagnostic.py": "exact",
+    "scripts/run_rationale_diagnostic.py": "exact",
+    "evaluation/rationale-diagnostic-v1.json": "exact",
+    "colab_protocol.py": "exact",
+    "maze.py": "exact",
+    "ragen_maze.py": "exact",
+    "demo.py": "exact",
+    "curriculum.py": "exact",
+    "frozen_eval.py": "exact",
+    "evaluation/frozen-transfer-v1.json": "exact",
+    "evaluation/colab-protocol-v2.json": "exact",
+    "evaluation/colab-ragen-contract-v2.json": "exact"
+  },
+  "state_facts_recomputed": true,
+  "prompt_seed_parser_and_summary_checks": "passed",
+  "adapter_hashes_match": true,
+  "generation_summary_as_recorded": {
+    "complete": true,
+    "expected_requests": 72,
+    "groups": [
+      {
+        "policy": "base",
+        "condition": "action_only",
+        "requests": 18,
+        "format_valid": 18,
+        "legal_action": 15,
+        "token_budget_exhausted": 0
+      },
+      {
+        "policy": "base",
+        "condition": "brief_rationale",
+        "requests": 18,
+        "format_valid": 3,
+        "legal_action": 1,
+        "token_budget_exhausted": 6
+      },
+      {
+        "policy": "after",
+        "condition": "action_only",
+        "requests": 18,
+        "format_valid": 18,
+        "legal_action": 17,
+        "token_budget_exhausted": 0
+      },
+      {
+        "policy": "after",
+        "condition": "brief_rationale",
+        "requests": 18,
+        "format_valid": 0,
+        "legal_action": 0,
+        "token_budget_exhausted": 1
+      }
+    ],
+    "action_changes": [
+      {
+        "policy": "base",
+        "both_valid_pairs": 1,
+        "different_actions": 1
+      },
+      {
+        "policy": "after",
+        "both_valid_pairs": 0,
+        "different_actions": 0
+      }
+    ],
+    "semantic_review": "PENDING: complete the manual review CSV; format and legality do not establish factual or action-explanation consistency.",
+    "scope": "Fixed-state elicited explanations, not episodes, primary win-rate evaluation, or verified internal reasoning."
+  },
+  "review_status": "Completed assistant-assisted review of all 36 explanation-condition responses; not independently rated",
+  "primary_semantic_review": {
+    "base": {
+      "factual_correctness": {
+        "underspecified": 3,
+        "not_assessable": 15
+      },
+      "rationale_action_agreement": {
+        "underspecified": 3,
+        "not_assessable": 15
+      },
+      "strategic_justification": {
+        "unsupported": 3,
+        "not_assessable": 15
+      }
+    },
+    "after": {
+      "factual_correctness": {
+        "not_assessable": 18
+      },
+      "rationale_action_agreement": {
+        "not_assessable": 18
+      },
+      "strategic_justification": {
+        "not_assessable": 18
+      }
+    }
+  },
+  "review_rule": "Malformed responses remain not_assessable in primary semantic statistics. Readable fragment notes are separate qualitative inspection, not rescued valid outputs.",
+  "examples": [
+    {
+      "index": 23,
+      "title": "A legal action with an underspecified explanation",
+      "quote": "Move from (2, 3) to (3, 7).",
+      "action_quote": "<answer>move up</answer>",
+      "finding": "The coordinates match the start and goal, but the explanation does not justify moving up. That move increases A's shortest remaining distance from 5 to 6. A later detour could still help; the recorded explanation supplies no such mechanism.",
+      "selection": "The only format-valid legal response in the explanation condition.",
+      "policy": "base",
+      "fixture_id": "wide_initial",
+      "repetition": 2,
+      "format_ok": true,
+      "action_is_legal": true
+    },
+    {
+      "index": 20,
+      "title": "An incorrect goal coordinate",
+      "quote": "Move 3 cells up to reach goal (3, 7). Opponent blocked.",
+      "action_quote": null,
+      "finding": "This is the local pre-block state: A's goal is (3, 6), no obstacle has been placed, and each move is one cell. The quoted text is outside the rationale tag and the response is malformed; it is qualitative raw-output evidence only.",
+      "selection": "First explanation-condition response with an explicit wrong A-goal coordinate in file order.",
+      "policy": "base",
+      "fixture_id": "local_pre_block",
+      "repetition": 2,
+      "format_ok": false,
+      "action_is_legal": false
+    },
+    {
+      "index": 55,
+      "title": "The explanation and later action prose disagree",
+      "quote": "You can choose \"block right\" to reduce the risk of getting stuck anymore.",
+      "action_quote": "Your legal action is now: move right",
+      "finding": "Block right and move right are different actions. The response also says B can clear obstacles, but obstacles are permanent. This is a contradiction in readable raw text, not a comparison against an accepted executable answer: the answer tag is missing.",
+      "selection": "First after-policy response with an explicit named-action contradiction between its rationale and subsequent action prose.",
+      "policy": "after",
+      "fixture_id": "local_pre_block",
+      "repetition": 1,
+      "format_ok": false,
+      "action_is_legal": false
+    },
+    {
+      "index": 35,
+      "title": "An obstacle that does not exist",
+      "quote": "B has already placed an obstacle",
+      "action_quote": null,
+      "finding": "The observation says Obstacle: None, and only A has a placement action. This is a direct state/rule contradiction in a malformed response. No parsed action is rescued from the surrounding text.",
+      "selection": "First response explicitly claiming B has already placed an obstacle.",
+      "policy": "base",
+      "fixture_id": "direct_mirror_initial",
+      "repetition": 2,
+      "format_ok": false,
+      "action_is_legal": false
+    },
+    {
+      "index": 68,
+      "title": "Useful direction, unusable output protocol",
+      "quote": "Move right as it offers the fastest movement speed.",
+      "action_quote": "<answer> move_right </answer>",
+      "finding": "Move right immediately wins in this state, so the prose points in a useful direction. However, movement speed does not vary by direction, and move_right is not a legal action string. Extra text also violates the format. This separates recognizable intent, factual support, and interface compliance.",
+      "selection": "First after-policy explanation response on the direct-win state that explicitly proposes the immediate winning direction.",
+      "policy": "after",
+      "fixture_id": "direct_initial",
+      "repetition": 2,
+      "format_ok": false,
+      "action_is_legal": false
+    }
+  ],
+  "raw_generation_repeated": false,
+  "token_decode_independently_verified": false,
+  "inputs_sha256": {
+    "COMPLETE_GENERATION": "a238349bde7f977c66360e4259587852c8d82aa36fc60666a9900b3dd7bbd136",
+    "manifest.json": "81ee7fa373e650a29efdff86fc624c944d8c4aaf539fbb2c6ded83122f12e92a",
+    "manual-review.csv": "46604b91f18b066b6d3708a2343cb7f5879bbb71966a85a291efbbe0e33b751f",
+    "protocol.json": "6401accf12a7db0ca111ebf2d1b4fa1e4cfadb06f66de3533e89f7e22f07b785",
+    "responses.jsonl": "0dd4ddfb6e5bb24db64d6c406aaf98a6aa25004f7117c2862221a4a2ffb8d2b0",
+    "state-facts.json": "8cd7797fed59250c522ed30e4c848cc597a5290d5480ecb9ee9b17ab3a440f97",
+    "summary.json": "8196b35a30f80677f74954b43aaaba1b6c22d0c9d8d80950f46b115d1338f0a1",
+    "summary.md": "3999d27fe144f822ea249e20993c32592603215610ca058c503a54c88d060123"
+  },
+  "limitations": [
+    "One exploratory explanation prompt and six selected snapshots; not held out.",
+    "Condition-specific parsers differ; the action-only parser accepts its first answer even with extra text, while the rationale parser requires the whole format.",
+    "Shared total 192-token budget; explanation requires more output. Token limits alone do not explain all failures.",
+    "Action-only snapshot contexts differ from full-trajectory evaluation. Do not overwrite primary scores.",
+    "Base also fails heavily, so no causal conclusion that RL damaged reasoning.",
+    "No fully supported explanation was identified under the primary rubric; unassessable outputs do not establish absence of reasoning capability."
+  ]
+}

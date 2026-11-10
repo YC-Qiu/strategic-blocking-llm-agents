@@ -2,7 +2,7 @@
 
 - **Team:** YC Qiu and Prakeerth Prasad
 - **Course:** Agentic AI
-- **Status:** Local blocking pilot evaluated: 20% to 92% success on the fixed blocking fixture. Prospective transfer evaluation and final submission assembly are pending.
+- **Status:** Local blocking pilot, Colab v2 transfer evaluation, and native Bandit pilot completed. Final report, case panels, presentation, and proposal slides remain to be assembled.
 
 Can a reinforcement-learning-trained LLM agent learn when it is worth leaving its own shortest route to block an opponent, then returning to finish first? This pilot studies both the cost of a blocking detour and the timing of obstacle placement. Only A is trained; B follows a fixed shortest-path policy.
 
@@ -16,15 +16,31 @@ recorded trajectories were replayed. Removing the first block from each of the
 46 final-adapter wins made the fixed remaining action sequence lose.
 
 This is strong development-fixture evidence, not general strategic reasoning.
-Only one training chain and one final evaluation seed are available. Frozen
-prospective maps and the Colab notebook are prepared; their LLM evaluations
-have not yet been run.
+Only one maze training chain and one final local evaluation seed are available.
+Colab v1 was unusable because of near-universal format rejection. The repaired
+v2 completed 1,200 episodes on eight frozen maps: wide-map success increased
+from 20% before blocking training to 80% after, but its mirrored counterpart
+remained at 0%. This is limited transfer, not broad generalization. The maps
+were inspected during protocol repair, so v2 is not a newly blind evaluation.
+
+The separate native Bandit pilot completed five updates and matched evaluation
+with four scripted controls. High-arm choice was 50.0% for the base and 46.5%
+for its fresh Bandit adapter; no improvement is demonstrated. The live RAGEN
+registry audit also verified the custom Strategic Blocking integration.
 
 - [Verified results, curves and limitations](docs/final-pilot-results.md)
 - [Offline interactive case replay](docs/blocking-case.html)
 - [Frozen transfer experiment](docs/frozen-transfer-plan.md)
-- [Colab notebook](notebooks/colab-transfer.ipynb) and [handoff guide](docs/colab-transfer.md)
+- [Current Colab v2 notebook](notebooks/colab-transfer-v2.ipynb); [historical v1 handoff](docs/colab-transfer.md)
 - [Earlier two-step results](docs/two-step-pilot-results.md)
+- [Colab v2 repair and rerun instructions](docs/colab-transfer-v2.md)
+- [New-environment contribution and reproducibility evidence](docs/environment-contribution.md)
+- [Additional Bandit environment and baselines](docs/bandit-extra-credit.md)
+- [Audited Colab v2 results](docs/colab-v2-results.md)
+- [Audited Bandit results and curves](docs/bandit-results.md)
+- [Current task status and submission checklist](docs/submission-status.md)
+- [Four observed case studies](docs/case-studies.md) and [offline panels](docs/case-studies.html)
+- [Brief-explanation diagnostic results](docs/rationale-diagnostic-results.md) and [actual output examples](docs/rationale-diagnostic-examples.html): 72 requests completed and reviewed; explanation-format failures dominate
 
 ## Earlier balanced navigation milestone
 
@@ -176,19 +192,25 @@ above supersedes their earlier pending-work statements.
 
 ## Known limitations and next steps
 
-- **Strategic blocking is not learned yet.** The balanced adapter had zero wins
-  on the short blocking fixture in 50 samples.
-- **Generalization and replication remain pending.** Test longer routes, new
-  layouts and independent training seeds. Reset seeds do not change fixed maps.
-- **Action validity still needs improvement.** Higher navigation success does
-  not imply better compliance with the legal-action protocol.
-- **No explicit reasoning traces were collected.** Action-only case studies
-  describe observed behavior, not the model's internal reasoning.
-- **Independent Colab loading and clean installation remain pending.** The local
-  patched RAGEN stack works but has recorded dependency conflicts. Original
-  checkpoint PEFT reload was verified separately; current adapters ran in vLLM.
-- **Additional environments, upstream contribution and final deliverables remain
-  pending.** Extra maze layouts are variants of the same environment.
+- **Transfer remains layout-dependent.** Local development-fixture blocking
+  improved, while Colab mirror and navigation maps remain weak. Keep the
+  successful wide-map case beside a mirror-map failure in the presentation.
+- **Replication remains pending.** One maze training chain and one separate
+  Bandit training seed do not establish robustness across training seeds.
+- **Protocol failures remain visible.** Colab v2 has 95 format failures in 4,617
+  requests and two unresolved episodes. The wide mirrored map has about 11%
+  format failures despite passing the cumulative per-policy gate.
+- **Brief explanations are unreliable under the tested prompt.** The separate
+  72-request diagnostic completed: base had 3/18 format-valid explanations,
+  final adapter 0/18. Readable fragments contain factual errors and contradictions.
+  Neither these elicited explanations nor action-only cases verify internal thinking.
+- **Independent Colab inference works; a clean RAGEN installation is unverified.**
+  FP16 Transformers/PEFT results are not exact vLLM or full-checkpoint replay.
+- **Bandit improvement is not demonstrated.** Retain its null result and separate
+  observed stochastic reward from decision quality.
+- **Final deliverables remain pending.** Assemble the report, selected curves,
+  case analysis, presentation, individual contributions, and 1-2 proposal
+  slides. Local environment integration is verified; no upstream merge is claimed.
 
 ## Repository contents
 
@@ -216,7 +238,7 @@ above supersedes their earlier pending-work statements.
 
 Generated runs and model checkpoints remain ignored local artifacts. Only curated result summaries and the selected learning-curve figure are versioned.
 
-## Reproduce the current pilot
+## Reproduce the earlier balanced navigation pilot
 
 ```bash
 conda activate ragen

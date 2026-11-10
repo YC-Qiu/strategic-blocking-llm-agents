@@ -1,0 +1,47 @@
+{
+  "registration": {
+    "checked": true,
+    "module": "/home/ycqiu/RAGEN/ragen/env/__init__.py",
+    "key": "strategic_blocking"
+  },
+  "scripted_cases": [
+    {
+      "layout": "slides",
+      "policy": "direct",
+      "result": "B",
+      "reward": -1,
+      "adapter_matches_native_replay": true
+    },
+    {
+      "layout": "slides",
+      "policy": "scripted_detour",
+      "result": "A",
+      "reward": 1,
+      "adapter_matches_native_replay": true
+    },
+    {
+      "layout": "costly",
+      "policy": "direct",
+      "result": "A",
+      "reward": 1,
+      "adapter_matches_native_replay": true
+    },
+    {
+      "layout": "costly",
+      "policy": "scripted_detour",
+      "result": "B",
+      "reward": -1,
+      "adapter_matches_native_replay": true
+    }
+  ],
+  "invalid_parsed_action_consumes_turn": true,
+  "deterministic_reset": true,
+  "source_sha256": {
+    "maze.py": "cb71564e6e4f1a19a5306792593ef34b4b4ae952948908c96815778ae9d28ae3",
+    "demo.py": "bd47a86db7d33dc0b64274933cef0e6b03e2db85ae412afe25a4a8b5b9fadfe7",
+    "curriculum.py": "cc89051ed4d1894c594b3cf1cee0343c4d44ab1e2a188bd223cf508bc4042c72",
+    "ragen_maze.py": "c705019e935493237a132ce0f6e628e3c94893c1b6a9fc5dbd8b57e6ffdf9b64",
+    "strategic_blocking.yaml": "b0ad0bcdef76aba6aa1b9088764da6905e6779c83c680bd57344b8c60ed42ffa"
+  },
+  "scope": "Environment integration and scripted controls; these checks are not learned-policy evaluation."
+}
